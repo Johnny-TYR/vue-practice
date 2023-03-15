@@ -26,6 +26,11 @@ const routes = [
     name:'vuex',
     component: ()=> import('../views/VuexView.vue')
   },
+  {
+    path: '/vuex2',
+    name:'vuex2',
+    component: ()=> import('../views/SecondVuex.vue')
+  },
 ]
 
 const router = new VueRouter({
