@@ -6,7 +6,7 @@ Vue.use(Vuex);
 // we're creating a new Vuex store to put our data
 export const store = new Vuex.Store({
     strict: true,
-    // state ========================================
+    // state ========================================dfkjahdklfjahsdklfjahsdljashdkj
     state: {
         products: [
             { name: "Banana Skin", price: 20, id: 1 },
