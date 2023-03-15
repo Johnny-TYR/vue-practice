@@ -5,7 +5,8 @@
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link> |
         <router-link :to="{ name: 'grid' }">Grid</router-link> |
-        <router-link :to="{ name: 'vuex' }">Vuex</router-link>
+        <router-link :to="{ name: 'vuex' }">Vue Vuex</router-link> |
+        <router-link :to="{ name: 'vuex2' }">Nuxt Vuex</router-link>
       </nav>
     </div>
     <router-view />
