@@ -1,45 +1,65 @@
 <template>
-  <Transfer
-    :data="data1"
-    :target-keys="targetKeys1"
-    :render-format="render1"
-    @on-change="handleChange1"
-  ></Transfer>
+  <Form ref="formInline" :model="formInline" :rules="ruleInline" inline>
+    <FormItem prop="user">
+      <Input type="text" v-model="formInline.user" placeholder="Username">
+        <Icon type="ios-person-outline" slot="prepend"></Icon>
+      </Input>
+    </FormItem>
+    <FormItem prop="password">
+      <Input
+        type="password"
+        v-model="formInline.password"
+        placeholder="Password"
+      >
+        <Icon type="ios-lock-outline" slot="prepend"></Icon>
+      </Input>
+    </FormItem>
+    <FormItem>
+      <Button type="primary" @click="handleSubmit('formInline')">Signin</Button>
+    </FormItem>
+  </Form>
 </template>
 <script>
 export default {
   data() {
     return {
-      data1: this.getMockData(),
-      targetKeys1: this.getTargetKeys(),
+      formInline: {
+        user: "",
+        password: "",
+      },
+      ruleInline: {
+        user: [
+          {
+            required: true,
+            message: "Please fill in the user name",
+            trigger: "blur",
+          },
+        ],
+        password: [
+          {
+            required: true,
+            message: "Please fill in the password.",
+            trigger: "blur",
+          },
+          {
+            type: "string",
+            min: 6,
+            message: "The password length cannot be less than 6 bits",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   methods: {
-    getMockData() {
-      let mockData = [];
-      for (let i = 1; i <= 20; i++) {
-        mockData.push({
-          key: i.toString(),
-          label: "Content " + i,
-          description: "The desc of content  " + i,
-          disabled: Math.random() * 3 < 1,
-        });
-      }
-      return mockData;
-    },
-    getTargetKeys() {
-      return this.getMockData()
-        .filter(() => Math.random() * 2 > 1)
-        .map((item) => item.key);
-    },
-    render1(item) {
-      return item.label;
-    },
-    handleChange1(newTargetKeys, direction, moveKeys) {
-      console.log(newTargetKeys);
-      console.log(direction);
-      console.log(moveKeys);
-      this.targetKeys1 = newTargetKeys;
+    handleSubmit(name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          this.$Message.success("Success!");
+        } else {
+          this.$Message.error("Fail!");
+        }
+      });
     },
   },
 };
