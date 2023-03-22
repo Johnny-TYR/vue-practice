@@ -6,7 +6,7 @@
         <router-link to="/about">About</router-link> |
         <router-link :to="{ name: 'grid' }">Grid</router-link> |
         <router-link :to="{ name: 'vuex' }">Vue Vuex</router-link> |
-        <router-link :to="{ name: 'form' }">Form</router-link>
+        <router-link :to="{ name: 'transfer' }">Transfer</router-link>
       </nav>
     </div>
     <router-view />
@@ -16,7 +16,7 @@
 
 
 <style>
-#app .navbar {
+/* #app .navbar {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -35,5 +35,5 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
-}
+} */
 </style>

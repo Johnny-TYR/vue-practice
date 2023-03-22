@@ -1,5 +1,8 @@
-<template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+<template lang="pug">
+#AboutView
+  form
+    label {{ "Email" }}
+    input(type="email")
+    label {{ "Password" }}
+    input(type="password")
 </template>
