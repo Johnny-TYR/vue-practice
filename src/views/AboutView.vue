@@ -1,8 +1,13 @@
 <template lang="pug">
 #AboutView
-  form
-    label {{ "Email" }}
-    input(type="email")
-    label {{ "Password" }}
-    input(type="password")
+  CustomForm
+  iViewForm
 </template>
+<script>
+export default {
+  components:{
+    CustomForm:()=>import("@/components/Form/CustomForm.vue"),
+    iViewForm:()=>import("@/components/Form/iViewForm.vue")
+  }
+};
+</script>
