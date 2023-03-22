@@ -21,6 +21,7 @@
     "pug-plain-loader": "^1.1.0",
     "sass": "^1.26.10",
     "sass-loader": "^9.0.3",
+    "view-design": "4.4.0",
     "vue-template-compiler": "^2.6.14"
   }
 }
