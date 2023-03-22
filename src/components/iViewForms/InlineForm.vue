@@ -1,6 +1,5 @@
 <template lang="pug">
 #InlineForm
-  h1 {{ "iView Form" }}
   Form.InlineForm(
     ref="formInline",
     :model="formInline",
@@ -69,9 +68,9 @@ export default {
 <style lang="scss" scoped>
 #InlineForm {
   .InlineForm {
-    background-color: lightgrey;
+    background-color: lightcoral;
     padding: 50px;
-    margin: 50pxs;
+    margin: 50px;
     width: 500px;
     border: 1px solid black;
   }
