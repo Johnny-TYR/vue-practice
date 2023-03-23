@@ -24,7 +24,9 @@
         )
           Icon(type="ios-lock", slot="prepend")
     FormItem
-      Checkbox(v-model="loginForm.agree") {{ "I agree to the terms and agreements" }}
+      CheckboxGroup
+        Checkbox(v-model="loginForm.agree") {{ "I agree to the terms and agreements" }}
+        Checkbox(v-model="loginForm.subscribe") {{ "Subscribe to Vue practice" }}
     FormItem
       Button(type="primary", @click="HandleSubmit('loginForm')") {{ "Login" }}
       Button(type="error", @click="HandleClear('loginForm')") {{ "Clear Form" }}
@@ -41,14 +43,11 @@ export default {
         account: "",
         password: "",
         agree: false,
+        subscribe: false,
       },
       loginRules: {
-        account: [
-          { required: true, message: "請輸入帳號", trigger: "blur" },
-        ],
-        password: [
-          { required: true, message: "請輸入密碼", trigger: "blur" },
-        ],
+        account: [{ required: true, message: "請輸入帳號", trigger: "blur" }],
+        password: [{ required: true, message: "請輸入密碼", trigger: "blur" }],
       },
     };
   },
