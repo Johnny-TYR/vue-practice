@@ -38,6 +38,31 @@ export default {
   refName: "HomeView",
   components: {},
   data() {
+    // 確認帳戶名稱
+    const validateAcc = (rule, value, callback) => {
+      if ((value = "")) {
+        callback(new Error("必須填帳戶"));
+      } else if (value === "123@gmail.com") {
+        callback();
+      }
+    };
+    // 確認密碼為 6 位數
+    const validatePw = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("必須填密碼"));
+      } else if (value === "123456") {
+        callback();
+      }
+    };
+    // 確認框框有沒有勾選
+    const validateAgree = (rule, value, callback) => {
+      if (value === false) {
+        callback(new Error("勾選同意"));
+      } else {
+        callback();
+      }
+    };
+
     return {
       loginForm: {
         account: "",
@@ -45,25 +70,29 @@ export default {
         agree: false,
         subscribe: false,
       },
-      // built in simple auth ===========================================================
+      // custom auth ====================================================================
       loginRules: {
-        account: [
-          { required: true, message: "請輸入帳號", trigger: "blur" },
-          { type: "email", message: "不符合 email 規格", trigger: "blur" },
-        ],
-        password: [
-          { required: true, message: "請輸入密碼", trigger: "blur" },
-          {
-            type: "string",
-            min: 6,
-            message: "密碼至少要 6 個字元",
-            trigger: "blur",
-          },
-        ],
+        account: [{ validator: validateAcc, trigger: "change" }],
+        password: [{ validator: validatePw, trigger: "change" }],
+        agree: [{ validator: validateAgree, trigger: "change" }],
       },
       // ================================================================================
-      // custom auth ====================================================================
-
+      // built in simple auth ===========================================================
+      // loginRules: {
+      //   account: [
+      //     { required: true, message: "請輸入帳號", trigger: "change" },
+      //     { type: "email", message: "不符合 email 規格", trigger: "change" },
+      //   ],
+      //   password: [
+      //     { required: true, message: "請輸入密碼", trigger: "change" },
+      //     {
+      //       type: "string",
+      //       min: 6,
+      //       message: "密碼至少要 6 個字元",
+      //       trigger: "change",
+      //     },
+      //   ],
+      // },
       // ================================================================================
     };
   },
