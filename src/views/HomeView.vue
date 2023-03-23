@@ -23,10 +23,10 @@
           placeholder="Enter password"
         )
           Icon(type="ios-lock", slot="prepend")
+    FormItem(prop="check.agree")
+      Checkbox(v-model="loginForm.agree") {{ "I agree to the terms and agreements" }}
     FormItem
-      CheckboxGroup
-        Checkbox(v-model="loginForm.agree") {{ "I agree to the terms and agreements" }}
-        Checkbox(v-model="loginForm.subscribe") {{ "Subscribe to Vue practice" }}
+      Checkbox(v-model="loginForm.subscribe") {{ "Subscribe to Vue practice" }}
     FormItem
       Button(type="primary", @click="HandleSubmit('loginForm')") {{ "Login" }}
       Button(type="error", @click="HandleClear('loginForm')") {{ "Clear Form" }}
@@ -44,7 +44,7 @@ export default {
         return callback(new Error("必須填帳戶"));
       }
       if (value !== "123@gmail.com") {
-        return callback(new Error("帳號錯誤"));
+        return callback(new Error("帳號不存在"));
       }
       return callback();
     };
@@ -60,6 +60,7 @@ export default {
     };
     // 確認框框有沒有勾選
     const validateAgree = (rule, value, callback) => {
+      console.log(value);
       if (value !== true) {
         callback(new Error("勾選同意"));
       } else {
@@ -71,14 +72,16 @@ export default {
       loginForm: {
         account: "",
         password: "",
-        agree: false,
-        subscribe: false,
+        check: {
+          agree: false,
+          subscribe: false,
+        },
       },
       // custom auth ====================================================================
       loginRules: {
         account: [{ validator: validateAcc, trigger: "change" }],
         password: [{ validator: validatePw, trigger: "change" }],
-        agree: [{ validator: validateAgree, trigger: "change" }],
+        "check.agree": [{ validator: validateAgree, trigger: "change" }],
       },
     };
   },
@@ -86,10 +89,9 @@ export default {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
-          this.$Message.success("登入成功");
-        } else {
-          this.$Message.error("登入失敗");
+          return this.$Message.success("登入成功");
         }
+        return this.$Message.error("登入失敗");
       });
     },
     HandleClear(refName) {
