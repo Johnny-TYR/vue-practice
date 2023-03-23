@@ -1,27 +1,22 @@
-<template>
-  <Form
-    ref="formCustom"
-    :model="formCustom"
-    :rules="ruleCustom"
-    :label-width="80"
-  >
-    <FormItem label="Password" prop="passwd">
-      <Input type="password" v-model="formCustom.passwd"></Input>
-    </FormItem>
-    <FormItem label="Confirm" prop="passwdCheck">
-      <Input type="password" v-model="formCustom.passwdCheck"></Input>
-    </FormItem>
-    <FormItem label="Age" prop="age">
-      <Input type="text" v-model="formCustom.age" number></Input>
-    </FormItem>
-    <FormItem>
-      <Button type="primary" @click="handleSubmit('formCustom')">Submit</Button>
-      <Button @click="handleReset('formCustom')" style="margin-left: 8px"
-        >Reset</Button
-      >
-    </FormItem>
-  </Form>
+<template lang="pug">
+#FormCustom
+  Form.FormCustom(
+    ref="formCustom",
+    :model="formCustom",
+    :rules="ruleCustom",
+    label-width="80"
+  )
+    FormItem(label="Password", prop="passwd")
+      Input(type="password", v-model="formCustom.passwd")
+    FormItem(label="Confirm Pwd", prop="passwdCheck")
+      Input(type="password", v-model="formCustom.passwdCheck")
+    FormItem(label="Age", prop="age")
+      Input(type="text", v-model="formCustom.age", number)
+    FormItem
+      Button(type="primary", @click="handleSubmit('formCustom')") {{ "Submit" }}
+      Button(style="margin-left: 8px", @click="handleReset('formCustom')") {{ "Reset" }}
 </template>
+
 <script>
 export default {
   data() {
@@ -62,7 +57,6 @@ export default {
         }
       }, 1000);
     };
-
     return {
       formCustom: {
         passwd: "",
@@ -80,9 +74,9 @@ export default {
     handleSubmit(name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          this.$Message.success("Success!");
+          this.$Message.success("Success");
         } else {
-          this.$Message.error("Fail!");
+          this.$Message.error("Failed");
         }
       });
     },
@@ -92,3 +86,17 @@ export default {
   },
 };
 </script>
+
+
+<style lang="scss" scoped>
+#FormCustom {
+  .FormCustom {
+    background-color: lightblue;
+    padding: 50px;
+    margin: 50px;
+    width: 500px;
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+}
+</style>
