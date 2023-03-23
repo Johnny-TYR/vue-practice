@@ -17,7 +17,7 @@
       )
         Icon(type="ios-lock-outline", slot="prepend")
     FormItem
-      Button(type="warning", @click="handleSubmit('formInline')") {{ "Sign In" }}
+      Button(type="primary", @click="handleSubmit('formInline')") {{ "Sign In" }}
 </template>
 
 
@@ -68,11 +68,12 @@ export default {
 <style lang="scss" scoped>
 #InlineForm {
   .InlineForm {
-    background-color: lightcoral;
+    background-color: #fff;
     padding: 50px;
     margin: 50px;
     width: 500px;
     border: 1px solid black;
+    border-radius: 5px;
   }
 }
 </style>

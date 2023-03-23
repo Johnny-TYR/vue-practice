@@ -75,6 +75,7 @@ export default {
     margin: 50px;
     width: 500px;
     border: 1px solid black;
+    border-radius: 5px;
   }
 }
 </style>
