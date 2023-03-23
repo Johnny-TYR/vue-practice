@@ -4,7 +4,7 @@
     ref="formCustom",
     :model="formCustom",
     :rules="ruleCustom",
-    label-width="80"
+    :label-width="80"
   )
     FormItem(label="Password", prop="passwd")
       Input(type="password", v-model="formCustom.passwd")
@@ -43,7 +43,21 @@ export default {
       if (!value) {
         return callback(new Error("Age cannot be empty"));
       }
+      setTimeout(() => {
+        if (!Number.isInteger(value)) {
+          callback(new Error("Please enter a number"));
+        } else {
+          if (value < 10) {
+            callback(new Error("You're too young"));
+          }
+          if (value > 150) {
+            callback(new Error("No one's that old"));
+          }
+          callback();
+        }
+      }, 1000);
     };
+
     return {
       formCustom: {
         passwd: "",
@@ -51,9 +65,9 @@ export default {
         age: "",
       },
       ruleCustom: {
-        passwd: [{ validator: validatePass, trigger: "blur" }],
-        passwdCheck: [{ validator: validatePassCheck, trigger: "blur" }],
-        age: [{ validator: validateAge, trigger: "blur" }],
+        passwd: [{ validator: validatePass, trigger: "change" }],
+        passwdCheck: [{ validator: validatePassCheck, trigger: "change" }],
+        age: [{ validator: validateAge, trigger: "change" }],
       },
     };
   },
