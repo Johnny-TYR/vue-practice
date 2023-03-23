@@ -1,36 +1,36 @@
 <template lang="pug">
 #HomeView
-  Form.LoginForm(
-    ref="loginForm",
-    :model="loginForm",
+  Form.registerForm(
+    ref="registerForm",
+    :model="registerForm",
     :label-width="80",
     label-position="left",
     :rules="loginRules"
   )
-    h1 {{ "Login" }}
+    h1 {{ "Register" }}
     .input-area
       FormItem(label="Account", prop="account")
         Input(
           type="email",
-          v-model="loginForm.account",
+          v-model="registerForm.account",
           placeholder="Enter email"
         )
           Icon(type="ios-contact", slot="prepend")
       FormItem(label="Password", prop="password")
         Input(
           type="password",
-          v-model="loginForm.password",
+          v-model="registerForm.password",
           placeholder="Enter password"
         )
           Icon(type="ios-lock", slot="prepend")
-    FormItem(prop="check.agree")
-      Checkbox(v-model="loginForm.agree") {{ "I agree to the terms and agreements" }}
+    FormItem(prop="agree")
+      Checkbox(v-model="registerForm.agree") {{ "I agree to the terms and agreements" }}
     FormItem
-      Checkbox(v-model="loginForm.subscribe") {{ "Subscribe to Vue practice" }}
+      Checkbox(v-model="registerForm.subscribe") {{ "Subscribe to Vue practice" }}
     FormItem
-      Button(type="primary", @click="HandleSubmit('loginForm')") {{ "Login" }}
-      Button(type="error", @click="HandleClear('loginForm')") {{ "Clear Form" }}
-  pre {{ loginForm }}
+      Button(type="primary", @click="HandleSubmit('registerForm')") {{ "Register" }}
+      Button(type="error", @click="HandleClear('registerForm')") {{ "Clear Form" }}
+  pre {{ registerForm }}
 </template>
 
 <script>
@@ -43,7 +43,7 @@ export default {
       if (value === "") {
         return callback(new Error("必須填帳戶"));
       }
-      if (value !== "123@gmail.com") {
+      if (value !== "johnny@tyr-tech.com") {
         return callback(new Error("帳號不存在"));
       }
       return callback();
@@ -69,19 +69,17 @@ export default {
     };
 
     return {
-      loginForm: {
+      registerForm: {
         account: "",
         password: "",
-        check: {
-          agree: false,
-          subscribe: false,
-        },
+        agree: false,
+        subscribe: false,
       },
       // custom auth ====================================================================
       loginRules: {
         account: [{ validator: validateAcc, trigger: "change" }],
         password: [{ validator: validatePw, trigger: "change" }],
-        "check.agree": [{ validator: validateAgree, trigger: "change" }],
+        agree: [{ validator: validateAgree, trigger: "change" }],
       },
     };
   },
@@ -106,7 +104,7 @@ export default {
   height: 100vh;
   @extend .center;
   background-color: #42b983;
-  .LoginForm {
+  .registerForm {
     background-color: #fff;
     width: 600px;
     border: 5px double black;
