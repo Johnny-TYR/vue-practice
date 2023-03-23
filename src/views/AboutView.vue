@@ -1,5 +1,7 @@
 <template lang="pug">
 #AboutView
+  h1 {{"Form Todo"}}
+  FormTodo
   h1 {{ "Form Custom" }}
   FormCustom
   h1 {{ "Form Validate" }}
@@ -19,6 +21,7 @@ export default {
     AlignForms: () => import("@/components/iViewForms/AlignForms.vue"),
     FormValidate: () => import("@/components/iViewForms/FormValidate.vue"),
     FormCustom: () => import("@/components/iViewForms/FormCustom.vue"),
+    FormTodo: () => import("@/components/iViewForms/FormTodo.vue"),
   },
 };
 </script>

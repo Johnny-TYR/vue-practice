@@ -27,9 +27,9 @@ const routes = [
     component: ()=> import('../views/VuexView.vue')
   },
   {
-    path: '/transfer',
-    name:'transfer',
-    component: ()=> import('../views/Transfer.vue')
+    path: '/iview',
+    name:'iview',
+    component: ()=> import('../views/iView.vue')
   },
 ]
 

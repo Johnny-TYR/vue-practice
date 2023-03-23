@@ -6,7 +6,7 @@
         <router-link to="/forms">Forms</router-link> |
         <router-link :to="{ name: 'grid' }">Grid</router-link> |
         <router-link :to="{ name: 'vuex' }">Vue Vuex</router-link> |
-        <router-link :to="{ name: 'transfer' }">Transfer</router-link>
+        <router-link :to="{ name: 'iview' }">iView</router-link>
       </nav>
     </div>
     <router-view />
