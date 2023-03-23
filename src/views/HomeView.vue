@@ -45,10 +45,26 @@ export default {
         agree: false,
         subscribe: false,
       },
+      // built in simple auth ===========================================================
       loginRules: {
-        account: [{ required: true, message: "請輸入帳號", trigger: "blur" }],
-        password: [{ required: true, message: "請輸入密碼", trigger: "blur" }],
+        account: [
+          { required: true, message: "請輸入帳號", trigger: "blur" },
+          { type: "email", message: "不符合 email 規格", trigger: "blur" },
+        ],
+        password: [
+          { required: true, message: "請輸入密碼", trigger: "blur" },
+          {
+            type: "string",
+            min: 6,
+            message: "密碼至少要 6 個字元",
+            trigger: "blur",
+          },
+        ],
       },
+      // ================================================================================
+      // custom auth ====================================================================
+
+      // ================================================================================
     };
   },
   methods: {
