@@ -5,7 +5,7 @@
     :model="loginForm",
     :label-width="80",
     label-position="left",
-    :rules="loginRule"
+    :rules="loginRules"
   )
     h1 {{ "Login" }}
     .input-area
@@ -44,10 +44,10 @@ export default {
       },
       loginRules: {
         account: [
-          { require: true, message: "need account input", trigger: "blur" },
+          { required: true, message: "need account input", trigger: "blur" },
         ],
         password: [
-          { require: true, message: "need pwd input", trigger: "blur" },
+          { required: true, message: "need pwd input", trigger: "blur" },
         ],
       },
     };
