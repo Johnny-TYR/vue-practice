@@ -25,7 +25,6 @@ export default {
         callback(new Error("Please enter your password"));
       } else {
         if (this.formCustom.passwdCheck !== "") {
-          // 对第二个密码框单独验证
           this.$refs.formCustom.validateField("passwdCheck");
         }
         callback();
@@ -33,9 +32,9 @@ export default {
     };
     const validatePassCheck = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("Please enter your password again"));
+        callback(new Error("Please enter password again"));
       } else if (value !== this.formCustom.passwd) {
-        callback(new Error("The two input passwords do not match!"));
+        callback(new Error("Password doesn't match!"));
       } else {
         callback();
       }
@@ -44,18 +43,6 @@ export default {
       if (!value) {
         return callback(new Error("Age cannot be empty"));
       }
-      // 模拟异步验证效果
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error("Please enter a numeric value"));
-        } else {
-          if (value < 18) {
-            callback(new Error("Must be over 18 years of age"));
-          } else {
-            callback();
-          }
-        }
-      }, 1000);
     };
     return {
       formCustom: {
