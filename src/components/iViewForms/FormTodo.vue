@@ -4,16 +4,16 @@
     FormItem(
       v-for="(item, index) in formTodo.items",
       :key="index",
-      :label="'Item' + item.index",
+      :label="'Item ' + item.index",
       :prop="'items.' + index + '.value'",
-      v-if="item.status"
+      v-if="item.status",
+      :rules="{ required: true, message: `Item ${item.index} cannot be empty`, trigger: 'blur' }"
     )
       Row
         Col(span="18")
           Input(type="text", v-model="item.value", placeholder="enter ...")
         Col(span="4", offset="1")
-          Button {{ "Delete" }}
-        pre {{ item }}
+          Button(@click="HandleRemove(index)") {{ "Delete" }}
     FormItem
       Row
         Col(span="12")
@@ -21,6 +21,7 @@
     FormItem
       Button(type="primary", @click="HandleSubmit('formTodo')") {{ "Submit" }}
       Button(@click="HandleReset('formTodo')") {{ "Reset" }}
+  pre {{ formTodo.items }}
 </template>
 
 <script>
