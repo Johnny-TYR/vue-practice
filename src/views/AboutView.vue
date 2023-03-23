@@ -1,13 +1,13 @@
 <template lang="pug">
 #AboutView
+  h1 {{ "Form Validate" }}
+  FormValidate
+  h1 {{ "Align Forms" }}
+  AlignForms
   h1 {{ "Inline Form" }}
   iViewForm
   h1 {{ "Form Item" }}
   FormItems
-  h1 {{ "Align Forms" }}
-  AlignForms
-  h1 {{"Form Validate"}}
-  FormValidate
 </template>
 <script>
 export default {
