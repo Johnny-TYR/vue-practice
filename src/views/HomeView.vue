@@ -27,7 +27,7 @@
       Checkbox(v-model="loginForm.agree") {{ "I agree to the terms and agreements" }}
     FormItem
       Button(type="primary", @click="HandleSubmit('loginForm')") {{ "Login" }}
-      Button(type="error", @click="HandleReset('loginForm')") {{ "Reset" }}
+      Button(type="error", @click="HandleClear('loginForm')") {{ "Clear Form" }}
   pre {{ loginForm }}
 </template>
 
@@ -44,10 +44,10 @@ export default {
       },
       loginRules: {
         account: [
-          { required: true, message: "need account input", trigger: "blur" },
+          { required: true, message: "請輸入帳號", trigger: "blur" },
         ],
         password: [
-          { required: true, message: "need pwd input", trigger: "blur" },
+          { required: true, message: "請輸入密碼", trigger: "blur" },
         ],
       },
     };
@@ -56,13 +56,13 @@ export default {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
-          this.$Message.success("Success");
+          this.$Message.success("登入成功");
         } else {
-          this.$Message.error("Failed");
+          this.$Message.error("登入失敗");
         }
       });
     },
-    HandleReset(refName) {
+    HandleClear(refName) {
       this.$refs[refName].resetFields();
     },
   },
