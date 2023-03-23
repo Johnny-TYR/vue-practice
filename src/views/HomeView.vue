@@ -40,23 +40,27 @@ export default {
   data() {
     // 確認帳戶名稱
     const validateAcc = (rule, value, callback) => {
-      if ((value = "")) {
-        callback(new Error("必須填帳戶"));
-      } else if (value === "123@gmail.com") {
-        callback();
+      if (value === "") {
+        return callback(new Error("必須填帳戶"));
       }
+      if (value !== "123@gmail.com") {
+        return callback(new Error("帳號錯誤"));
+      }
+      return callback();
     };
     // 確認密碼為 6 位數
     const validatePw = (rule, value, callback) => {
       if (value === "") {
-        callback(new Error("必須填密碼"));
-      } else if (value === "123456") {
-        callback();
+        return callback(new Error("必須填密碼"));
       }
+      if (value !== "123456") {
+        return callback(new Error("密碼錯誤"));
+      }
+      return callback();
     };
     // 確認框框有沒有勾選
     const validateAgree = (rule, value, callback) => {
-      if (value === false) {
+      if (value !== true) {
         callback(new Error("勾選同意"));
       } else {
         callback();
@@ -76,24 +80,6 @@ export default {
         password: [{ validator: validatePw, trigger: "change" }],
         agree: [{ validator: validateAgree, trigger: "change" }],
       },
-      // ================================================================================
-      // built in simple auth ===========================================================
-      // loginRules: {
-      //   account: [
-      //     { required: true, message: "請輸入帳號", trigger: "change" },
-      //     { type: "email", message: "不符合 email 規格", trigger: "change" },
-      //   ],
-      //   password: [
-      //     { required: true, message: "請輸入密碼", trigger: "change" },
-      //     {
-      //       type: "string",
-      //       min: 6,
-      //       message: "密碼至少要 6 個字元",
-      //       trigger: "change",
-      //     },
-      //   ],
-      // },
-      // ================================================================================
     };
   },
   methods: {
@@ -131,15 +117,6 @@ export default {
       font-size: 100px;
     }
   }
-}
-#HomeView {
-  // .LoginForm {
-  //   .input-area {
-  //      .ivu-form-item {
-  //       margin-bottom: 30px;
-  //     }
-  //   }
-  // }
 }
 .center {
   display: flex;
