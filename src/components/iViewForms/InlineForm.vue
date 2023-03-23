@@ -37,7 +37,7 @@ export default {
         password: [
           {
             required: true,
-            message: "Please fill in the password.",
+            message: "請輸入密碼",
             trigger: "blur",
           },
           {

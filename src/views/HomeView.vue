@@ -4,23 +4,25 @@
     ref="loginForm",
     :model="loginForm",
     :label-width="80",
-    label-position="left"
+    label-position="left",
+    :rules="loginRule"
   )
     h1 {{ "Login" }}
-    FormItem(label="Account")
-      Input(
-        type="email",
-        v-model="loginForm.account",
-        placeholder="Enter email"
-      )
-        Icon(type="ios-contact", slot="prepend")
-    FormItem(label="Password")
-      Input(
-        type="password",
-        v-model="loginForm.password",
-        placeholder="Enter password"
-      )
-        Icon(type="ios-lock", slot="prepend")
+    .input-area
+      FormItem(label="Account", prop="account")
+        Input(
+          type="email",
+          v-model="loginForm.account",
+          placeholder="Enter email"
+        )
+          Icon(type="ios-contact", slot="prepend")
+      FormItem(label="Password", prop="password")
+        Input(
+          type="password",
+          v-model="loginForm.password",
+          placeholder="Enter password"
+        )
+          Icon(type="ios-lock", slot="prepend")
     FormItem
       Checkbox(v-model="loginForm.agree") {{ "I agree to the terms and agreements" }}
     FormItem
@@ -31,7 +33,7 @@
 
 <script>
 export default {
-  name: "HomeView",
+  refName: "HomeView",
   components: {},
   data() {
     return {
@@ -39,6 +41,14 @@ export default {
         account: "",
         password: "",
         agree: false,
+      },
+      loginRules: {
+        account: [
+          { require: true, message: "need account input", trigger: "blur" },
+        ],
+        password: [
+          { require: true, message: "need pwd input", trigger: "blur" },
+        ],
       },
     };
   },
@@ -52,8 +62,8 @@ export default {
         }
       });
     },
-    HandleReset(name) {
-      this.$refs[name].resetFields();
+    HandleReset(refName) {
+      this.$refs[refName].resetFields();
     },
   },
 };
@@ -79,6 +89,13 @@ export default {
   }
 }
 #HomeView {
+  // .LoginForm {
+  //   .input-area {
+  //      .ivu-form-item {
+  //       margin-bottom: 30px;
+  //     }
+  //   }
+  // }
 }
 .center {
   display: flex;
