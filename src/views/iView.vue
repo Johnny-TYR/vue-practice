@@ -9,7 +9,7 @@
       v-for="(item, index) in formDynamic.items"
       v-if="item.status"
       :key="index"
-      :label="'Item ' + item.index"
+      :label="'Item' + item.index"
       :prop="'items.' + index + '.value'"
       :rules="{
         required: true,

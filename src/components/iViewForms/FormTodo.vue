@@ -1,15 +1,26 @@
 <template lang="pug">
 #FormTodo
-  Form.FormTodo(
-    ref="formTodo",
-    :model="formTodo",
-    :rules="ruleTodo",
-    :label-width="80"
-  )
-    FormItem(v-for="(item, index) in formTodo.items")
+  Form.FormTodo(ref="formTodo", :model="formTodo", :label-width="80")
+    FormItem(
+      v-for="(item, index) in formTodo.items",
+      :key="index",
+      :label="'Item' + item.index",
+      :prop="'items.' + index + '.value'",
+      v-if="item.status"
+    )
+      Row
+        Col(span="18")
+          Input(type="text", v-model="item.value", placeholder="enter ...")
+        Col(span="4", offset="1")
+          Button {{ "Delete" }}
+        pre {{ item }}
     FormItem
-      Button(type="primary", @click="HandleSubmit") {{ "Submit" }}
-      Button(@click="HandleReset") {{ "Reset" }}
+      Row
+        Col(span="12")
+          Button(type="dashed", long, icon="md-add", @click="HandleAdd") {{ "Add Item" }}
+    FormItem
+      Button(type="primary", @click="HandleSubmit('formTodo')") {{ "Submit" }}
+      Button(@click="HandleReset('formTodo')") {{ "Reset" }}
 </template>
 
 <script>
@@ -20,9 +31,6 @@ export default {
       formTodo: {
         items: [{ value: "", index: 1, status: 1 }],
       },
-      ruleTodo: {
-        content: [{ required: true, message: "Enter content please", trigger: "blur" },],
-      },
     };
   },
   methods: {
@@ -30,12 +38,24 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           this.$Message.success("成功新增");
+        } else {
+          this.$Message.error("新增失敗");
         }
-        this.$Message.error("新增失敗");
       });
     },
     HandleReset(name) {
       this.$refs[name].resetFields();
+    },
+    HandleAdd() {
+      this.index++;
+      this.formTodo.items.push({
+        value: "",
+        index: this.index,
+        status: 1,
+      });
+    },
+    HandleRemove(index) {
+      this.formTodo.items[index].status = 0;
     },
   },
 };
