@@ -37,7 +37,9 @@
     FormItem
       Button(type="primary", @click="HandleSubmit('registerForm')") {{ "Register" }}
       Button(type="error", @click="HandleClear('registerForm')") {{ "Clear Form" }}
+      Button(@click="RegisterUser({ email: 123, password: 123 })") {{ "add new user" }}
   //- pre {{ registerForm }}
+  pre {{ users }}
 </template>
 
 <script>
@@ -45,14 +47,17 @@ export default {
   refName: "HomeView",
   components: {},
   data() {
-    // 確認帳戶名稱
+    // 確認帳戶名稱 ==========================================================
     const validateAcc = (rule, value, callback) => {
       if (value === "") {
         return callback(new Error("必須填帳戶"));
       }
+      // if (value === this.users[0].email) {
+      //   return callback(new Error("Email已被使用"));
+      // }
       return callback();
     };
-    // 確認密碼為 6 位數
+    // 確認密碼為 6 位數 =====================================================
     const validatePw = (rule, value, callback) => {
       if (value === "") {
         return callback(new Error("必須填密碼"));
@@ -62,7 +67,7 @@ export default {
       }
       return callback();
     };
-    // 確認密碼有沒有相同
+    // 確認密碼有沒有相同 ====================================================
     const validateCheckPwd = (rule, value, callback) => {
       if (value === "") {
         return callback(new Error("請確認密碼"));
@@ -72,7 +77,7 @@ export default {
       }
       return callback();
     };
-    // 確認框框有沒有勾選
+    // 確認框框有沒有勾選 ===================================================
     const validateAgree = (rule, value, callback) => {
       // console.log(value);
       if (value !== true) {
@@ -82,6 +87,7 @@ export default {
     };
 
     return {
+      // 表單要使用的資料 =======================================================
       registerForm: {
         account: "",
         password: "",
@@ -89,16 +95,17 @@ export default {
         agree: false,
         subscribe: false,
       },
-      // custom auth ====================================================================
+      // custom auth =========================================================
       registerRules: {
         account: [
-          { validator: validateAcc, trigger: "blur" },
-          { type: "email", message: "Email 格式不符", trigger: "blur" },
+          { validator: validateAcc, trigger: "change" },
+          { type: "email", message: "Email 格式不符", trigger: "change" },
         ],
-        password: [{ validator: validatePw, trigger: "blur" }],
-        checkPwd: [{ validator: validateCheckPwd, trigger: "blur" }],
-        agree: [{ validator: validateAgree, trigger: "blur" }],
+        password: [{ validator: validatePw, trigger: "change" }],
+        checkPwd: [{ validator: validateCheckPwd, trigger: "change" }],
+        agree: [{ validator: validateAgree, trigger: "change" }],
       },
+      // 已註冊帳戶 ===========================================================
       users: [
         { email: "1@gmail.com", password: 123456, id: 1 },
         { email: "2@gmail.com", password: 123456, id: 2 },
@@ -113,7 +120,16 @@ export default {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
-          console.log(this.users);
+          let existingUser = false;
+          this.users.forEach((user) => {
+            if (user.email === this.registerForm.account) {
+              existingUser = true;
+            }
+          });
+          if(existingUser){
+            return this.$Message.error("Email已被註冊")
+          }
+          this.RegisterUser();
           return this.$Message.success("註冊成功");
         }
         return this.$Message.error("註冊失敗");
@@ -121,6 +137,12 @@ export default {
     },
     HandleClear(refName) {
       this.$refs[refName].resetFields();
+    },
+    RegisterUser() {
+      this.users.push({
+        email: this.registerForm.account,
+        password: this.registerForm.password,
+      });
     },
   },
 };
