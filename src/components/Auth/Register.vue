@@ -1,5 +1,5 @@
 <template lang="pug">
-#HomeView
+#Register
   Form.registerForm(
     ref="registerForm",
     :model="registerForm",
@@ -38,13 +38,13 @@
       Button(type="primary", @click="HandleSubmit('registerForm')") {{ "Register" }}
       Button(type="error", @click="HandleClear('registerForm')") {{ "Clear Form" }}
       Button(@click="UserLogin") {{ "Login" }}
-  pre {{ users }}
-  pre {{ isLoggedIn }}
+//-   pre {{ users }}
+//-   pre {{ isLoggedIn }}
 </template>
 
 <script>
 export default {
-  refName: "HomeView",
+  refName: "Register",
   components: {},
   data() {
     // 確認帳戶名稱 ==========================================================
@@ -155,10 +155,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#HomeView {
-  height: 100vh;
-  @extend .center;
-  background-color: #42b983;
+#Register {
   .registerForm {
     background-color: #fff;
     width: 600px;
@@ -172,10 +169,5 @@ export default {
       font-size: 100px;
     }
   }
-}
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 </style>

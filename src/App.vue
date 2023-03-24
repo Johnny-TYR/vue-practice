@@ -34,6 +34,8 @@ export default {
 
 nav {
   padding: 30px;
+  position: absolute;
+  background-color: white;
 }
 
 nav a {
