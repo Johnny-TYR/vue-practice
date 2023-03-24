@@ -2,52 +2,62 @@
   <div id="app">
     <div class="navbar" v-show="isLoggedIn">
       <nav>
-        <router-link to="/">Home</router-link> |
-        <router-link to="/forms">Forms</router-link> |
-        <router-link :to="{ name: 'grid' }">Grid</router-link> |
-        <router-link :to="{ name: 'vuex' }">Vue Vuex</router-link> |
+        <router-link to="/">Home</router-link>
+        <router-link to="/forms">Forms</router-link>
+        <router-link :to="{ name: 'grid' }">Grid</router-link>
+        <router-link :to="{ name: 'vuex' }">Vue Vuex</router-link>
         <router-link :to="{ name: 'iview' }">iView</router-link>
       </nav>
     </div>
-    <router-view />
+    <router-view :style="contentStyle"/>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      navbarHeight: 100,
+    };
+  },
   computed: {
     isLoggedIn() {
       return this.$store.state.isLoggedIn;
     },
+    contentStyle(){
+      return{
+        paddingTop:`${this.navbarHeight}px`
+      }
+    }
   },
 };
 </script>
 
-<style>
+<style lang="scss">
 #app {
   position: relative;
-}
-#app .navbar {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  position: sticky;
-}
-
-nav {
-  padding: 30px;
-  background-color: white;
-}
-
-nav a {
-  font-size: 20px;
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+  display: block;
+  .navbar {
+    position: fixed;
+    z-index: 100;
+    font-size: 20px;
+    font-weight: 700;
+    background-color: black;
+    width: 100%;
+    nav {
+      display: flex;
+      justify-content: space-around;
+      // padding: 10px 20px;
+      a {
+        background-color: #fff;
+        padding: 10px 20px;
+        flex: 1;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin: 10px;
+        text-align: center;
+      }
+    }
+  }
 }
 </style>

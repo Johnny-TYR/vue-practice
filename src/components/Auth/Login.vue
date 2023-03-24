@@ -40,7 +40,9 @@ export default {
       if (value !== "123456") {
         return callback(new Error("密碼錯誤"));
       }
-      return callback();
+      setTimeout(() => {
+        return callback();
+      }, 1000);
     };
     return {
       loginForm: {
@@ -57,9 +59,6 @@ export default {
     isLoggedIn() {
       return this.$store.state.isLoggedIn;
     },
-  },
-  mounted() {
-    // this.CheckUserAuth();
   },
   methods: {
     HandleSubmit(refName) {

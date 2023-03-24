@@ -136,6 +136,7 @@ export default {
         email: this.registerForm.account,
         password: this.registerForm.password,
       });
+      this.showr
       localStorage.setItem("userList", JSON.stringify(this.users));
     },
   },

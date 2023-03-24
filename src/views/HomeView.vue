@@ -1,10 +1,21 @@
 <template lang="pug">
 #HomeView
-  Register(v-show="!isShowRegister")
-  Login(v-show="isShowRegister")
-  Button(type="warning", @click="isShowRegister = false") {{ "Register" }}
-  Button(type="error", @click="isShowRegister = true") {{ "Login" }}
-  Button(type="error", @click="ClearLocalStorage") {{ "Clear Local Storage" }}
+  .loginRegister
+    Register(v-show="!isShowRegister")
+    Login(v-show="isShowRegister")
+    ButtonGroup(vertical)
+      Button(
+        type="primary",
+        :size="buttonSize",
+        @click="isShowRegister = false"
+      ) {{ "註冊頁面" }}
+      Button(
+        type="primary",
+        :size="buttonSize",
+        @click="isShowRegister = true"
+      ) {{ "登入頁面" }}
+      Button(type="error", @click="ClearLocalStorage") {{ "清除 localStorage" }}
+      Button(type="ghost", @click="ToggleLoginStatus") {{ "切換登入狀態" }}
 </template>
 
 <script>
@@ -17,11 +28,15 @@ export default {
   data() {
     return {
       isShowRegister: false,
+      buttonSize: "large",
     };
   },
   methods: {
     ClearLocalStorage() {
       localStorage.clear();
+    },
+    ToggleLoginStatus() {
+      this.$store.dispatch("ToggleLoginStatus");
     },
   },
 };
@@ -32,6 +47,10 @@ export default {
   height: 100vh;
   background-color: lightskyblue;
   @extend .center;
+  .loginRegister {
+    display: flex;
+    flex-direction: column;
+  }
 }
 .center {
   display: flex;
