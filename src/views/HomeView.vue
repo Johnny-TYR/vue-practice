@@ -88,7 +88,6 @@ export default {
         checkPwd: "",
         agree: false,
         subscribe: false,
-        users:[]
       },
       // custom auth ====================================================================
       registerRules: {
@@ -100,12 +99,21 @@ export default {
         checkPwd: [{ validator: validateCheckPwd, trigger: "blur" }],
         agree: [{ validator: validateAgree, trigger: "blur" }],
       },
+      users: [
+        { email: "1@gmail.com", password: 123456, id: 1 },
+        { email: "2@gmail.com", password: 123456, id: 2 },
+        { email: "3@gmail.com", password: 123456, id: 3 },
+        { email: "4@gmail.com", password: 123456, id: 4 },
+        { email: "5@gmail.com", password: 123456, id: 5 },
+        { email: "123@gmail.com", password: 123456, id: 6 },
+      ],
     };
   },
   methods: {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
+          console.log(this.users);
           return this.$Message.success("註冊成功");
         }
         return this.$Message.error("註冊失敗");
