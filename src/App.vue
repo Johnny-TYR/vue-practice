@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="navbar">
+    <div class="navbar" v-show="isLoggedIn">
       <nav>
         <router-link to="/">Home</router-link> |
         <router-link to="/forms">Forms</router-link> |
@@ -13,7 +13,15 @@
   </div>
 </template>
 
-
+<script>
+export default {
+  computed:{
+    isLoggedIn(){
+      return this.$store.state.isLoggedIn
+    }
+  }
+}
+</script>
 
 <style>
 #app .navbar {

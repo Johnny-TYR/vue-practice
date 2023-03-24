@@ -37,9 +37,9 @@
     FormItem
       Button(type="primary", @click="HandleSubmit('registerForm')") {{ "Register" }}
       Button(type="error", @click="HandleClear('registerForm')") {{ "Clear Form" }}
-      Button(@click="RegisterUser({ email: 123, password: 123 })") {{ "add new user" }}
-  //- pre {{ registerForm }}
+      Button(@click="UserLogin") {{ "Login" }}
   pre {{ users }}
+  pre {{ isLoggedIn }}
 </template>
 
 <script>
@@ -52,9 +52,6 @@ export default {
       if (value === "") {
         return callback(new Error("必須填帳戶"));
       }
-      // if (value === this.users[0].email) {
-      //   return callback(new Error("Email已被使用"));
-      // }
       return callback();
     };
     // 確認密碼為 6 位數 =====================================================
@@ -116,6 +113,11 @@ export default {
       ],
     };
   },
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.isLoggedIn;
+    },
+  },
   methods: {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
@@ -126,8 +128,8 @@ export default {
               existingUser = true;
             }
           });
-          if(existingUser){
-            return this.$Message.error("Email已被註冊")
+          if (existingUser) {
+            return this.$Message.error("Email已被註冊");
           }
           this.RegisterUser();
           return this.$Message.success("註冊成功");
@@ -144,6 +146,9 @@ export default {
         password: this.registerForm.password,
       });
     },
+    UserLogin(){
+      this.$store.dispatch("UserLogin")
+    }
   },
 };
 </script>
