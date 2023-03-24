@@ -101,12 +101,11 @@ export default {
       },
       // 已註冊帳戶 ===========================================================
       users: [
-        // { email: "1@gmail.com", password: 123456, id: 1 },
-        // { email: "2@gmail.com", password: 123456, id: 2 },
-        // { email: "3@gmail.com", password: 123456, id: 3 },
-        // { email: "4@gmail.com", password: 123456, id: 4 },
-        // { email: "5@gmail.com", password: 123456, id: 5 },
-        // { email: "123@gmail.com", password: 123456, id: 6 },
+        { email: "1@gmail.com", password: 123456 },
+        { email: "2@gmail.com", password: 123456 },
+        { email: "3@gmail.com", password: 123456 },
+        { email: "4@gmail.com", password: 123456 },
+        { email: "5@gmail.com", password: 123456 },
       ],
     };
   },

@@ -24,12 +24,27 @@
 <script>
 export default {
   data() {
+    const validateAccount = (rule, value, callback) => {
+      if (value === "") {
+        return callback(new Error("請輸入帳號"));
+      }
+      return callback();
+    };
+    const validatePassword = (rule, value, callback) => {
+      if (value === "") {
+        return callback(new Error("請輸入密碼"));
+      }
+      return callback();
+    };
     return {
       loginForm: {
         account: "",
         password: "",
       },
-      loginRules: {},
+      loginRules: {
+        account: [{ validator: validateAccount, trigger: "change" }],
+        password: [{ validator: validatePassword, trigger: "change" }],
+      },
     };
   },
   computed: {
@@ -41,7 +56,7 @@ export default {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
-          this.LoginSuccessful()
+          this.LoginSuccessful();
           return this.$Message.success("登入成功");
         }
         return this.$Message.error("登入失敗");
@@ -50,6 +65,12 @@ export default {
     HandleClear(refName) {
       this.$refs[refName].resetFields();
     },
+    // grab all user data from localStorage and store in data
+    GetUserList() {
+      const data = JSON.parse(localStorage.getItem("userList"));
+      console.log(data);
+    },
+    // global context from $store
     LoginSuccessful() {
       this.$store.dispatch("UserLogin");
     },
