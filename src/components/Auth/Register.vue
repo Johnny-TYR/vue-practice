@@ -3,9 +3,9 @@
   Form.registerForm(
     ref="registerForm",
     :model="registerForm",
+    :rules="registerRules"
     :label-width="80",
     label-position="left",
-    :rules="registerRules"
   )
     h1 {{ "Register" }}
     .input-area
@@ -37,15 +37,12 @@
     FormItem
       Button(type="primary", @click="HandleSubmit('registerForm')") {{ "Register" }}
       Button(type="error", @click="HandleClear('registerForm')") {{ "Clear Form" }}
-      Button(@click="UserLogin") {{ "Login" }}
 //-   pre {{ users }}
 //-   pre {{ isLoggedIn }}
 </template>
 
 <script>
 export default {
-  refName: "Register",
-  components: {},
   data() {
     // 確認帳戶名稱 ==========================================================
     const validateAcc = (rule, value, callback) => {
@@ -113,11 +110,6 @@ export default {
       ],
     };
   },
-  computed: {
-    isLoggedIn() {
-      return this.$store.state.isLoggedIn;
-    },
-  },
   methods: {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
@@ -146,10 +138,7 @@ export default {
         email: this.registerForm.account,
         password: this.registerForm.password,
       });
-    },
-    UserLogin() {
-      this.$store.dispatch("UserLogin");
-    },
+    }
   },
 };
 </script>

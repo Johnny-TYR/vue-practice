@@ -1,28 +1,58 @@
 <template lang="pug">
 #Login
   Form.LoginForm(
-    ref="LoginForm",
-    :model="LoginForm",
+    ref="loginForm",
+    :model="loginForm",
+    :rules="loginRules",
     :label-width="80",
     label-position="left"
   )
     h1 {{ "Login" }}
     .input-area
-      FormItem(label="Account")
-        Input(type="email")
+      FormItem(label="Account", prop="account")
+        Input(type="email", v-model="loginForm.account")
           Icon(type="ios-contact", slot="prepend")
-      FormItem(label="Password")
-        Input(type="password")
+      FormItem(label="Password", prop="password")
+        Input(type="password", v-model="loginForm.password")
           Icon(type="ios-lock", slot="prepend")
+      FormItem
+        Button(type="primary", @click="HandleSubmit('loginForm')") {{ "Login" }}
+        Button(type="error", @click="HandleClear('loginForm')") {{ "Clear" }}
+    pre {{ loginForm }}
 </template>
 
 <script>
 export default {
   data() {
     return {
-      LoginForm: {
+      loginForm: {
+        account: "",
+        password: "",
       },
+      loginRules: {},
     };
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.isLoggedIn;
+    },
+  },
+  methods: {
+    HandleSubmit(refName) {
+      this.$refs[refName].validate((valid) => {
+        if (valid) {
+          this.LoginSuccessful()
+          return this.$Message.success("登入成功");
+        }
+        return this.$Message.error("登入失敗");
+      });
+    },
+    HandleClear(refName) {
+      this.$refs[refName].resetFields();
+    },
+    LoginSuccessful() {
+      this.$store.dispatch("UserLogin");
+    },
   },
 };
 </script>

@@ -2,8 +2,8 @@
 #HomeView
   Register(v-show="showRegister")
   Login(v-show="!showRegister")
-  Button(@click="showRegister = true") {{ "Register" }}
-  Button(@click="showRegister = false") {{ "Login" }}
+  Button(type="warning" @click="showRegister = true") {{ "Register" }}
+  Button(type="error" @click="showRegister = false") {{ "Login" }}
 </template>
 
 <script>
