@@ -132,6 +132,7 @@ export default {
             return this.$Message.error("Email已被註冊");
           }
           this.RegisterUser();
+          this.UserLogin();
           return this.$Message.success("註冊成功");
         }
         return this.$Message.error("註冊失敗");
@@ -146,9 +147,9 @@ export default {
         password: this.registerForm.password,
       });
     },
-    UserLogin(){
-      this.$store.dispatch("UserLogin")
-    }
+    UserLogin() {
+      this.$store.dispatch("UserLogin");
+    },
   },
 };
 </script>
