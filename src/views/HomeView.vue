@@ -50,7 +50,6 @@ export default {
       if (value === "") {
         return callback(new Error("必須填帳戶"));
       }
-      if(value)
       return callback();
     };
     // 確認密碼為 6 位數
@@ -58,8 +57,8 @@ export default {
       if (value === "") {
         return callback(new Error("必須填密碼"));
       }
-      if (value !== "123456") {
-        return callback(new Error("密碼錯誤"));
+      if (value.length < 6) {
+        return callback(new Error("密碼至少要6個字元"));
       }
       return callback();
     };
@@ -93,10 +92,13 @@ export default {
       },
       // custom auth ====================================================================
       registerRules: {
-        account: [{ validator: validateAcc, trigger: "change" }],
-        password: [{ validator: validatePw, trigger: "change" }],
-        checkPwd: [{ validator: validateCheckPwd, trigger: "change" }],
-        agree: [{ validator: validateAgree, trigger: "change" }],
+        account: [
+          { validator: validateAcc, trigger: "blur" },
+          { type: "email", message: "Email 格式不符", trigger: "blur" },
+        ],
+        password: [{ validator: validatePw, trigger: "blur" }],
+        checkPwd: [{ validator: validateCheckPwd, trigger: "blur" }],
+        agree: [{ validator: validateAgree, trigger: "blur" }],
       },
     };
   },
@@ -104,6 +106,8 @@ export default {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
+          localStorage.setItem("email", this.registerForm.account);
+          localStorage.setItem("email", this.registerForm.account);
           return this.$Message.success("註冊成功");
         }
         return this.$Message.error("註冊失敗");
