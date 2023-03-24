@@ -23,8 +23,12 @@
           placeholder="Enter password"
         )
           Icon(type="ios-lock", slot="prepend")
-      FormItem(label="Confirm Password")
-        Input(type="password")
+      FormItem(label="Confirm Password", prop="checkPwd")
+        Input(
+          type="password",
+          placeholder="Confirm password",
+          v-model="registerForm.checkPwd"
+        )
           Icon(type="md-checkmark", slot="prepend")
     FormItem(prop="agree")
       Checkbox(v-model="registerForm.agree") {{ "I agree to the terms and agreements" }}
@@ -33,7 +37,7 @@
     FormItem
       Button(type="primary", @click="HandleSubmit('registerForm')") {{ "Register" }}
       Button(type="error", @click="HandleClear('registerForm')") {{ "Clear Form" }}
-  //- pre {{ registerForm }}
+  pre {{ registerForm }}
 </template>
 
 <script>
@@ -46,9 +50,7 @@ export default {
       if (value === "") {
         return callback(new Error("必須填帳戶"));
       }
-      if (value !== "johnny@tyr-tech.com") {
-        return callback(new Error("帳號不存在"));
-      }
+      if(value)
       return callback();
     };
     // 確認密碼為 6 位數
@@ -61,9 +63,19 @@ export default {
       }
       return callback();
     };
+    // 確認密碼有沒有相同
+    const validateCheckPwd = (rule, value, callback) => {
+      if (value === "") {
+        return callback(new Error("請確認密碼"));
+      }
+      if (value !== this.registerForm.password) {
+        return callback(new Error("密碼不相符"));
+      }
+      return callback();
+    };
     // 確認框框有沒有勾選
     const validateAgree = (rule, value, callback) => {
-      console.log(value);
+      // console.log(value);
       if (value !== true) {
         callback(new Error("勾選同意"));
       } else {
@@ -75,6 +87,7 @@ export default {
       registerForm: {
         account: "",
         password: "",
+        checkPwd: "",
         agree: false,
         subscribe: false,
       },
@@ -82,6 +95,7 @@ export default {
       registerRules: {
         account: [{ validator: validateAcc, trigger: "change" }],
         password: [{ validator: validatePw, trigger: "change" }],
+        checkPwd: [{ validator: validateCheckPwd, trigger: "change" }],
         agree: [{ validator: validateAgree, trigger: "change" }],
       },
     };
