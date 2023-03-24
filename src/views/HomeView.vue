@@ -5,7 +5,7 @@
     :model="registerForm",
     :label-width="80",
     label-position="left",
-    :rules="loginRules"
+    :rules="registerRules"
   )
     h1 {{ "Register" }}
     .input-area
@@ -23,6 +23,9 @@
           placeholder="Enter password"
         )
           Icon(type="ios-lock", slot="prepend")
+      FormItem(label="Confirm Password")
+        Input(type="password")
+          Icon(type="md-checkmark", slot="prepend")
     FormItem(prop="agree")
       Checkbox(v-model="registerForm.agree") {{ "I agree to the terms and agreements" }}
     FormItem
@@ -30,7 +33,7 @@
     FormItem
       Button(type="primary", @click="HandleSubmit('registerForm')") {{ "Register" }}
       Button(type="error", @click="HandleClear('registerForm')") {{ "Clear Form" }}
-  pre {{ registerForm }}
+  //- pre {{ registerForm }}
 </template>
 
 <script>
@@ -76,7 +79,7 @@ export default {
         subscribe: false,
       },
       // custom auth ====================================================================
-      loginRules: {
+      registerRules: {
         account: [{ validator: validateAcc, trigger: "change" }],
         password: [{ validator: validatePw, trigger: "change" }],
         agree: [{ validator: validateAgree, trigger: "change" }],
@@ -87,9 +90,9 @@ export default {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
-          return this.$Message.success("登入成功");
+          return this.$Message.success("註冊成功");
         }
-        return this.$Message.error("登入失敗");
+        return this.$Message.error("註冊失敗");
       });
     },
     HandleClear(refName) {
