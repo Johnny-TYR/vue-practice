@@ -3,9 +3,9 @@
   Form.registerForm(
     ref="registerForm",
     :model="registerForm",
-    :rules="registerRules"
+    :rules="registerRules",
     :label-width="80",
-    label-position="left",
+    label-position="left"
   )
     h1 {{ "Register" }}
     .input-area
@@ -37,7 +37,7 @@
     FormItem
       Button(type="primary", @click="HandleSubmit('registerForm')") {{ "Register" }}
       Button(type="error", @click="HandleClear('registerForm')") {{ "Clear Form" }}
-//-   pre {{ users }}
+    p {{ users }}
 //-   pre {{ isLoggedIn }}
 </template>
 
@@ -101,12 +101,12 @@ export default {
       },
       // 已註冊帳戶 ===========================================================
       users: [
-        { email: "1@gmail.com", password: 123456, id: 1 },
-        { email: "2@gmail.com", password: 123456, id: 2 },
-        { email: "3@gmail.com", password: 123456, id: 3 },
-        { email: "4@gmail.com", password: 123456, id: 4 },
-        { email: "5@gmail.com", password: 123456, id: 5 },
-        { email: "123@gmail.com", password: 123456, id: 6 },
+        // { email: "1@gmail.com", password: 123456, id: 1 },
+        // { email: "2@gmail.com", password: 123456, id: 2 },
+        // { email: "3@gmail.com", password: 123456, id: 3 },
+        // { email: "4@gmail.com", password: 123456, id: 4 },
+        // { email: "5@gmail.com", password: 123456, id: 5 },
+        // { email: "123@gmail.com", password: 123456, id: 6 },
       ],
     };
   },
@@ -124,7 +124,6 @@ export default {
             return this.$Message.error("Email已被註冊");
           }
           this.RegisterUser();
-          this.UserLogin();
           return this.$Message.success("註冊成功");
         }
         return this.$Message.error("註冊失敗");
@@ -138,7 +137,8 @@ export default {
         email: this.registerForm.account,
         password: this.registerForm.password,
       });
-    }
+      localStorage.setItem("userList", JSON.stringify(this.users));
+    },
   },
 };
 </script>

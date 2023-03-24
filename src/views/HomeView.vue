@@ -4,6 +4,7 @@
   Login(v-show="!showRegister")
   Button(type="warning" @click="showRegister = true") {{ "Register" }}
   Button(type="error" @click="showRegister = false") {{ "Login" }}
+  Button(type="error" @click="ClearLocalStorage") {{"Clear Local Storage"}}
 </template>
 
 <script>
@@ -18,6 +19,11 @@ export default {
       showRegister: false,
     };
   },
+  methods:{
+    ClearLocalStorage(){
+      localStorage.clear()
+    }
+  }
 };
 </script>
 
