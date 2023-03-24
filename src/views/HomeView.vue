@@ -37,7 +37,7 @@
     FormItem
       Button(type="primary", @click="HandleSubmit('registerForm')") {{ "Register" }}
       Button(type="error", @click="HandleClear('registerForm')") {{ "Clear Form" }}
-  pre {{ registerForm }}
+  //- pre {{ registerForm }}
 </template>
 
 <script>
@@ -76,10 +76,9 @@ export default {
     const validateAgree = (rule, value, callback) => {
       // console.log(value);
       if (value !== true) {
-        callback(new Error("勾選同意"));
-      } else {
-        callback();
+        return callback(new Error("勾選同意"));
       }
+      return callback();
     };
 
     return {
@@ -89,6 +88,7 @@ export default {
         checkPwd: "",
         agree: false,
         subscribe: false,
+        users:[]
       },
       // custom auth ====================================================================
       registerRules: {
@@ -106,8 +106,6 @@ export default {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
-          localStorage.setItem("email", this.registerForm.account);
-          localStorage.setItem("email", this.registerForm.account);
           return this.$Message.success("註冊成功");
         }
         return this.$Message.error("註冊失敗");
