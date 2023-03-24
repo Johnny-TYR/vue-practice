@@ -15,26 +15,29 @@
 
 <script>
 export default {
-  computed:{
-    isLoggedIn(){
-      return this.$store.state.isLoggedIn
-    }
-  }
-}
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.isLoggedIn;
+    },
+  },
+};
 </script>
 
 <style>
+#app {
+  position: relative;
+}
 #app .navbar {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  position: sticky;
 }
 
 nav {
   padding: 30px;
-  position: absolute;
   background-color: white;
 }
 

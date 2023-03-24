@@ -1,10 +1,10 @@
 <template lang="pug">
 #HomeView
-  Register(v-show="showRegister")
-  Login(v-show="!showRegister")
-  Button(type="warning" @click="showRegister = true") {{ "Register" }}
-  Button(type="error" @click="showRegister = false") {{ "Login" }}
-  Button(type="error" @click="ClearLocalStorage") {{"Clear Local Storage"}}
+  Register(v-show="!isShowRegister")
+  Login(v-show="isShowRegister")
+  Button(type="warning", @click="isShowRegister = false") {{ "Register" }}
+  Button(type="error", @click="isShowRegister = true") {{ "Login" }}
+  Button(type="error", @click="ClearLocalStorage") {{ "Clear Local Storage" }}
 </template>
 
 <script>
@@ -16,14 +16,14 @@ export default {
   },
   data() {
     return {
-      showRegister: false,
+      isShowRegister: false,
     };
   },
-  methods:{
-    ClearLocalStorage(){
-      localStorage.clear()
-    }
-  }
+  methods: {
+    ClearLocalStorage() {
+      localStorage.clear();
+    },
+  },
 };
 </script>
 

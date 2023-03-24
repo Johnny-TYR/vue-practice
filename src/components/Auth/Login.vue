@@ -28,11 +28,17 @@ export default {
       if (value === "") {
         return callback(new Error("請輸入帳號"));
       }
+      if (value !== "123@gmail.com") {
+        return callback(new Error("帳戶錯誤"));
+      }
       return callback();
     };
     const validatePassword = (rule, value, callback) => {
       if (value === "") {
         return callback(new Error("請輸入密碼"));
+      }
+      if (value !== "123456") {
+        return callback(new Error("密碼錯誤"));
       }
       return callback();
     };
@@ -52,11 +58,15 @@ export default {
       return this.$store.state.isLoggedIn;
     },
   },
+  mounted() {
+    // this.CheckUserAuth();
+  },
   methods: {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
           this.LoginSuccessful();
+          this.CheckUserAuth();
           return this.$Message.success("登入成功");
         }
         return this.$Message.error("登入失敗");
@@ -65,11 +75,22 @@ export default {
     HandleClear(refName) {
       this.$refs[refName].resetFields();
     },
-    // grab all user data from localStorage and store in data
-    GetUserList() {
-      const data = JSON.parse(localStorage.getItem("userList"));
-      console.log(data);
-    },
+    // Check auth
+    // CheckUserAuth() {
+    //   const data = JSON.parse(localStorage.getItem("userList"));
+    //   for (let i = 0; i < data.length; i++) {
+    //     const user = data[0];
+    //     if (
+    //       user.email === this.loginForm.account &&
+    //       user.password === this.loginForm.password
+    //     ) {
+    //       console.log(user.email, this.loginForm.account);
+    //     } else {
+    //       console.log(user.email, this.loginForm.account);
+    //       console.log(user.password, this.loginForm.password);
+    //     }
+    //   }
+    // },
     // global context from $store
     LoginSuccessful() {
       this.$store.dispatch("UserLogin");

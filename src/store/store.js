@@ -17,7 +17,7 @@ export const store = new Vuex.Store({
             { name: "Red Shell", price: 80, id: 4 },
         ],
         // for user login
-        isLoggedIn: false
+        isLoggedIn: false,
     },
     // ================================================
     // getters ========================================
@@ -44,8 +44,7 @@ export const store = new Vuex.Store({
         },
         ChangeLoginStatus: (state) => {
             state.isLoggedIn = !state.isLoggedIn
-        }
-
+        },
     },
     // ================================================
     // actions ========================================
