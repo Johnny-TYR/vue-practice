@@ -13,7 +13,7 @@
   h2.desc {{ "✨ 幫 datepicker 新增側邊欄位選項，需要在 data() 裡面設定 shortcuts[]，每個欄位都是一個物件，再用 value() 來設定值" }}
   .container
     Col
-      DatePicker(type="date", placeholder="date", :options="options1")
+      DatePicker(type="date", placeholder="date", :options="shortcutOptions")
     Col
       DatePicker(
         type="daterange",
@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       // 這是一般 datepicker 的側邊欄
-      options1: {
+      shortcutOptions: {
         shortcuts: [
           // 這是第一個快捷
           {

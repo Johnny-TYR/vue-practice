@@ -24,7 +24,6 @@
 
 <script>
 import storageFn from "@/plugin/storage.js";
-import storage from "@/plugin/storage.js";
 export default {
   data() {
     const validateAccount = (rule, value, callback) => {
