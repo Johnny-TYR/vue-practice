@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import storageFn from "@/plugin/storage.js";
+
 export default {
   data() {
     // 確認帳戶名稱 ==========================================================
@@ -101,11 +103,11 @@ export default {
       },
       // 已註冊帳戶 ===========================================================
       users: [
-        { email: "1@gmail.com", password: 123456 },
-        { email: "2@gmail.com", password: 123456 },
-        { email: "3@gmail.com", password: 123456 },
-        { email: "4@gmail.com", password: 123456 },
-        { email: "5@gmail.com", password: 123456 },
+        // { email: "1@gmail.com", password: 123456 },
+        // { email: "2@gmail.com", password: 123456 },
+        // { email: "3@gmail.com", password: 123456 },
+        // { email: "4@gmail.com", password: 123456 },
+        // { email: "5@gmail.com", password: 123456 },
       ],
     };
   },
@@ -113,23 +115,37 @@ export default {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
-          let existingUser = false;
-          this.users.forEach((user) => {
-            if (user.email === this.registerForm.account) {
-              existingUser = true;
-            }
-          });
-          if (existingUser) {
-            return this.$Message.error("Email已被註冊");
-          }
-          this.RegisterUser();
-          return this.$Message.success("註冊成功");
+        //   let existingUser = false;
+        //   this.users.forEach((user) => {
+        //     if (user.email === this.registerForm.account) {
+        //       existingUser = true;
+        //     }
+        //   });
+        //   if (existingUser) {
+        //     return this.$Message.error("Email已被註冊");
+        //   }
+        //   this.RegisterUser();
+        //   return this.$Message.success("註冊成功");
+            return;
         }
-        return this.$Message.error("註冊失敗");
+        return this.$Message.error("資料不完整");
+        // return this.$Message.error("註冊失敗");
       });
     },
     HandleClear(refName) {
       this.$refs[refName].resetFields();
+    },
+    HandleCheckAccountFlow () {
+        const {account, password} = this.registerForm;
+        // 1 get storage account list
+        // 2 not find
+        // 3 create push
+        // 4 set storage
+        storageFn.Set("userList", {users: this.users })
+        // 5 result
+        // this.$Message.success("註冊成功");
+        // this.$Message.error("註冊失敗");
+
     },
     RegisterUser() {
       this.users.push({
