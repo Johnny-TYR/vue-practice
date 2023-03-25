@@ -14,9 +14,6 @@
         :size="buttonSize",
         @click="isShowRegister = true"
       ) {{ "登入頁面" }}
-    ButtonGroup.cheatBtns(vertical)
-      Button(type="warning", @click="ToggleLoginStatus") {{ "切換登入狀態" }}
-      Button(type="error", @click="ClearLocalStorage") {{ "清除 localStorage" }}
 </template>
 
 <script>
@@ -31,15 +28,7 @@ export default {
       isShowRegister: false,
       buttonSize: "large",
     };
-  },
-  methods: {
-    ClearLocalStorage() {
-      localStorage.clear();
-    },
-    ToggleLoginStatus() {
-      this.$store.dispatch("ToggleLoginStatus");
-    },
-  },
+  }
 };
 </script>
 

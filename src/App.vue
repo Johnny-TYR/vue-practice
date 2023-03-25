@@ -3,14 +3,18 @@
     <div class="navbar" v-show="isLoggedIn">
       <nav>
         <router-link to="/">Home</router-link>
-        <router-link to="/forms">iView Forms</router-link>
+        <router-link to="/forms">Forms</router-link>
+        <router-link to="/datepickers">Date Pickers</router-link>
         <router-link to="/todolist1">TodoList</router-link>
-        <router-link :to="{ name: 'iview' }">iView</router-link>
         <router-link :to="{ name: 'vuex' }">Vuex</router-link>
-        <router-link :to="{ name: 'grid' }">Grid</router-link>
+        <router-link :to="{ name: 'iview' }">iView</router-link>
       </nav>
     </div>
-    <router-view :style="contentStyle"/>
+    <router-view :style="contentStyle" />
+    <ButtonGroup class="btnGroup" vertical>
+      <Button type="primary" @click="ToggleLoginStatus">切換登入狀態</Button>
+      <Button type="error" @click="ClearLocalStorage">清除 storage</Button>
+    </ButtonGroup>
   </div>
 </template>
 
@@ -25,11 +29,19 @@ export default {
     isLoggedIn() {
       return this.$store.state.isLoggedIn;
     },
-    contentStyle(){
-      return{
-        paddingTop:`${this.navbarHeight}px`
-      }
-    }
+    contentStyle() {
+      return {
+        paddingTop: `${this.navbarHeight}px`,
+      };
+    },
+  },
+  methods: {
+    ClearLocalStorage() {
+      localStorage.clear();
+    },
+    ToggleLoginStatus() {
+      this.$store.dispatch("ToggleLoginStatus");
+    },
   },
 };
 </script>
@@ -38,6 +50,11 @@ export default {
 #app {
   position: relative;
   display: block;
+  .btnGroup {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+  }
   .navbar {
     position: fixed;
     z-index: 100;

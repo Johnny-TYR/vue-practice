@@ -17,9 +17,9 @@ const routes = [
     component: () => import('../views/AboutView.vue')
   },
   {
-    path: '/grid',
-    name:'grid',
-    component: ()=> import('../views/GridView.vue')
+    path: '/datepickers',
+    name:'datepickers',
+    component: ()=> import('../views/DataPickerView.vue')
   },
   {
     path: '/vuex',
