@@ -41,6 +41,16 @@ export default {
     },
     ToggleLoginStatus() {
       this.$store.dispatch("ToggleLoginStatus");
+      this.OpenNotice(false);
+    },
+    // 顯示 notice
+    OpenNotice(nodesc) {
+      this.$Notice.open({
+        title: "✨ Login status changed",
+        desc: nodesc
+          ? ""
+          : "記得 isLoginStatus 是設定在 vuex 的 $store 裡面，要更改也是用 actions 去帶動 mutations",
+      });
     },
   },
 };
