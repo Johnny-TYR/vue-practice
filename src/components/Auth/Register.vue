@@ -91,7 +91,7 @@ export default {
         agree: false,
         subscribe: false,
       },
-      // custom auth =========================================================
+      // rules(自定義的都在上面) ================================================
       registerRules: {
         account: [
           { validator: validateAcc, trigger: "change" },
@@ -102,11 +102,11 @@ export default {
         agree: [{ validator: validateAgree, trigger: "change" }],
       },
       // 已註冊帳戶 ===========================================================
-      users: [],
+      users: [{ account: "123@gmail.com ", password: "123456" }],
     };
   },
   methods: {
-    // 只是確認送出的資料有沒有完整
+    // 只是確認送出的資料有沒有完整 ===========================================
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
@@ -116,38 +116,26 @@ export default {
         return this.$Message.error("資料不完整");
       });
     },
-    HandleClear(refName) {
-      this.$refs[refName].resetFields();
-    },
-    // 在這邊比對資料
+    // 在這邊比對資料 ========================================================
     HandleCheckAccountFlow() {
       const { account, password } = this.registerForm;
       // 1 get storage account list
-      //   if (!storageFn.Get("userData")) {
-      //     storageFn.Set("userData", { users: this.users });
-      //   }
-      let userData = storageFn.Get("userData") || {users: []};
-      console.log(userData);
-      // 2 not found;
+      let userData = storageFn.Get("userData") || { users: [] };
+      // 2 check if account exists
       if (userData.users.find((user) => user.account === account)) {
         return this.$Message.error("帳號已被註冊");
       }
-      console.log("2");
       // 3 create + push
       this.users.push({ account, password });
       // 4 set storage + result
       if (storageFn.Set("userData", { users: this.users })) {
         return this.$Message.success("註冊成功");
       }
-      return this.$$Message.error("註冊失敗")
+      return this.$$Message.error("註冊失敗");
     },
-    RegisterUser() {
-      this.users.push({
-        email: this.registerForm.account,
-        password: this.registerForm.password,
-      });
-      this.showr;
-      localStorage.setItem("userData", JSON.stringify(this.users));
+    // 清除表單 =============================================================
+    HandleClear(refName) {
+      this.$refs[refName].resetFields();
     },
   },
 };

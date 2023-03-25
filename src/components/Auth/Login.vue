@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import storageFn from "@/plugin/storage.js";
 export default {
   data() {
     const validateAccount = (rule, value, callback) => {
@@ -64,17 +65,21 @@ export default {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
+          this.HandleAuthFlow();
           this.LoginSuccessful();
-          this.CheckUserAuth();
           return this.$Message.success("登入成功");
         }
         return this.$Message.error("登入失敗");
       });
     },
+    HandleAuthFlow() {
+      const { account, password } = this.loginForm;
+      let userData = storageFn.Get("userData")
+      // if(userData.users.find())
+    },
     HandleClear(refName) {
       this.$refs[refName].resetFields();
     },
-    
     // global context from $store
     LoginSuccessful() {
       this.$store.dispatch("UserLogin");
