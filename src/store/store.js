@@ -45,7 +45,10 @@ export const store = new Vuex.Store({
         ChangeLoginStatus: (state) => {
             state.isLoggedIn = true
         },
-        ToggleLoginStatus:(state)=>{
+        ChangeLogoutStatus: (state) => {
+            state.isLoggedIn = false
+        },
+        ToggleLoginStatus: (state) => {
             state.isLoggedIn = !state.isLoggedIn
         }
     },
@@ -63,9 +66,12 @@ export const store = new Vuex.Store({
         UserLogin: (context) => {
             context.commit("ChangeLoginStatus")
         },
-        ToggleLoginStatus:(context)=>{
+        UserLogout: (context) => {
+            context.commit("ChangeLogoutStatus")
+        },
+        ToggleLoginStatus: (context) => {
             context.commit("ToggleLoginStatus")
-        }
+        },
 
     }
 })

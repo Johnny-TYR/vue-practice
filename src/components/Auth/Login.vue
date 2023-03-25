@@ -18,12 +18,13 @@
       FormItem
         Button(type="primary", @click="HandleSubmit('loginForm')") {{ "Login" }}
         Button(type="error", @click="HandleClear('loginForm')") {{ "Clear" }}
-        Button(@click="HandleAuthFlow") {{ "Testing" }}
+        Button(@click="LogoutSuccessful") {{ "Logout" }}
     pre {{ loginForm }}
 </template>
 
 <script>
 import storageFn from "@/plugin/storage.js";
+import storage from "@/plugin/storage.js";
 export default {
   data() {
     const validateAccount = (rule, value, callback) => {
@@ -65,9 +66,7 @@ export default {
       this.$refs[refName].validate((valid) => {
         if (valid) {
           this.HandleAuthFlow();
-          this.LoginSuccessful();
         }
-        return this.$Message.error("登入失敗");
       });
     },
     HandleAuthFlow() {
@@ -78,9 +77,10 @@ export default {
         return user.account === account && user.password === password;
       });
       if (accountExists) {
+        this.LoginSuccessful();
         return this.$Message.success("Login Successful");
       }
-      return this.$Message.error("帳號不存在");
+      return this.$Message.error("帳號或密碼不正確");
     },
     HandleClear(refName) {
       this.$refs[refName].resetFields();
@@ -88,6 +88,12 @@ export default {
     // global context from $store
     LoginSuccessful() {
       this.$store.dispatch("UserLogin");
+      storageFn.Set("isLoggedIn", true);
+    },
+    LogoutSuccessful() {
+      this.$store.dispatch("UserLogout");
+      storageFn.Remove("isLoggedIn");
+      this.$Message.success("成功登出");
     },
   },
 };
