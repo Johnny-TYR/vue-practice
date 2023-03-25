@@ -4,6 +4,18 @@
   .container
     DatePicker(type="date", placeholder="disabled 所有之前日期", :options="options3")
     DatePicker(type="date", placeholder="disabled 指定日期", :options="options4")
+  h2.desc {{ "確認後才選擇" }}
+  .container
+    DatePicker(type="date", placeholder="confirm", confirm)
+  h2.desc {{ "size : small / large" }}
+  .container
+    Row
+      Col
+        DatePicker(size="small", type="date", placeholder="Select date")
+      Col
+        DatePicker(type="date", placeholder="Select date")
+      Col
+        DatePicker(size="large", type="date", placeholder="Select date")
 </template>
 
 <script>
