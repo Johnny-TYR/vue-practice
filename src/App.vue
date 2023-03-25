@@ -3,7 +3,7 @@
     <div class="navbar" v-show="isLoggedIn">
       <nav>
         <router-link to="/">Home</router-link>
-        <router-link to="/forms">Forms</router-link>
+        <router-link to="/forms">iView Forms</router-link>
         <router-link to="/todolist1">TodoList</router-link>
         <router-link :to="{ name: 'iview' }">iView</router-link>
         <router-link :to="{ name: 'vuex' }">Vuex</router-link>
