@@ -1,10 +1,9 @@
 <template lang="pug">
 #DatePickerView
   DatePicker1
-  hr
   DatePicker2
-  hr
   DatePicker3
+  DatePicker4
 </template>
 
 <script>
@@ -13,6 +12,7 @@ export default {
     DatePicker1: () => import("@/components/DatePickers/DatePicker1.vue"),
     DatePicker2: () => import("@/components/DatePickers/DatePicker2.vue"),
     DatePicker3: () => import("@/components/DatePickers/DatePicker3.vue"),
+    DatePicker4: () => import("@/components/DatePickers/DatePicker4.vue"),
   },
 };
 </script>
