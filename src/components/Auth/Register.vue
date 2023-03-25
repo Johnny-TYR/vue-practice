@@ -35,7 +35,7 @@
     FormItem
       Checkbox(v-model="registerForm.subscribe") {{ "Subscribe to Vue practice" }}
     FormItem
-      Button(type="primary", @click="HandleSubmit('registerForm')") {{ "Register" }}
+      Button(type="success", @click="HandleSubmit('registerForm')") {{ "Register" }}
       Button(type="error", @click="HandleClear('registerForm')") {{ "Clear Form" }}
     p {{ users }}
 //-   pre {{ isLoggedIn }}

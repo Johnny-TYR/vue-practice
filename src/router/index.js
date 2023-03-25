@@ -31,6 +31,11 @@ const routes = [
     name:'iview',
     component: ()=> import('../views/iView.vue')
   },
+  {
+    path: '/todolist1',
+    name:'todolist1',
+    component: ()=> import('../views/TodoListView.vue')
+  },
 ]
 
 const router = new VueRouter({

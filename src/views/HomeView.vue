@@ -3,9 +3,9 @@
   .loginRegister
     Register(v-show="!isShowRegister")
     Login(v-show="isShowRegister")
-    ButtonGroup(vertical)
+    ButtonGroup
       Button(
-        type="primary",
+        type="success",
         :size="buttonSize",
         @click="isShowRegister = false"
       ) {{ "註冊頁面" }}
@@ -14,8 +14,9 @@
         :size="buttonSize",
         @click="isShowRegister = true"
       ) {{ "登入頁面" }}
+    ButtonGroup.cheatBtns(vertical)
+      Button(type="warning", @click="ToggleLoginStatus") {{ "切換登入狀態" }}
       Button(type="error", @click="ClearLocalStorage") {{ "清除 localStorage" }}
-      Button(type="ghost", @click="ToggleLoginStatus") {{ "切換登入狀態" }}
 </template>
 
 <script>
@@ -50,6 +51,11 @@ export default {
   .loginRegister {
     display: flex;
     flex-direction: column;
+  }
+  .cheatBtns {
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
 }
 .center {
