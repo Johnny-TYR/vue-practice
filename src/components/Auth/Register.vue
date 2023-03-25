@@ -37,12 +37,12 @@
     FormItem
       Button(type="success", @click="HandleSubmit('registerForm')") {{ "Register" }}
       Button(type="error", @click="HandleClear('registerForm')") {{ "Clear Form" }}
-    p {{ users }}
-//-   pre {{ isLoggedIn }}
+    pre {{ users }}
 </template>
 
 <script>
 import storageFn from "@/plugin/storage.js";
+// import storage from "@/plugin/storage.js";
 
 export default {
   data() {
@@ -102,58 +102,52 @@ export default {
         agree: [{ validator: validateAgree, trigger: "change" }],
       },
       // 已註冊帳戶 ===========================================================
-      users: [
-        // { email: "1@gmail.com", password: 123456 },
-        // { email: "2@gmail.com", password: 123456 },
-        // { email: "3@gmail.com", password: 123456 },
-        // { email: "4@gmail.com", password: 123456 },
-        // { email: "5@gmail.com", password: 123456 },
-      ],
+      users: [],
     };
   },
   methods: {
+    // 只是確認送出的資料有沒有完整
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
-        //   let existingUser = false;
-        //   this.users.forEach((user) => {
-        //     if (user.email === this.registerForm.account) {
-        //       existingUser = true;
-        //     }
-        //   });
-        //   if (existingUser) {
-        //     return this.$Message.error("Email已被註冊");
-        //   }
-        //   this.RegisterUser();
-        //   return this.$Message.success("註冊成功");
-            return;
+          this.HandleCheckAccountFlow();
+          return;
         }
         return this.$Message.error("資料不完整");
-        // return this.$Message.error("註冊失敗");
       });
     },
     HandleClear(refName) {
       this.$refs[refName].resetFields();
     },
-    HandleCheckAccountFlow () {
-        const {account, password} = this.registerForm;
-        // 1 get storage account list
-        // 2 not find
-        // 3 create push
-        // 4 set storage
-        storageFn.Set("userList", {users: this.users })
-        // 5 result
-        // this.$Message.success("註冊成功");
-        // this.$Message.error("註冊失敗");
-
+    // 在這邊比對資料
+    HandleCheckAccountFlow() {
+      const { account, password } = this.registerForm;
+      // 1 get storage account list
+      //   if (!storageFn.Get("userData")) {
+      //     storageFn.Set("userData", { users: this.users });
+      //   }
+      let userData = storageFn.Get("userData") || {users: []};
+      console.log(userData);
+      // 2 not found;
+      if (userData.users.find((user) => user.account === account)) {
+        return this.$Message.error("帳號已被註冊");
+      }
+      console.log("2");
+      // 3 create + push
+      this.users.push({ account, password });
+      // 4 set storage + result
+      if (storageFn.Set("userData", { users: this.users })) {
+        return this.$Message.success("註冊成功");
+      }
+      return this.$$Message.error("註冊失敗")
     },
     RegisterUser() {
       this.users.push({
         email: this.registerForm.account,
         password: this.registerForm.password,
       });
-      this.showr
-      localStorage.setItem("userList", JSON.stringify(this.users));
+      this.showr;
+      localStorage.setItem("userData", JSON.stringify(this.users));
     },
   },
 };

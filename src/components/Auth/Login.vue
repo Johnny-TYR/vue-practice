@@ -74,22 +74,7 @@ export default {
     HandleClear(refName) {
       this.$refs[refName].resetFields();
     },
-    // Check auth
-    // CheckUserAuth() {
-    //   const data = JSON.parse(localStorage.getItem("userList"));
-    //   for (let i = 0; i < data.length; i++) {
-    //     const user = data[0];
-    //     if (
-    //       user.email === this.loginForm.account &&
-    //       user.password === this.loginForm.password
-    //     ) {
-    //       console.log(user.email, this.loginForm.account);
-    //     } else {
-    //       console.log(user.email, this.loginForm.account);
-    //       console.log(user.password, this.loginForm.password);
-    //     }
-    //   }
-    // },
+    
     // global context from $store
     LoginSuccessful() {
       this.$store.dispatch("UserLogin");
