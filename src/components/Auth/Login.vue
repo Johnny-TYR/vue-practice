@@ -18,6 +18,7 @@
       FormItem
         Button(type="primary", @click="HandleSubmit('loginForm')") {{ "Login" }}
         Button(type="error", @click="HandleClear('loginForm')") {{ "Clear" }}
+        Button(@click="HandleAuthFlow") {{ "Testing" }}
     pre {{ loginForm }}
 </template>
 
@@ -29,17 +30,14 @@ export default {
       if (value === "") {
         return callback(new Error("請輸入帳號"));
       }
-      if (value !== "123@gmail.com") {
-        return callback(new Error("帳戶錯誤"));
-      }
       return callback();
     };
     const validatePassword = (rule, value, callback) => {
       if (value === "") {
         return callback(new Error("請輸入密碼"));
       }
-      if (value !== "123456") {
-        return callback(new Error("密碼錯誤"));
+      if (value.length < 6) {
+        return callback(new Error("密碼至少要6個字元"));
       }
       setTimeout(() => {
         return callback();
@@ -61,21 +59,28 @@ export default {
       return this.$store.state.isLoggedIn;
     },
   },
+
   methods: {
     HandleSubmit(refName) {
       this.$refs[refName].validate((valid) => {
         if (valid) {
           this.HandleAuthFlow();
           this.LoginSuccessful();
-          return this.$Message.success("登入成功");
         }
         return this.$Message.error("登入失敗");
       });
     },
     HandleAuthFlow() {
       const { account, password } = this.loginForm;
-      let userData = storageFn.Get("userData")
-      // if(userData.users.find())
+      let userData = storageFn.Get("userData");
+      console.log(userData);
+      const accountExists = userData.users.find((user) => {
+        return user.account === account && user.password === password;
+      });
+      if (accountExists) {
+        return this.$Message.success("Login Successful");
+      }
+      return this.$Message.error("帳號不存在");
     },
     HandleClear(refName) {
       this.$refs[refName].resetFields();

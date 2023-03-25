@@ -102,7 +102,7 @@ export default {
         agree: [{ validator: validateAgree, trigger: "change" }],
       },
       // 已註冊帳戶 ===========================================================
-      users: [{ account: "123@gmail.com ", password: "123456" }],
+      users: [],
     };
   },
   methods: {
@@ -120,7 +120,9 @@ export default {
     HandleCheckAccountFlow() {
       const { account, password } = this.registerForm;
       // 1 get storage account list
-      let userData = storageFn.Get("userData") || { users: [] };
+      let userData = storageFn.Get("userData") || {
+        users: [{ account: "123@gmail.com ", password: "123456" }],
+      };
       // 2 check if account exists
       if (userData.users.find((user) => user.account === account)) {
         return this.$Message.error("帳號已被註冊");
