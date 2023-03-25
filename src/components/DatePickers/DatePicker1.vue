@@ -2,28 +2,24 @@
 #DatePicker1
   h2.desc {{ "type = date / daterange，可以用 placement 決定彈窗的出現位置" }}
   .container
-    DatePicker
-      Row
-        Col(span="12")
-          DatePicker(type="date", placeholder="date")
-        Col(span="12")
-          DatePicker(
-            type="daterange",
-            placeholder="date range",
-            placement="bottom-end"
-          )
-  h2.desc {{ "幫 datepicker 新增側邊欄位選項，需要在 data() 裡面設定 shortcuts[]，每個欄位都是一個物件，再用 value() 來設定值" }}
+    Col
+      DatePicker(type="date", placeholder="date")
+    Col
+      DatePicker(
+        type="daterange",
+        placeholder="date range",
+        placement="bottom-end"
+      )
+  h2.desc {{ "✨ 幫 datepicker 新增側邊欄位選項，需要在 data() 裡面設定 shortcuts[]，每個欄位都是一個物件，再用 value() 來設定值" }}
   .container
-    DatePicker
-      Row
-        Col(span="12")
-          DatePicker(type="date", placeholder="date", :options="options1")
-        Col(span="12")
-          DatePicker(
-            type="daterange",
-            placeholder="date range",
-            :options="options2"
-          )
+    Col
+      DatePicker(type="date", placeholder="date", :options="options1")
+    Col
+      DatePicker(
+        type="daterange",
+        placeholder="date range",
+        :options="options2"
+      )
 </template>
 
 <script>
@@ -118,6 +114,7 @@ export default {
   }
   .container {
     border: 1px solid black;
+    background-color:lightgray;
     width: 500px;
     padding: 50px;
     margin: 10px;
