@@ -4,9 +4,15 @@
     h1 {{ displayTime }}
     .btnContainer
       Button(@click="HandleStart") {{ "Start Countdown" }}
-      Button(@click="HandleStop") {{ "Stop Countdown" }}
+      Button(@click="HandleStop", v-if="isRunning") {{ "Stop Countdown" }}
       Button(@click="HandleClear") {{ "Clear Countdown" }}
-    TimePicker(v-if="!isRunning")
+    .inputContainer(v-if="!isRunning")
+      Select(v-model="time.hour", placeholder="時")
+        Option(v-for="i in 12", :value="i", :key="i") {{ i }}
+      Select(v-model="time.min", placeholder="分")
+        Option(v-for="i in 59", :value="i", :key="i") {{ i }}
+      Select(v-model="time.sec", placeholder="秒")
+        Option(v-for="i in 59", :value="i", :key="i") {{ i }}
 </template>
 
 <script>
@@ -14,24 +20,39 @@ export default {
   name: "CountDown",
   data() {
     return {
-      hour: 0,
-      min: 0,
-      sec: 0,
+      time: {
+        hour: 0,
+        min: 0,
+        sec: 0,
+      },
       intervalStatus: null,
       isRunning: false,
     };
   },
   computed: {
     displayTime() {
-      let displayHour = this.hour < 10 ? `0${this.hour}` : this.hour;
-      let displayMin = this.min < 10 ? `0${this.min}` : this.min;
-      let displaySec = this.sec < 10 ? `0${this.sec}` : this.sec;
-      return `${displayHour} : ${displayMin} : ${displaySec}`;
+      let displayHr = this.time.hour < 10 ? `0${this.time.hour}` : this.time.hour;
+      let displayMin = this.time.min < 10 ? `0${this.time.min}` : this.time.min;
+      let displaySec = this.time.sec < 10 ? `0${this.time.sec}` : this.time.sec;
+      return `${displayHr} : ${displayMin} : ${displaySec}`;
     },
   },
+  watch:{
+    time:{
+      updateTime(){
+        this.displayTime = th
+      }
+    }
+  },
   methods: {
+    // 把顯示
     // 開始倒數
     HandleStart() {
+      if (this.time.hour === 0 && this.time.min === 0 && this.time.sec === 0) {
+        this.$Message.error("請選擇時間");
+        this.isRunning = false;
+        return;
+      }
       this.$Message.success("Start Countdown");
       this.isRunning = true;
       if (this.intervalStatus !== null) {
@@ -48,29 +69,29 @@ export default {
     HandleClear() {
       this.$Message.info("Reset Countdown");
       this.isRunning = false;
+      this.time.hour = 0;
+      this.time.min = 0;
+      this.time.sec = 0;
       clearInterval(this.intervalStatus);
-      this.hour = 0;
-      this.min = 0;
-      this.sec = 0;
     },
     // interval 的 function
     Counter() {
-      this.sec--;
-      if (this.hour === 0 && this.min === 0 && this.sec === 0) {
+      this.time.sec--;
+      if (this.time.hour === 0 && this.time.min === 0 && this.time.sec === 0) {
         clearInterval(this.intervalStatus);
         this.$Message.success("Timer ended");
         this.isRunning = false;
       }
-      if (this.sec < 0) {
-        this.min--;
-        this.sec = 59;
+      if (this.time.sec < 0) {
+        this.time.min--;
+        this.time.sec = 59;
       }
-      if (this.min < 0) {
-        this.hour--;
-        this.min = 59;
+      if (this.time.min < 0) {
+        this.time.hour--;
+        this.time.min = 59;
       }
-      if (this.hour < 0) {
-        this.hour = 0;
+      if (this.time.hour < 0) {
+        this.time.hour = 0;
       }
     },
   },
@@ -85,6 +106,9 @@ export default {
     padding: 50px;
     @extend .center;
     flex-direction: column;
+    .inputContainer {
+      display: flex;
+    }
   }
 }
 .center {
