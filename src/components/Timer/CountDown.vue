@@ -6,6 +6,7 @@
       Button(@click="HandleStart") {{ "Start Countdown" }}
       Button(@click="HandleStop") {{ "Stop Countdown" }}
       Button(@click="HandleReset") {{ "Reset Countdown" }}
+    TimePicker
 </template>
 
 <script>
@@ -13,8 +14,8 @@ export default {
   name: "CountDown",
   data() {
     return {
-      hour: 1,
-      min: 2,
+      hour: 0,
+      min: 0,
       sec: 0,
       intervalStatus: null,
     };
@@ -54,16 +55,18 @@ export default {
       this.sec--;
       if (this.hour === 0 && this.min === 0 && this.sec === 0) {
         clearInterval(this.intervalStatus);
+        this.$Message.success("Timer ended");
       }
       if (this.sec < 0) {
         this.min--;
-        this.sec = 60;
-        if (this.min < 0) {
-          this.min = 59;
-          if (this.hour < 0) {
-            this.hour = 0;
-          }
-        }
+        this.sec = 59;
+      }
+      if (this.min < 0) {
+        this.hour--;
+        this.min = 59;
+      }
+      if (this.hour < 0) {
+        this.hour = 0;
       }
     },
   },

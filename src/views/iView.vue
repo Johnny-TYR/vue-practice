@@ -1,8 +1,7 @@
 <template>
   <div>
-    <p>Count: {{ count }}</p>
-    <button @click="decrement">-</button>
-    <button @click="increment">+</button>
+    <TimePicker v-model="selectedTime" :format="format"></TimePicker>
+    <p>Selected Time: {{ selectedTime }}</p>
   </div>
 </template>
 
@@ -10,26 +9,9 @@
 export default {
   data() {
     return {
-      value: 0,
+      selectedTime: "",
+      format: "HH:mm",
     };
-  },
-  computed: {
-    count: {
-      get() {
-        return this.value;
-      },
-      set(newValue) {
-        this.value = newValue < 0 ? 0 : newValue;
-      },
-    },
-  },
-  methods: {
-    increment() {
-      this.count++;
-    },
-    decrement() {
-      this.count--;
-    },
   },
 };
 </script>
