@@ -1,9 +1,8 @@
 <template>
   <div>
-    <div class="timerDisplay">{{ display }}</div>
-    <button @click="startTimer">Start</button>
-    <button @click="pauseTimer">Pause</button>
-    <button @click="resetTimer">Reset</button>
+    <p>Count: {{ count }}</p>
+    <button @click="decrement">-</button>
+    <button @click="increment">+</button>
   </div>
 </template>
 
@@ -11,58 +10,25 @@
 export default {
   data() {
     return {
-      milliseconds: 0,
-      seconds: 0,
-      minutes: 0,
-      hours: 0,
-      interval: null,
+      value: 0,
     };
   },
   computed: {
-    display() {
-      let h = this.hours < 10 ? "0" + this.hours : this.hours;
-      let m = this.minutes < 10 ? "0" + this.minutes : this.minutes;
-      let s = this.seconds < 10 ? "0" + this.seconds : this.seconds;
-      let ms =
-        this.milliseconds < 10
-          ? "00" + this.milliseconds
-          : this.milliseconds < 100
-          ? "0" + this.milliseconds
-          : this.milliseconds;
-      return `${h} : ${m} : ${s} : ${ms}`;
+    count: {
+      get() {
+        return this.value;
+      },
+      set(newValue) {
+        this.value = newValue < 0 ? 0 : newValue;
+      },
     },
   },
   methods: {
-    startTimer() {
-      if (this.interval !== null) {
-        clearInterval(this.interval);
-      }
-      this.interval = setInterval(this.displayTimer, 10);
+    increment() {
+      this.count++;
     },
-    pauseTimer() {
-      clearInterval(this.interval);
-    },
-    resetTimer() {
-      clearInterval(this.interval);
-      this.milliseconds = 0;
-      this.seconds = 0;
-      this.minutes = 0;
-      this.hours = 0;
-    },
-    displayTimer() {
-      this.milliseconds += 10;
-      if (this.milliseconds == 1000) {
-        this.milliseconds = 0;
-        this.seconds++;
-        if (this.seconds == 60) {
-          this.seconds = 0;
-          this.minutes++;
-          if (this.minutes == 60) {
-            this.minutes = 0;
-            this.hours++;
-          }
-        }
-      }
+    decrement() {
+      this.count--;
     },
   },
 };

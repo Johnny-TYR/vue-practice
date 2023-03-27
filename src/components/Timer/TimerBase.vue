@@ -16,6 +16,7 @@ export default {
       hour: 0,
       min: 0,
       sec: 0,
+      // 會在 runInterval 綁定 setInterval
       runInterval: null,
     };
   },
@@ -32,9 +33,9 @@ export default {
     StartTimer() {
       this.$Message.success("Start");
       if (this.runInterval !== null) {
-        clearInterval(this.runInterval)
+        clearInterval(this.runInterval);
       }
-      this.runInterval = setInterval(this.Counter, 100);
+      this.runInterval = setInterval(this.Counter, 1000);
     },
     // 停止計時器
     StopTimer() {
@@ -68,9 +69,16 @@ export default {
 <style lang="scss" scoped>
 #TimerBase {
   .TimerBase {
-    outline: auto;
+    width: 500px;
+    border: 1px solid black;
+    padding: 50px;
+    @extend .center;
+    flex-direction: column;
   }
 }
-#TimerBase {
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
