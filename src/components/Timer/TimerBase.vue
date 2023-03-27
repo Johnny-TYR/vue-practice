@@ -1,11 +1,11 @@
 <template lang="pug">
 #TimerBase
   .TimerBase
-    h1 {{ time }}
+    h1 {{ displayTime }}
     .btnContainer
-      Button(@click="start") {{ "start" }}
-      Button(@click="stop") {{ "stop" }}
-      Button(@click="reset") {{ "reset" }}
+      Button(@click="StartTimer") {{ "StartTimer" }}
+      Button(@click="StopTimer") {{ "StopTimer" }}
+      Button(@click="ResetTimer") {{ "ResetTimer" }}
 </template>
 
 <script>
@@ -13,26 +13,42 @@ export default {
   name: "TimerBase",
   data() {
     return {
-      time: 0,
       runClock: null,
+      hour: 0,
+      min: 0,
+      sec: 0,
+      runClockInterval: null,
     };
   },
-
+  computed: {
+    displayTime() {
+      let displayHour = this.hour < 10 ? `0${this.hour}` : this.hour;
+      let displayMin = this.hour < 10 ? `0${this.min}` : this.min;
+      let displaySec = this.sec < 10 ? `0${this.sec}` : this.sec;
+      return `${displayHour} : ${displayMin} : ${displaySec}`;
+    },
+  },
   methods: {
-    start() {
+    // 開始計時器
+    StartTimer() {
       this.$Message.success("Start");
-      this.runClock = setInterval(() => {
-        this.time++;
-      }, 1000);
     },
-    stop() {
-      this.$Message.error("stop");
-      clearInterval(this.runClock)
+    // 停止計時器
+    StopTimer() {
+      this.$Message.error("StopTimer");
     },
-    reset() {
-      this.$Message.info("reset");
-      this.time = 0
+    // 歸零計時器
+    ResetTimer() {
+      this.$Message.info("ResetTimer");
+      clearInterval(this.runClockInterval);
+      this.hour = 0;
+      this.min = 0;
+      this.sec = 0;
     },
+    // 設定計時的
+    Interval(){
+      
+    }
   },
 };
 </script>
