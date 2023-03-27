@@ -35,7 +35,7 @@ export default {
       if (this.runInterval !== null) {
         clearInterval(this.runInterval);
       }
-      this.runInterval = setInterval(this.Counter, 1000);
+      this.runInterval = setInterval(this.Counter, 10);
     },
     // 停止計時器
     StopTimer() {

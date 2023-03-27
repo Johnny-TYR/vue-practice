@@ -5,8 +5,8 @@
     .btnContainer
       Button(@click="HandleStart") {{ "Start Countdown" }}
       Button(@click="HandleStop") {{ "Stop Countdown" }}
-      Button(@click="HandleReset") {{ "Reset Countdown" }}
-    TimePicker
+      Button(@click="HandleClear") {{ "Clear Countdown" }}
+    TimePicker(v-if="!isRunning")
 </template>
 
 <script>
@@ -18,6 +18,7 @@ export default {
       min: 0,
       sec: 0,
       intervalStatus: null,
+      isRunning: false,
     };
   },
   computed: {
@@ -32,6 +33,7 @@ export default {
     // 開始倒數
     HandleStart() {
       this.$Message.success("Start Countdown");
+      this.isRunning = true;
       if (this.intervalStatus !== null) {
         clearInterval(this.intervalStatus);
       }
@@ -43,8 +45,9 @@ export default {
       clearInterval(this.intervalStatus);
     },
     // 歸零
-    HandleReset() {
+    HandleClear() {
       this.$Message.info("Reset Countdown");
+      this.isRunning = false;
       clearInterval(this.intervalStatus);
       this.hour = 0;
       this.min = 0;
@@ -56,6 +59,7 @@ export default {
       if (this.hour === 0 && this.min === 0 && this.sec === 0) {
         clearInterval(this.intervalStatus);
         this.$Message.success("Timer ended");
+        this.isRunning = false;
       }
       if (this.sec < 0) {
         this.min--;
