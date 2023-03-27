@@ -7,6 +7,7 @@
         <router-link to="/datepickers">Date Pickers</router-link>
         <router-link to="/todolist1">TodoList</router-link>
         <router-link :to="{ name: 'vuex' }">Vuex</router-link>
+        <router-link :to="{ name: 'timer' }">Timer</router-link>
         <router-link :to="{ name: 'iview' }">iView</router-link>
       </nav>
     </div>

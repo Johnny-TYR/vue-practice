@@ -18,23 +18,28 @@ const routes = [
   },
   {
     path: '/datepickers',
-    name:'datepickers',
-    component: ()=> import('../views/DataPickerView.vue')
+    name: 'datepickers',
+    component: () => import('../views/DataPickerView.vue')
   },
   {
     path: '/vuex',
-    name:'vuex',
-    component: ()=> import('../views/VuexView.vue')
+    name: 'vuex',
+    component: () => import('../views/VuexView.vue')
   },
   {
     path: '/iview',
-    name:'iview',
-    component: ()=> import('../views/iView.vue')
+    name: 'iview',
+    component: () => import('../views/iView.vue')
   },
   {
     path: '/todolist1',
-    name:'todolist1',
-    component: ()=> import('../views/TodoListView.vue')
+    name: 'todolist1',
+    component: () => import('../views/TodoListView.vue')
+  },
+  {
+    path: '/timer',
+    name: 'timer',
+    component: () => import('../views/TimerView.vue')
   },
 ]
 
