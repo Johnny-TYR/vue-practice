@@ -8,7 +8,7 @@
         <router-link to="/todolist1">TodoList</router-link>
         <router-link :to="{ name: 'vuex' }">Vuex</router-link>
         <router-link :to="{ name: 'timer' }">Timer</router-link>
-        <router-link :to="{ name: 'iview' }">iView</router-link>
+        <router-link :to="{ name: 'example' }">Copied Code</router-link>
       </nav>
     </div>
     <router-view :style="contentStyle" />

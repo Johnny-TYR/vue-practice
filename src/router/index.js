@@ -27,9 +27,9 @@ const routes = [
     component: () => import('../views/VuexView.vue')
   },
   {
-    path: '/iview',
-    name: 'iview',
-    component: () => import('../views/iView.vue')
+    path: '/example',
+    name: 'example',
+    component: () => import('../views/Example.vue')
   },
   {
     path: '/todolist1',
