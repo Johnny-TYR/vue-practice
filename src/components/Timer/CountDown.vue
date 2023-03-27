@@ -8,11 +8,11 @@
       Button(@click="HandleClear") {{ "Clear Countdown" }}
     .inputContainer(v-if="!isRunning")
       Select(v-model="time.hour", placeholder="時")
-        Option(v-for="i in 12", :value="i", :key="i") {{ i }}
+        Option(v-for="i of hourList", :value="i", :key="i") {{ i }}
       Select(v-model="time.min", placeholder="分")
-        Option(v-for="i in 59", :value="i", :key="i") {{ i }}
+        Option(v-for="i of 59", :value="i", :key="i") {{ i }}
       Select(v-model="time.sec", placeholder="秒")
-        Option(v-for="i in 59", :value="i", :key="i") {{ i }}
+        Option(v-for="i of 59", :value="i", :key="i") {{ i }}
 </template>
 
 <script>
@@ -27,25 +27,23 @@ export default {
       },
       intervalStatus: null,
       isRunning: false,
+      hourList:[0,1,2,3,4,5,6,7,8,9,10,11,12]
     };
   },
   computed: {
     displayTime() {
-      let displayHr = this.time.hour < 10 ? `0${this.time.hour}` : this.time.hour;
+      return this.GetDisplayTime();
+    },
+  },
+  methods: {
+    // 把顯示
+    GetDisplayTime() {
+      let displayHr =
+        this.time.hour < 10 ? `0${this.time.hour}` : this.time.hour;
       let displayMin = this.time.min < 10 ? `0${this.time.min}` : this.time.min;
       let displaySec = this.time.sec < 10 ? `0${this.time.sec}` : this.time.sec;
       return `${displayHr} : ${displayMin} : ${displaySec}`;
     },
-  },
-  watch:{
-    time:{
-      updateTime(){
-        this.displayTime = th
-      }
-    }
-  },
-  methods: {
-    // 把顯示
     // 開始倒數
     HandleStart() {
       if (this.time.hour === 0 && this.time.min === 0 && this.time.sec === 0) {
@@ -81,17 +79,21 @@ export default {
         clearInterval(this.intervalStatus);
         this.$Message.success("Timer ended");
         this.isRunning = false;
+        return;
       }
       if (this.time.sec < 0) {
         this.time.min--;
         this.time.sec = 59;
+        return;
       }
       if (this.time.min < 0) {
         this.time.hour--;
         this.time.min = 59;
+        return;
       }
       if (this.time.hour < 0) {
         this.time.hour = 0;
+        return;
       }
     },
   },
