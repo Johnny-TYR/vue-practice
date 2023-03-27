@@ -8,11 +8,11 @@
       Button(@click="HandleClear") {{ "Clear Countdown" }}
     .inputContainer(v-if="!isRunning")
       Select(v-model="time.hour", placeholder="時")
-        Option(v-for="i of hourList", :value="i", :key="i") {{ i }}
+        Option(v-for="i of 13", :value="i-1", :key="i-1") {{ i-1 }}
       Select(v-model="time.min", placeholder="分")
-        Option(v-for="i of 59", :value="i", :key="i") {{ i }}
+        Option(v-for="i of 59", :value="i-1", :key="i-1") {{ i-1 }}
       Select(v-model="time.sec", placeholder="秒")
-        Option(v-for="i of 59", :value="i", :key="i") {{ i }}
+        Option(v-for="i of 59", :value="i-1", :key="i-1") {{ i-1 }}
 </template>
 
 <script>
@@ -26,8 +26,7 @@ export default {
         sec: 0,
       },
       intervalStatus: null,
-      isRunning: false,
-      hourList:[0,1,2,3,4,5,6,7,8,9,10,11,12]
+      isRunning: false
     };
   },
   computed: {
