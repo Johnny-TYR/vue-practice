@@ -3,12 +3,12 @@
   .flip-card.flip
     .top {{ "5" }}
     .bottom {{ "5" }}
+    .top-flip {{ "5" }}
+    .bottom-flip {{ "5" }}
 </template>
 
 <script>
-export default {
-  
-};
+export default {};
 </script>
 
 
@@ -52,23 +52,25 @@ export default {
     }
   }
   // 動畫個別的 flap，一個上到中，一個中到下 ============================================================
-  .flip::after,
-  .flip::before {
+  .bottom-flip,
+  .top-flip {
     height: 0.75em;
     padding: 0.25em;
     line-height: 1;
     overflow: hidden;
+    width: 100%;
   }
   // top animation ********************
-  .flip::before {
-    content: "5";
+  .top-flip {
     position: absolute;
     width: 100%;
     background-color: whitesmoke;
+    background: red;
     @extend .top-border;
     animation: flip-top 1000ms ease-in;
     transform-origin: bottom;
     border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    animation-iteration-count: infinite;
   }
   @keyframes flip-top {
     100% {
@@ -76,19 +78,20 @@ export default {
     }
   }
   // bottom animation ********************
-  .flip::after {
-    content: "5";
+  .bottom-flip {
     position: absolute;
     bottom: 0;
     color: black;
+    background: blue;
     display: flex;
     align-items: flex-end;
     width: 100%;
     @extend .bottom-border;
-    animation: flip-bottom 1000ms ease-out 250ms;
+    animation: flip-bottom 1000ms ease;
     transform-origin: top;
     transform: rotateX(90deg);
     animation-delay: 1000ms;
+    animation-iteration-count: infinite;
   }
   @keyframes flip-bottom {
     100% {
