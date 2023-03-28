@@ -1,29 +1,32 @@
 <template lang="pug">
 #FlipCard
-  .flip-card.flip
-    .top(ref="og-top") {{ newNum }}
-    .bottom(ref="og-bot") {{ startNum }}
-    .top-flip(ref="flip-top", v-if="isCounting") {{ startNum }}
-    .bottom-flip(ref="flip-bot", v-if="isCounting") {{ newNum }}
-    //- top-flip 跟 bottom 原數字一開始是舊數字，top-flip 完要變新數字
-    //- top 一開始就是新數字
-    //- -> bottom-flip 新數字結束後 bottom 要變新數字
+  .flip-card
+    .top(ref="top") {{ startNum - 1 }}
+    .bottom(ref="bottom") {{ startNum }}
+    .animateTop(ref="animateTop", v-if="isCounting") {{ startNum }}
+    .animateBot(ref="animateBot", v-if="isCounting") {{ startNum - 1 }}
   Button(type="primary", @click="ToggleCount") {{ "toggle countdown" }}
 </template>
 <script>
 export default {
   data() {
     return {
-      isCounting: false,
-      startNum: 9,
-      newNum: 8,
+      isCounting: true,
+      startNum: 8,
     };
   },
+  watch: {},
   methods: {
     ToggleCount() {
-      this.isCounting = !this.isCounting;
-      this.startNum--;
-      this.newNum--;
+      this.isCounting = true;
+      this.$nextTick(() => {
+        this.$refs.animateTop.classList.add("top-flip");
+        this.$refs.animateBot.classList.add("bottom-flip");
+        setTimeout(() => {
+          this.$refs.animateTop.classList.remove("top-flip");
+          this.$refs.animateBot.classList.remove("bottom-flip");
+        }, 2000);
+      });
     },
   },
 };
@@ -88,7 +91,6 @@ export default {
     animation: flip-top 1000ms ease-in;
     transform-origin: bottom;
     border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-    animation-iteration-count: infinite;
   }
   @keyframes flip-top {
     // 50% {
@@ -112,7 +114,6 @@ export default {
     transform-origin: top;
     transform: rotateX(90deg);
     animation-delay: 1000ms;
-    animation-iteration-count: infinite;
   }
   @keyframes flip-bottom {
     100% {
