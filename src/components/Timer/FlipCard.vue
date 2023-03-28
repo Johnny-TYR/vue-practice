@@ -1,30 +1,44 @@
 <template lang="pug">
 #FlipCard
   .flip-card
-    .top(ref="top") {{ startNum - 1 }}
+    .top(ref="top") {{ startNum }}
     .bottom(ref="bottom") {{ startNum }}
     .animateTop(ref="animateTop", v-if="isCounting") {{ startNum }}
-    .animateBot(ref="animateBot", v-if="isCounting") {{ startNum - 1 }}
+    .animateBot(ref="animateBot", v-if="isCounting") {{ startNum }}
   Button(type="primary", @click="ToggleCount") {{ "toggle countdown" }}
 </template>
 <script>
 export default {
+  props:{
+    startNum:{
+      type:Number,
+      default:0
+    }
+  },
   data() {
     return {
-      isCounting: true,
-      startNum: 8,
+      isCounting: false,
     };
   },
-  watch: {},
+  watch: {
+    startNum(){
+      this.ToggleCount();
+    }
+  },
   methods: {
     ToggleCount() {
+      if (this.startNum <= 0) {
+        return;
+      }
       this.isCounting = true;
+      // $nextTick => defer the execution of a function until the next tick of the event loop, waits for vue to update the component
       this.$nextTick(() => {
         this.$refs.animateTop.classList.add("top-flip");
         this.$refs.animateBot.classList.add("bottom-flip");
         setTimeout(() => {
           this.$refs.animateTop.classList.remove("top-flip");
           this.$refs.animateBot.classList.remove("bottom-flip");
+          this.isCounting = false;
         }, 2000);
       });
     },
@@ -46,23 +60,25 @@ export default {
     display: inline-flex;
     flex-direction: column;
     border-radius: 0.1em;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 2px 29px rgba(0, 0, 0, 3);
     position: relative;
     // decoration only
-    font-size: 25rem;
+    font-size: 20rem;
     font-weight: bolder;
     font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
     // divide into two halves ======================================================================
     .top {
-      background-color: whitesmoke;
+      background-color: #f7f7f7;
       @extend .top-border;
+      border-bottom: 2px solid rgba(0, 0, 0, 0.1);
     }
     .bottom {
       background-color: white;
       display: flex;
       align-items: flex-end;
       @extend .bottom-border;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      border-top: 2px solid rgba(0, 0, 0, 0.1);
     }
     .top,
     .bottom {
@@ -85,8 +101,7 @@ export default {
   .top-flip {
     position: absolute;
     width: 100%;
-    background-color: whitesmoke;
-    background: darkcyan;
+    background-color: #f7f7f7;
     @extend .top-border;
     animation: flip-top 1000ms ease-in;
     transform-origin: bottom;
@@ -105,11 +120,12 @@ export default {
     position: absolute;
     bottom: 0;
     color: black;
-    background: lightblue;
+    background: white;
     display: flex;
     align-items: flex-end;
     width: 100%;
     @extend .bottom-border;
+    border-top: 2px solid rgba(0, 0, 0, 0.1);
     animation: flip-bottom 1000ms ease-out;
     transform-origin: top;
     transform: rotateX(90deg);
