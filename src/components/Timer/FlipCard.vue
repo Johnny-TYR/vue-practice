@@ -1,14 +1,32 @@
 <template lang="pug">
 #FlipCard
   .flip-card.flip
-    .top {{ "5" }}
-    .bottom {{ "5" }}
-    .top-flip {{ "5" }}
-    .bottom-flip {{ "5" }}
+    .top(ref="og-top") {{ newNum }}
+    .bottom(ref="og-bot") {{ startNum }}
+    .top-flip(ref="flip-top", v-if="isCounting") {{ startNum }}
+    .bottom-flip(ref="flip-bot", v-if="isCounting") {{ newNum }}
+    //- top-flip 跟 bottom 原數字一開始是舊數字，top-flip 完要變新數字
+    //- top 一開始就是新數字
+    //- -> bottom-flip 新數字結束後 bottom 要變新數字
+  Button(type="primary", @click="ToggleCount") {{ "toggle countdown" }}
 </template>
-
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      isCounting: false,
+      startNum: 9,
+      newNum: 8,
+    };
+  },
+  methods: {
+    ToggleCount() {
+      this.isCounting = !this.isCounting;
+      this.startNum--;
+      this.newNum--;
+    },
+  },
+};
 </script>
 
 
@@ -65,7 +83,7 @@ export default {};
     position: absolute;
     width: 100%;
     background-color: whitesmoke;
-    background: red;
+    background: darkcyan;
     @extend .top-border;
     animation: flip-top 1000ms ease-in;
     transform-origin: bottom;
@@ -73,6 +91,9 @@ export default {};
     animation-iteration-count: infinite;
   }
   @keyframes flip-top {
+    // 50% {
+    //   transform: rotateX(90deg);
+    // }
     100% {
       transform: rotateX(90deg);
     }
@@ -82,12 +103,12 @@ export default {};
     position: absolute;
     bottom: 0;
     color: black;
-    background: blue;
+    background: lightblue;
     display: flex;
     align-items: flex-end;
     width: 100%;
     @extend .bottom-border;
-    animation: flip-bottom 1000ms ease;
+    animation: flip-bottom 1000ms ease-out;
     transform-origin: top;
     transform: rotateX(90deg);
     animation-delay: 1000ms;
