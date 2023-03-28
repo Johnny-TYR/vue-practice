@@ -1,23 +1,24 @@
 <template lang="pug">
 #TimerBase
   .TimerBase
-    h1 {{ displayTime }}
+    //- h1 {{ displayTime }}
     .displayContainer
       .hourContainer.container
-        FlipCard
-        FlipCard
+        FlipCard(:startNum="hourTen")
+        FlipCard(:startNum="hour")
       h1.colon {{ ":" }}
       .minContainer.container
-        FlipCard
-        FlipCard
+        FlipCard(:startNum="minTen")
+        FlipCard(:startNum="min")
       h1.colon {{ ":" }}
       .secContainer.container
-        FlipCard(:startNum="numbers.secTen")
-        FlipCard(:startNum="9")
+        FlipCard(:startNum="secTen")
+        FlipCard(:startNum="sec")
     .btnContainer
       Button(@click="StartTimer") {{ "StartTimer" }}
       Button(@click="StopTimer") {{ "StopTimer" }}
       Button(@click="ResetTimer") {{ "ResetTimer" }}
+  pre {{ sec }}
 </template>
 
 <script>
@@ -28,18 +29,17 @@ export default {
   },
   data() {
     return {
-      hour: 0,
-      min: 0,
       sec: 0,
+      secTen: 0,
+      min: 0,
+      minTen:0,
+      hour: 0,
+      hourTen:0,
       // 會在 runInterval 綁定 setInterval
       runInterval: null,
-      // 給 component 用的
-      numbers: {
-        sec: 0,
-        secTen: 0,
-      },
     };
   },
+  // 換成 component 就沒用到了
   computed: {
     displayTime() {
       let displayHour = this.hour < 10 ? `0${this.hour}` : this.hour;
@@ -67,19 +67,37 @@ export default {
       this.$Message.info("ResetTimer");
       clearInterval(this.runInterval);
       this.hour = 0;
+      this.hourTen = 0;
       this.min = 0;
+      this.minTen = 0;
       this.sec = 0;
+      this.secTen = 0;
     },
     // 設定計時的
     Counter() {
       this.sec++;
-      if (this.sec === 60) {
+      if (this.sec === 10) {
         this.sec = 0;
+        this.secTen++;
+      }
+      if (this.secTen === 6) {
+        this.secTen = 0;
         this.min++;
       }
-      if (this.min === 60) {
+      if (this.min === 10) {
         this.min = 0;
+        this.minTen++;
+      }
+      if (this.minTen === 6) {
+        this.minTen = 0;
         this.hour++;
+      }
+      if (this.hour === 10) {
+        this.hour = 0;
+        this.hourTen++;
+      }
+      if(this.hourTen == 10){
+        this.StopTimer()
       }
     },
   },

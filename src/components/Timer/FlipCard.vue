@@ -3,8 +3,8 @@
   .flip-card
     .top(ref="top") {{ startNum }}
     .bottom(ref="bottom") {{ startNum }}
-    .animateTop(ref="animateTop", v-if="isCounting") {{ newNum }}
-    .animateBot(ref="animateBot", v-if="isCounting") {{ newNum }}
+    .animateTop(ref="animateTop", :class="{ 'top-flip': isCounting }") {{ startNum }}
+    .animateBot(ref="animateBot", :class="{ 'bottom-flip': isCounting }") {{ startNum }}
 </template>
 <script>
 export default {
@@ -19,29 +19,19 @@ export default {
       isCounting: false,
     };
   },
-  computed: {
-    newNum() {
-      return this.startNum ;
-    },
-  },
   watch: {
     startNum() {
-      this.ToggleCount();
+      setTimeout(() => {
+        this.ToggleCount();
+      }, 950);
     },
   },
   methods: {
     ToggleCount() {
       this.isCounting = true;
-      // $nextTick => defer the execution of a function until the next tick of the event loop, waits for vue to update the component
-      this.$nextTick(() => {
-        this.$refs.animateTop.classList.add("top-flip");
-        this.$refs.animateBot.classList.add("bottom-flip");
-        setTimeout(() => {
-          this.$refs.animateTop.classList.remove("top-flip");
-          this.$refs.animateBot.classList.remove("bottom-flip");
-          this.isCounting = false;
-        }, 800); // 幾秒後移除動畫
-      });
+      setTimeout(() => {
+        this.isCounting = false;
+      }, 500); // 幾秒後移除 class
     },
   },
 };
@@ -49,15 +39,14 @@ export default {
 
 
 <style lang="scss" scoped>
-*,
-*::after,
-*::before {
+* {
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 #FlipCard {
   // 佈局 CSS
   .flip-card {
-    color: black;
     display: inline-flex;
     flex-direction: column;
     border-radius: 0.1em;
@@ -91,7 +80,10 @@ export default {
   }
   // 動畫個別的 flap，一個上到中，一個中到下 ============================================================
   .bottom-flip,
-  .top-flip {
+  .top-flip,
+  .animateTop,
+  .animateBot {
+    position: absolute;
     height: 0.75em;
     padding: 0.25em;
     line-height: 1;
@@ -100,12 +92,9 @@ export default {
   }
   // top animation ********************
   .top-flip {
-    position: absolute;
-    width: 100%;
     background-color: #f7f7f7;
-    background-color: red;
     @extend .top-border;
-    animation: flip-top 400ms ease-in;
+    animation: flip-top 250ms ease-in;
     transform-origin: bottom;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
@@ -116,20 +105,16 @@ export default {
   }
   // bottom animation ********************
   .bottom-flip {
-    position: absolute;
     bottom: 0;
-    color: black;
     background-color: white;
-    background-color: blue;
     display: flex;
     align-items: flex-end;
-    width: 100%;
     @extend .bottom-border;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-    animation: flip-bottom 400ms ease-out;
+    animation: flip-bottom 250ms ease-out;
     transform-origin: top;
     transform: rotateX(90deg);
-    animation-delay: 400ms;
+    animation-delay: 250ms;
   }
   @keyframes flip-bottom {
     100% {
