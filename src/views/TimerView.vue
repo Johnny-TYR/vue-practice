@@ -20,10 +20,10 @@ export default {
       setInterval(() => {
         if (this.startNum + 1 === 10) {
           this.startNum = 0;
-        } else {
-          this.startNum++;
+          return;
         }
-      }, 2000);
+        this.startNum++;
+      }, 1000);
     },
   },
   components: {
@@ -35,8 +35,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#TimerView{
-  Button{
+#TimerView {
+  Button {
     margin-top: 100px;
     margin-bottom: 100px;
   }

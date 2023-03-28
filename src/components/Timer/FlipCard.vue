@@ -3,8 +3,9 @@
   .flip-card
     .top(ref="top") {{ startNum }}
     .bottom(ref="bottom") {{ startNum }}
-    .animateTop(ref="animateTop", v-if="isCounting") {{ startNum }}
-    .animateBot(ref="animateBot", v-if="isCounting") {{ startNum }}
+    .animateTop(ref="animateTop", v-if="isCounting") {{ newNum }}
+    .animateBot(ref="animateBot", v-if="isCounting") {{ newNum }}
+  pre {{ newNum }}
 </template>
 <script>
 export default {
@@ -18,6 +19,11 @@ export default {
     return {
       isCounting: false,
     };
+  },
+  computed: {
+    newNum() {
+      return this.startNum ;
+    },
   },
   watch: {
     startNum() {
