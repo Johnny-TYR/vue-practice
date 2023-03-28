@@ -5,6 +5,13 @@
     .bottom {{ "5" }}
 </template>
 
+<script>
+export default {
+  
+};
+</script>
+
+
 <style lang="scss" scoped>
 *,
 *::after,
@@ -14,7 +21,7 @@
 #FlipCard {
   // 佈局 CSS
   .flip-card {
-    color: blue;
+    color: black;
     display: inline-flex;
     flex-direction: column;
     border-radius: 0.1em;
@@ -26,15 +33,15 @@
     font-family: Arial, Helvetica, sans-serif;
     // divide into two halves ======================================================================
     .top {
-      background-color: #f7f7f7;
+      background-color: whitesmoke;
       @extend .top-border;
-      // border-bottom: 3px solid rgba(0, 0, 0, 0.1);
     }
     .bottom {
       background-color: white;
       display: flex;
       align-items: flex-end;
       @extend .bottom-border;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
     }
     .top,
     .bottom {
@@ -52,33 +59,33 @@
     line-height: 1;
     overflow: hidden;
   }
-  // top animation
+  // top animation ********************
   .flip::before {
     content: "5";
     position: absolute;
     width: 100%;
-    background-color: #f7f7f7;
+    background-color: whitesmoke;
     @extend .top-border;
     animation: flip-top 1000ms ease-in;
     transform-origin: bottom;
-    border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   }
   @keyframes flip-top {
     100% {
       transform: rotateX(90deg);
     }
   }
-  // bottom animation
+  // bottom animation ********************
   .flip::after {
     content: "5";
     position: absolute;
     bottom: 0;
-    color: blue;
+    color: black;
     display: flex;
     align-items: flex-end;
     width: 100%;
     @extend .bottom-border;
-    animation: flip-bottom 1000ms ease-out;
+    animation: flip-bottom 1000ms ease-out 250ms;
     transform-origin: top;
     transform: rotateX(90deg);
     animation-delay: 1000ms;
