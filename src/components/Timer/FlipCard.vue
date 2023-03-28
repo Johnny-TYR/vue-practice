@@ -61,6 +61,7 @@ export default {
     font-family: Arial, Helvetica, sans-serif;
     overflow: hidden;
     gap: 1.5px;
+    background-color: rgba(0, 0, 0, 0.1);
     // divide into two halves ======================================================================
     .top {
       background-color: #f7f7f7;
