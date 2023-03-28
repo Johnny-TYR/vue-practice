@@ -51,10 +51,11 @@ export default {
   }
   .container {
     border: 1px solid black;
-    background-color: lightgray;
+    background-color: cyan;
     width: 500px;
     padding: 50px;
     margin: 10px;
+    margin-bottom: 500px;
     @extend .center;
   }
 }

@@ -1,7 +1,6 @@
 <template lang="pug">
 #TimerBase
   .TimerBase
-    //- h1 {{ displayTime }}
     .displayContainer
       .hourContainer.container
         FlipCard(:startNum="hourTen")
@@ -18,7 +17,6 @@
       Button(@click="StartTimer") {{ "StartTimer" }}
       Button(@click="StopTimer") {{ "StopTimer" }}
       Button(@click="ResetTimer") {{ "ResetTimer" }}
-  pre {{ sec }}
 </template>
 
 <script>
