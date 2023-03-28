@@ -2,6 +2,18 @@
 #TimerBase
   .TimerBase
     h1 {{ displayTime }}
+    .displayContainer
+      .hourContainer.container
+        FlipCard
+        FlipCard
+      h1.colon {{ ":" }}
+      .minContainer.container
+        FlipCard
+        FlipCard
+      h1.colon {{ ":" }}
+      .secContainer.container
+        FlipCard(:startNum="numbers.secTen")
+        FlipCard(:startNum="9")
     .btnContainer
       Button(@click="StartTimer") {{ "StartTimer" }}
       Button(@click="StopTimer") {{ "StopTimer" }}
@@ -11,6 +23,9 @@
 <script>
 export default {
   name: "TimerBase",
+  components: {
+    FlipCard: () => import("@/components/Timer/FlipCard.vue"),
+  },
   data() {
     return {
       hour: 0,
@@ -18,6 +33,11 @@ export default {
       sec: 0,
       // 會在 runInterval 綁定 setInterval
       runInterval: null,
+      // 給 component 用的
+      numbers: {
+        sec: 0,
+        secTen: 0,
+      },
     };
   },
   computed: {
@@ -35,7 +55,7 @@ export default {
       if (this.runInterval !== null) {
         clearInterval(this.runInterval);
       }
-      this.runInterval = setInterval(this.Counter, 10);
+      this.runInterval = setInterval(this.Counter, 1000);
     },
     // 停止計時器
     StopTimer() {
@@ -74,11 +94,27 @@ export default {
     padding: 50px;
     @extend .center;
     flex-direction: column;
+    .displayContainer {
+      @extend .center;
+      margin-bottom: 30px;
+    }
   }
 }
 .center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.container {
+  display: flex;
+  margin-right: 15px;
+  margin-left: 15px;
+  gap: 5px;
+  &:last-child {
+    margin-right: 0;
+  }
+  &:first-child {
+    margin-left: 0;
+  }
 }
 </style>

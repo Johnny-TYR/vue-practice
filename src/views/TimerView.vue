@@ -2,7 +2,8 @@
 #TimerView
   TimerBase
   CountDown
-  FlipCard(:startNum="startNum")
+  FlipCard(:startNum="numbers.sec")
+  FlipCard(:startNum="numbers.secTen")
   Button(@click="StartCount") {{ "Click" }}
 </template>
 
@@ -11,18 +12,22 @@ export default {
   name: "TimerView",
   data() {
     return {
-      startNum: 5,
+      numbers: {
+        sec: 3,
+        secTen: 4,
+      },
       interval: null,
     };
   },
   methods: {
     StartCount() {
       setInterval(() => {
-        if (this.startNum + 1 === 10) {
-          this.startNum = 0;
+        if (this.numbers.sec + 1 === 10) {
+          this.numbers.sec = 0;
+          this.numbers.secTen++
           return;
         }
-        this.startNum++;
+        this.numbers.sec++;
       }, 1000);
     },
   },

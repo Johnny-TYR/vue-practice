@@ -5,7 +5,6 @@
     .bottom(ref="bottom") {{ startNum }}
     .animateTop(ref="animateTop", v-if="isCounting") {{ newNum }}
     .animateBot(ref="animateBot", v-if="isCounting") {{ newNum }}
-  pre {{ newNum }}
 </template>
 <script>
 export default {
@@ -62,10 +61,10 @@ export default {
     display: inline-flex;
     flex-direction: column;
     border-radius: 0.1em;
-    box-shadow: 0px 2px 29px rgba(0, 0, 0, 3);
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
     position: relative;
     // decoration only
-    font-size: 20rem;
+    font-size: 3rem;
     font-weight: bolder;
     font-family: Arial, Helvetica, sans-serif;
     overflow: hidden;
@@ -73,14 +72,14 @@ export default {
     .top {
       background-color: #f7f7f7;
       @extend .top-border;
-      border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
     .bottom {
       background-color: white;
       display: flex;
       align-items: flex-end;
       @extend .bottom-border;
-      border-top: 2px solid rgba(0, 0, 0, 0.1);
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
     }
     .top,
     .bottom {
@@ -108,7 +107,7 @@ export default {
     @extend .top-border;
     animation: flip-top 400ms ease-in;
     transform-origin: bottom;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
   @keyframes flip-top {
     100% {
@@ -126,7 +125,7 @@ export default {
     align-items: flex-end;
     width: 100%;
     @extend .bottom-border;
-    border-top: 2px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
     animation: flip-bottom 400ms ease-out;
     transform-origin: top;
     transform: rotateX(90deg);
