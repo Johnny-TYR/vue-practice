@@ -1,10 +1,10 @@
 <template lang="pug">
 #FlipCard
   .flip-card
-    .top(ref="top") {{ startNum }}
-    .bottom(ref="bottom") {{ startNum }}
-    .animateTop(ref="animateTop", :class="{ 'top-flip': isCounting }") {{ startNum }}
-    .animateBot(ref="animateBot", :class="{ 'bottom-flip': isCounting }") {{ startNum }}
+    .top {{ startNum }}
+    .bottom {{ startNum }}
+    .animateTop(:class="{ 'top-flip': isCounting }") {{ startNum }}
+    .animateBot(:class="{ 'bottom-flip': isCounting }") {{ startNum }}
 </template>
 <script>
 export default {
