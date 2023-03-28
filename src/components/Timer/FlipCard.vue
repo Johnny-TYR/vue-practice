@@ -20,7 +20,10 @@ export default {
     };
   },
   watch: {
-    startNum() {
+    startNum(newVal, oldVal) {
+      if (newVal === 1 && oldVal === 0) {
+        this.ToggleCount();
+      }
       setTimeout(() => {
         this.ToggleCount();
       }, 950);
@@ -61,14 +64,14 @@ export default {
     .top {
       background-color: #f7f7f7;
       @extend .top-border;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      // border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
     .bottom {
       background-color: white;
       display: flex;
       align-items: flex-end;
       @extend .bottom-border;
-      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      // border-top: 1px solid rgba(0, 0, 0, 0.1);
     }
     .top,
     .bottom {
@@ -96,7 +99,7 @@ export default {
     @extend .top-border;
     animation: flip-top 250ms ease-in;
     transform-origin: bottom;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    // border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
   @keyframes flip-top {
     100% {
@@ -110,7 +113,7 @@ export default {
     display: flex;
     align-items: flex-end;
     @extend .bottom-border;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    // border-top: 1px solid rgba(0, 0, 0, 0.1);
     animation: flip-bottom 250ms ease-out;
     transform-origin: top;
     transform: rotateX(90deg);
