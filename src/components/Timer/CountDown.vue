@@ -13,15 +13,12 @@
         Option(v-for="i of 60", :value="i - 1", :key="i") {{ i - 1 }}
       Select(v-model="time.sec", placeholder="秒")
         Option(v-for="i of 60", :value="i - 1", :key="i") {{ i - 1 }}
-    FlipCard
 </template>
 
 <script>
 export default {
   name: "CountDown",
-  components:{
-    FlipCard:()=>import("@/components/Timer/FlipCard.vue")
-  },
+  components:{  },
   data() {
     return {
       time: { hour: 0, min: 0, sec: 0 },
