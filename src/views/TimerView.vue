@@ -11,7 +11,7 @@ export default {
   name: "TimerView",
   data() {
     return {
-      startNum: 0,
+      startNum: 5,
       interval: null,
     };
   },
@@ -23,7 +23,7 @@ export default {
         } else {
           this.startNum++;
         }
-      }, 1000);
+      }, 2000);
     },
   },
   components: {
@@ -33,3 +33,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+#TimerView{
+  Button{
+    margin-top: 100px;
+    margin-bottom: 100px;
+  }
+}
+</style>

@@ -5,15 +5,14 @@
     .bottom(ref="bottom") {{ startNum }}
     .animateTop(ref="animateTop", v-if="isCounting") {{ startNum }}
     .animateBot(ref="animateBot", v-if="isCounting") {{ startNum }}
-  Button(type="primary", @click="ToggleCount") {{ "toggle countdown" }}
 </template>
 <script>
 export default {
-  props:{
-    startNum:{
-      type:Number,
-      default:0
-    }
+  props: {
+    startNum: {
+      type: Number,
+      default: 0,
+    },
   },
   data() {
     return {
@@ -21,15 +20,12 @@ export default {
     };
   },
   watch: {
-    startNum(){
+    startNum() {
       this.ToggleCount();
-    }
+    },
   },
   methods: {
     ToggleCount() {
-      if (this.startNum <= 0) {
-        return;
-      }
       this.isCounting = true;
       // $nextTick => defer the execution of a function until the next tick of the event loop, waits for vue to update the component
       this.$nextTick(() => {
@@ -39,7 +35,7 @@ export default {
           this.$refs.animateTop.classList.remove("top-flip");
           this.$refs.animateBot.classList.remove("bottom-flip");
           this.isCounting = false;
-        }, 2000);
+        }, 800); // 幾秒後移除動畫
       });
     },
   },
@@ -102,15 +98,13 @@ export default {
     position: absolute;
     width: 100%;
     background-color: #f7f7f7;
+    background-color: red;
     @extend .top-border;
-    animation: flip-top 1000ms ease-in;
+    animation: flip-top 400ms ease-in;
     transform-origin: bottom;
     border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   }
   @keyframes flip-top {
-    // 50% {
-    //   transform: rotateX(90deg);
-    // }
     100% {
       transform: rotateX(90deg);
     }
@@ -120,16 +114,17 @@ export default {
     position: absolute;
     bottom: 0;
     color: black;
-    background: white;
+    background-color: white;
+    background-color: blue;
     display: flex;
     align-items: flex-end;
     width: 100%;
     @extend .bottom-border;
     border-top: 2px solid rgba(0, 0, 0, 0.1);
-    animation: flip-bottom 1000ms ease-out;
+    animation: flip-bottom 400ms ease-out;
     transform-origin: top;
     transform: rotateX(90deg);
-    animation-delay: 1000ms;
+    animation-delay: 400ms;
   }
   @keyframes flip-bottom {
     100% {
