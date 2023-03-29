@@ -11,7 +11,7 @@
     Button.btn-left(@click="HandleLeft") {{ "Left" }}
     Button.btn-right(@click="HandleRight") {{ "Right" }}
   Button(v-for="(num, index) in imgList", key="num", @click="setShow(index)") {{ index + 1 }}
-  pre {{ imgList.length }}
+  pre {{ show }}
 </template>
 
 <script>
@@ -31,7 +31,6 @@ export default {
   },
   methods: {
     HandleLeft() {
-      this.$Message.success("Click left");
       this.transitionName = "left-in";
       if (this.show < 1) {
         this.show = this.imgList.length;
@@ -39,7 +38,6 @@ export default {
       this.show--;
     },
     HandleRight() {
-      this.$Message.success("Click right");
       this.transitionName = "right-in";
       if (this.show >= this.imgList.length - 1) {
         this.show = 0;
@@ -48,6 +46,7 @@ export default {
       this.show++;
     },
     setShow(index) {
+      this.transitionName = index > this.show ? "right-in" : "left-in";
       this.show = index;
     },
   },
