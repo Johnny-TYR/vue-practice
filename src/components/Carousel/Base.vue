@@ -1,5 +1,5 @@
 <template lang="pug">
-#Base
+#Base(@mouseover="PauseInterval", @mouseleave="StartInterval")
   .carousel-base
     transition-group.carousel-container(tag="div", :name="transitionName")
       .carousel-box(
@@ -14,7 +14,7 @@
     .preview(
       v-for="(img, index) in imgList",
       :key="img.id",
-      @click="setShow(index)"
+      @click="SetShow(index)"
     )
       img(:src="img.src")
 </template>
@@ -32,17 +32,14 @@ export default {
     return {
       transitionName: "",
       show: 0,
+      mountedInterval: null,
     };
   },
-  // 自動輪播，但現在會撞
   mounted() {
-    // if(@MouseEvent){
-      setInterval(() => {
-        this.HandleRight();
-      }, 1000);
-    // }
+    this.StartInterval();
   },
   methods: {
+    // 按左鍵，圖片從左邊出現
     HandleLeft() {
       this.transitionName = "left-in";
       if (this.show < 1) {
@@ -50,6 +47,7 @@ export default {
       }
       this.show--;
     },
+    // 按右鍵，圖片從右邊出現
     HandleRight() {
       this.transitionName = "right-in";
       if (this.show >= this.imgList.length - 1) {
@@ -58,9 +56,21 @@ export default {
       }
       this.show++;
     },
-    setShow(index) {
+    // 按縮圖顯跟大張的對應並改變 transition 方式
+    SetShow(index) {
       this.transitionName = index > this.show ? "right-in" : "left-in";
       this.show = index;
+    },
+    // 避免按按鈕跟 mounted 的 interval 衝突
+    StartInterval() {
+      this.$Message.success("start");
+      this.mountedInterval = setInterval(() => {
+        this.HandleRight();
+      }, 1000);
+    },
+    PauseInterval() {
+      this.$Message.success("paused");
+      clearInterval(this.mountedInterval);
     },
   },
 };
