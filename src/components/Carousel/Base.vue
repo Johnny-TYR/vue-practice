@@ -8,9 +8,10 @@
         v-show="index === show"
       )
         img(:src="img.src")
-    Button.btn-left {{ "Left" }}
-    Button.btn-right {{ "Right" }}
-  pre {{ imgList }}
+    Button.btn-left(@click="HandleLeft") {{ "Left" }}
+    Button.btn-right(@click="HandleRight") {{ "Right" }}
+  Button(v-for="(num, index) in imgList", key="num", @click="setShow(index)") {{ index + 1 }}
+  pre {{ imgList.length }}
 </template>
 
 <script>
@@ -24,18 +25,30 @@ export default {
   },
   data() {
     return {
-      transitionName: "right-in",
+      transitionName: "",
       show: 0,
     };
   },
   methods: {
     HandleLeft() {
       this.$Message.success("Click left");
+      this.transitionName = "left-in";
+      if (this.show < 1) {
+        this.show = this.imgList.length;
+      }
       this.show--;
     },
     HandleRight() {
       this.$Message.success("Click right");
+      this.transitionName = "right-in";
+      if (this.show >= this.imgList.length - 1) {
+        this.show = 0;
+        return;
+      }
       this.show++;
+    },
+    setShow(index) {
+      this.show = index;
     },
   },
 };
@@ -50,26 +63,37 @@ export default {
     background-color: black;
     position: relative;
     overflow: hidden;
-    // transition 一定有六個階段，enter 跟 leave 個三個 ========================
+    // transition 一定有六個階段，enter 跟 leave 各三個 ========================
     .right-in-enter {
       // 從左邊的 100% 進來
       left: 100%;
     }
-    .right-in-enter-active {
-      transition: left 1s;
+    .right-in-enter-active,
+    .right-in-leave-active {
+      transition: left 0.5s;
     }
-    .right-in-enter-to {
-      // 到 0%
-      left: 0%;
-    }
+    .right-in-enter-to,
     .right-in-leave {
       left: 0%;
     }
-    .right-in-leave-active {
-      transition: left 1s;
-    }
     .right-in-leave-to {
       left: -100%;
+    }
+    // ==================
+    .left-in-enter {
+      // 從左邊的 100% 進來
+      left: -100%;
+    }
+    .left-in-enter-active,
+    .left-in-leave-active {
+      transition: left 0.5s;
+    }
+    .left-in-enter-to,
+    .left-in-leave {
+      left: 0%;
+    }
+    .left-in-leave-to {
+      left: 100%;
     }
     // =====================================================================
     .carousel-box {

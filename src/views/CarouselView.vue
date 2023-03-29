@@ -13,19 +13,19 @@ export default {
     return {
       imgList: [
         {
-          src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/382.png",
+          src: "https://picsum.photos/1000/600?1",
         },
         {
-          src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/383.png",
+          src: "https://picsum.photos/1000/600?2",
         },
         {
-          src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/384.png",
+          src: "https://picsum.photos/1000/600?3",
         },
         {
-          src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/385.png",
+          src: "https://picsum.photos/1000/600?4",
         },
         {
-          src: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/386.png",
+          src: "https://picsum.photos/1000/600?5",
         },
       ],
     };
