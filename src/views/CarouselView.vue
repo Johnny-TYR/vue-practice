@@ -14,18 +14,27 @@ export default {
       imgList: [
         {
           src: "https://picsum.photos/1000/600?1",
+          id: 1,
         },
         {
           src: "https://picsum.photos/1000/600?2",
+          id: 2,
         },
         {
           src: "https://picsum.photos/1000/600?3",
+          id: 3,
         },
         {
           src: "https://picsum.photos/1000/600?4",
+          id: 4,
         },
         {
           src: "https://picsum.photos/1000/600?5",
+          id: 5,
+        },
+        {
+          src: "https://picsum.photos/1000/600?6",
+          id: 6,
         },
       ],
     };
