@@ -1,19 +1,20 @@
 <template lang="pug">
-#Base(@mouseover="PauseInterval", @mouseleave="StartInterval")
+#Base(@mouseenter="PauseInterval", @mouseleave="StartInterval")
   .carousel-base
     transition-group.carousel-container(tag="div", :name="transitionName")
       .carousel-box(
         v-for="(img, index) of imgList",
-        :key="img.id",
+        :key="img.src",
         v-show="index === show"
       )
         img(:src="img.src")
     Button.btn-left(@click="HandleLeft") {{ "Left" }}
     Button.btn-right(@click="HandleRight") {{ "Right" }}
+  //- 小型輪播，可以拆出去
   .preview-container
     .preview(
       v-for="(img, index) in imgList",
-      :key="img.id",
+      :key="img.src",
       @click="SetShow(index)"
     )
       img(:src="img.src")
@@ -72,6 +73,8 @@ export default {
       this.$Message.success("paused");
       clearInterval(this.mountedInterval);
     },
+    // 被選擇的 preview 有外匡
+    SelectedPreview() {},
   },
 };
 </script>
@@ -140,8 +143,8 @@ export default {
     .left-in-leave-to {
       left: 100%;
     }
-    // =====================================================================
   }
+  // 預覽輪播 =====================================================
   .preview-container {
     width: 1000px;
     gap: 20px;
@@ -153,6 +156,7 @@ export default {
       width: 150px;
       height: 90px;
       flex-shrink: 0;
+      border: 1px solid black;
     }
   }
 }
@@ -165,5 +169,8 @@ img {
   object-fit: contain;
   width: 100%;
   height: 100%;
+}
+.selected-preview {
+  border: 5px double red;
 }
 </style>
