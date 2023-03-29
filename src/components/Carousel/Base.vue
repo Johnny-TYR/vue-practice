@@ -20,14 +20,18 @@ export default {
   props: {
     imgList: {
       type: Array,
-      default: "",
+      default: [],
     },
   },
   data() {
     return {
-      transitionName: "left-in",
+      transitionName: "",
       show: 0,
     };
+  },
+  // 自動輪播
+  mounted() {
+    setInterval(this.HandleLeft(), 1000);
   },
   methods: {
     HandleLeft() {
