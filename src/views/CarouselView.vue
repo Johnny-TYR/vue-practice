@@ -36,6 +36,14 @@ export default {
           src: "https://picsum.photos/1000/600?6",
           id: 6,
         },
+        {
+          src: "https://picsum.photos/1000/600?7",
+          id: 7,
+        },
+        {
+          src: "https://picsum.photos/1000/600?8",
+          id: 8,
+        },
       ],
     };
   },
@@ -47,7 +55,7 @@ export default {
   @extend .center;
   height: 100vh;
   // background: url('@/assets/logo.png');
-  background-color: white;
+  background-color: lightblue;
 }
 .center {
   display: flex;
