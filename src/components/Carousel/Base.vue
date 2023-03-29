@@ -31,7 +31,9 @@ export default {
   },
   // 自動輪播
   mounted() {
-    setInterval(this.HandleLeft(), 1000);
+    setInterval(() => {
+      this.HandleRight();
+    }, 3000);
   },
   methods: {
     HandleLeft() {
