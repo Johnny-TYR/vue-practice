@@ -5,9 +5,10 @@
         <router-link to="/">Home</router-link>
         <router-link to="/forms">Forms</router-link>
         <router-link to="/datepickers">Date Pickers</router-link>
+        <router-link :to="{ name: 'timer' }">Timer</router-link>
+        <router-link to="/carousel">Carousel</router-link>
         <router-link to="/todolist1">TodoList</router-link>
         <router-link :to="{ name: 'vuex' }">Vuex</router-link>
-        <router-link :to="{ name: 'timer' }">Timer</router-link>
         <router-link :to="{ name: 'example' }">Copied Code</router-link>
       </nav>
     </div>

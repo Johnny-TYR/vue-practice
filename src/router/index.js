@@ -41,6 +41,11 @@ const routes = [
     name: 'timer',
     component: () => import('../views/TimerView.vue')
   },
+  {
+    path:'/carousel',
+    name:'carousel',
+    component:()=> import('@/views/CarouselView.vue')
+  }
 ]
 
 const router = new VueRouter({
