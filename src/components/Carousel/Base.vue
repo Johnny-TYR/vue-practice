@@ -50,7 +50,7 @@ export default {
     background-color: black;
     position: relative;
     overflow: hidden;
-    // transition 一定有六個階段，enter 跟 leave 個三個 ==========
+    // transition 一定有六個階段，enter 跟 leave 個三個 ========================
     .right-in-enter {
       // 從左邊的 100% 進來
       left: 100%;
@@ -71,6 +71,7 @@ export default {
     .right-in-leave-to {
       left: -100%;
     }
+    // =====================================================================
     .carousel-box {
       position: absolute;
       width: 1000px;
