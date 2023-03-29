@@ -30,21 +30,12 @@ export default {
       sec: 0,
       secTen: 0,
       min: 0,
-      minTen:0,
+      minTen: 0,
       hour: 0,
-      hourTen:0,
+      hourTen: 0,
       // 會在 runInterval 綁定 setInterval
       runInterval: null,
     };
-  },
-  // 換成 component 就沒用到了
-  computed: {
-    displayTime() {
-      let displayHour = this.hour < 10 ? `0${this.hour}` : this.hour;
-      let displayMin = this.min < 10 ? `0${this.min}` : this.min;
-      let displaySec = this.sec < 10 ? `0${this.sec}` : this.sec;
-      return `${displayHour} : ${displayMin} : ${displaySec}`;
-    },
   },
   methods: {
     // 開始計時器
@@ -53,7 +44,7 @@ export default {
       if (this.runInterval !== null) {
         clearInterval(this.runInterval);
       }
-      this.runInterval = setInterval(this.Counter, 1000);
+      this.runInterval = setInterval(this.Counter, 100);
     },
     // 停止計時器
     StopTimer() {
@@ -77,6 +68,7 @@ export default {
       if (this.sec === 10) {
         this.sec = 0;
         this.secTen++;
+        return;
       }
       if (this.secTen === 6) {
         this.secTen = 0;
@@ -94,8 +86,8 @@ export default {
         this.hour = 0;
         this.hourTen++;
       }
-      if(this.hourTen == 10){
-        this.StopTimer()
+      if (this.hourTen == 10) {
+        this.StopTimer();
       }
     },
   },
