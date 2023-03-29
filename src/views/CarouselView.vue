@@ -1,6 +1,6 @@
 <template lang="pug">
 #CarouselView
-  Carousel
+  Carousel(:imgList="imgList")
 </template>
 
 <script>
@@ -9,6 +9,15 @@ export default {
   components: {
     Carousel: () => import("@/components/Carousel/Base.vue"),
   },
+  data() {
+    return {
+      imgList: [
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/382.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/383.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/384.png",
+      ],
+    };
+  },
 };
 </script>
 
@@ -16,7 +25,8 @@ export default {
 #CarouselView {
   @extend .center;
   height: 100vh;
-  background: url('@/assets/pika.png');
+  // background: url('@/assets/logo.png');
+  background-color: white;
 }
 .center {
   display: flex;

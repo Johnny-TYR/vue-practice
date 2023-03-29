@@ -2,8 +2,23 @@
 #Base
   .carousel-base
     .carousel-container
-      h1 {{ "FirstSlide" }}
+  pre {{imgList}}
 </template>
+
+<script>
+export default {
+  name: "Base",
+  props: {
+    imgList: {
+      type: Array,
+      default: [],
+    },
+  },
+  data() {
+    return {};
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 #Base {
@@ -11,17 +26,18 @@
   .carousel-base {
     width: 1000px;
     height: 600px;
-    background-color: black;
+    background-color: whitesmoke;
     .carousel-container {
       width: 95%;
       height: 95%;
       border: 1px solid black;
       background-color: lightgreen;
-      @extend .center
+      @extend .center;
+      overflow: hidden;
     }
   }
 }
-.center{
+.center {
   display: flex;
   justify-content: center;
   align-items: center;
