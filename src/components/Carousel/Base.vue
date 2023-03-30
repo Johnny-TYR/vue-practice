@@ -5,7 +5,10 @@
       .carousel-box(
         v-for="(img, index) of imgList",
         :key="img.src",
-        v-show="index === show"
+        v-show="index === show",
+        @touchstart="HandleTouchStart",
+        @touchmove="HandleTouchMove",
+        @touchend="HandleTouchEnd"
       )
         img(:src="img.src")
     Button.btn-left(@click="HandleLeft", v-show="showButton")
@@ -37,6 +40,8 @@ export default {
       show: 0,
       mountedInterval: null,
       showButton: false,
+      startX: null,
+      endX: null,
     };
   },
   mounted() {
@@ -78,6 +83,29 @@ export default {
       this.showButton = true;
       clearInterval(this.mountedInterval);
     },
+    // 手機版滑動輪播
+    HandleTouchStart(e) {
+      this.startX = e.touches[0].pageX;
+      console.log(`startX: ${this.startX}`);
+      this.PauseInterval();
+    },
+    HandleTouchMove(e) {
+      this.endX = e.touches[0].pageX;
+      console.log(`endX: ${this.endX}`);
+    },
+    HandleTouchEnd(e) {
+      console.log(this.startX, this.endX);
+      if (this.startX && this.endX) {
+        if (this.endX < this.startX) {
+          this.HandleRight();
+        } else {
+          this.HandleLeft();
+        }
+      }
+      this.startX = null;
+      this.endX = null;
+      this.StartInterval();
+    },
     // 被選擇的 preview 有外匡
     SelectedPreview() {},
   },
@@ -88,15 +116,16 @@ export default {
 #Base {
   box-sizing: border-box;
   .carousel-base {
-    width: 1000px;
-    height: 600px;
+    // width: 1000px;
+    // height: 600px;
     position: relative;
     overflow: hidden;
     border-radius: 20px;
+    touch-action: pan-y;
     .carousel-box {
       position: absolute;
-      width: 1000px;
-      height: 600px;
+      // width: 1000px;
+      // height: 600px;
       @extend .center;
     }
     .btn-left {
@@ -155,18 +184,19 @@ export default {
   }
   // 預覽輪播 =====================================================
   .preview-container {
-    width: 1000px;
+    // width: 1000px;
     gap: 20px;
     margin: 20px 0;
     display: flex;
     justify-content: space-between;
     overflow-y: hidden;
     .preview {
-      width: 150px;
-      height: 90px;
+      width: 175px;
+      height: 105px;
       flex-shrink: 0;
-      border: 1px solid black;
-      border-radius: 10px;
+      img {
+        border-radius: 10px;
+      }
     }
   }
 }
@@ -183,4 +213,10 @@ img {
 .selected-preview {
   border: 5px double red;
 }
-</style>
+.carousel-base,
+.carousel-box,
+.preview-container {
+  width: 300px;
+  height: 180px;
+}
+</style>/
