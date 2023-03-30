@@ -120,16 +120,12 @@ export default {
 #Base {
   box-sizing: border-box;
   .carousel-base {
-    // width: 1000px;
-    // height: 600px;
     position: relative;
     overflow: hidden;
     border-radius: 20px;
     touch-action: pan-y;
     .carousel-box {
       position: absolute;
-      // width: 1000px;
-      // height: 600px;
       @extend .center;
     }
     .btn-left {
@@ -188,7 +184,6 @@ export default {
   }
   // 預覽輪播 =====================================================
   .preview-container {
-    // width: 1000px;
     gap: 20px;
     margin: 20px 0;
     display: flex;
@@ -221,8 +216,8 @@ img {
 .carousel-base,
 .carousel-box,
 .preview-container {
-  width: 1000px;
-  height: 600px;
+  width: 800px;
+  height: 480px;
 }
 
 @media screen and (max-width: 1000px) {
