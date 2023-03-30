@@ -87,12 +87,12 @@ export default {
 <style lang="scss" scoped>
 #Base {
   box-sizing: border-box;
-  // background-color: white;
   .carousel-base {
     width: 1000px;
     height: 600px;
     position: relative;
     overflow: hidden;
+    border-radius: 20px;
     .carousel-box {
       position: absolute;
       width: 1000px;
@@ -115,6 +115,10 @@ export default {
       padding: 10px;
       border-radius: 0;
       @extend .center;
+      color: white;
+      opacity: 0.4;
+      background-color: rgba(0, 0, 0);
+      border: none;
     }
     // transition 一定有六個階段，enter 跟 leave 各三個 ========================
     .right-in-enter {
@@ -162,6 +166,7 @@ export default {
       height: 90px;
       flex-shrink: 0;
       border: 1px solid black;
+      border-radius: 10px;
     }
   }
 }
