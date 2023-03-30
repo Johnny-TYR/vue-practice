@@ -16,14 +16,6 @@
     Button.btn-right(@click="HandleRight", v-show="showButton")
       Icon(type="md-fastforward", size="25")
   MiniPreview(:imgList="imgList")
-  //- 小型輪播，可以拆出去
-  //- .preview-container
-  //-   .preview(
-  //-     v-for="(img, index) in imgList",
-  //-     :key="img.src",
-  //-     @click="SetShow(index)"
-  //-   )
-  //-     img(:src="img.src")
 </template>
 
 <script>
@@ -110,13 +102,13 @@ export default {
       this.endX = null;
       this.StartInterval();
     },
-    // 被選擇的 preview 有外匡
-    SelectedPreview() {},
   },
 };
 </script>
 
 <style lang="scss" scoped>
+$box-width: 700px;
+$box-height: 420px;
 #Base {
   box-sizing: border-box;
   .carousel-base {
@@ -182,22 +174,6 @@ export default {
       left: 100%;
     }
   }
-  // 預覽輪播 =====================================================
-  .preview-container {
-    gap: 20px;
-    margin: 20px 0;
-    display: flex;
-    justify-content: space-between;
-    overflow-y: hidden;
-    .preview {
-      width: 175px;
-      height: 105px;
-      flex-shrink: 0;
-      img {
-        border-radius: 10px;
-      }
-    }
-  }
 }
 .center {
   display: flex;
@@ -214,16 +190,14 @@ img {
 }
 
 .carousel-base,
-.carousel-box,
-.preview-container {
-  width: 800px;
-  height: 480px;
+.carousel-box {
+  width: $box-width;
+  height: $box-height;
 }
 
 @media screen and (max-width: 1000px) {
   .carousel-base,
-  .carousel-box,
-  .preview-container {
+  .carousel-box {
     width: 350px;
     height: 210px;
   }

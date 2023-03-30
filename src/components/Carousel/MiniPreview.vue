@@ -22,21 +22,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$box-width: 700px;
 #MiniPreview {
   .preview-container {
-    width: 800px;
+    width: $box-width;
     gap: 20px;
     margin: 20px 0;
     display: flex;
     justify-content: space-between;
     overflow-y: hidden;
     .preview {
-      width: 200px;
-      height: 120px;
+      width: $box-width * 0.25;
       flex-shrink: 0;
-      img {
-        border-radius: 10px;
-      }
     }
   }
 }
@@ -49,5 +46,6 @@ img {
   object-fit: contain;
   width: 100%;
   height: 100%;
+  border-radius: 10px;
 }
 </style>
