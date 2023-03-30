@@ -15,19 +15,23 @@
       Icon(type="md-rewind", size="25")
     Button.btn-right(@click="HandleRight", v-show="showButton")
       Icon(type="md-fastforward", size="25")
+  MiniPreview(:imgList="imgList")
   //- 小型輪播，可以拆出去
-  .preview-container
-    .preview(
-      v-for="(img, index) in imgList",
-      :key="img.src",
-      @click="SetShow(index)"
-    )
-      img(:src="img.src")
+  //- .preview-container
+  //-   .preview(
+  //-     v-for="(img, index) in imgList",
+  //-     :key="img.src",
+  //-     @click="SetShow(index)"
+  //-   )
+  //-     img(:src="img.src")
 </template>
 
 <script>
 export default {
   name: "Base",
+  components: {
+    MiniPreview: () => import("@/components/Carousel/MiniPreview.vue"),
+  },
   props: {
     imgList: {
       type: Array,
@@ -217,7 +221,16 @@ img {
 .carousel-base,
 .carousel-box,
 .preview-container {
-  width: 300px;
-  height: 180px;
+  width: 1000px;
+  height: 600px;
+}
+
+@media screen and (max-width: 1000px) {
+  .carousel-base,
+  .carousel-box,
+  .preview-container {
+    width: 350px;
+    height: 210px;
+  }
 }
 </style>

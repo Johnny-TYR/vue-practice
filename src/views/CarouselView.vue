@@ -45,9 +45,10 @@ export default {
 <style lang="scss" scoped>
 #CarouselView {
   @extend .center;
-  // height: 100vh;
+  height: 100vh;
   // background: url('@/assets/logo.png');
   background-color: lightblue;
+  width: 100%;
 }
 .center {
   display: flex;
