@@ -8,8 +8,10 @@
         v-show="index === show"
       )
         img(:src="img.src")
-    Button.btn-left(@click="HandleLeft") {{ "Left" }}
-    Button.btn-right(@click="HandleRight") {{ "Right" }}
+    Button.btn-left(@click="HandleLeft", v-show="showButton")
+      Icon(type="md-rewind", size="25")
+    Button.btn-right(@click="HandleRight", v-show="showButton")
+      Icon(type="md-fastforward", size="25")
   //- 小型輪播，可以拆出去
   .preview-container
     .preview(
@@ -34,6 +36,7 @@ export default {
       transitionName: "",
       show: 0,
       mountedInterval: null,
+      showButton: false,
     };
   },
   mounted() {
@@ -65,12 +68,14 @@ export default {
     // 避免按按鈕跟 mounted 的 interval 衝突
     StartInterval() {
       this.$Message.success("start");
+      this.showButton = false;
       this.mountedInterval = setInterval(() => {
         this.HandleRight();
-      }, 1000);
+      }, 3000);
     },
     PauseInterval() {
       this.$Message.success("paused");
+      this.showButton = true;
       clearInterval(this.mountedInterval);
     },
     // 被選擇的 preview 有外匡
