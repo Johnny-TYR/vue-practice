@@ -213,10 +213,11 @@ img {
 .selected-preview {
   border: 5px double red;
 }
+
 .carousel-base,
 .carousel-box,
 .preview-container {
   width: 300px;
   height: 180px;
 }
-</style>/
+</style>
