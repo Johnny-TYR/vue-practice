@@ -1,27 +1,61 @@
 <template lang="pug">
 #Example
-  .box
-    .content
-      p(v-for="i of 100" :key="i") {{i}}
+  .Example
+    transition(name="appear")
+      .box(v-show="isShow")
+  Button(@click="isShow = !isShow") {{ "Toggle" }}
 </template>
 
-<style lang="scss" scoped>
-#Example{
-  width: 100vw;
-  height: 100vh;
-}
-  .box {
-    position: relative;
-    width: 50%;
-    padding-bottom: 50%;
-    background: #000;
-    overflow: auto;
-    .content {
-      position: absolute;
+<script>
+export default {
+  data() {
+    return {
+      isShow: true,
+    };
+  },
+};
+</script>
 
-    }
+
+<style lang="scss" scoped>
+$box: 300px;
+#Example {
+  .Example {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 400px;
+    text-align: center;
+    line-height: 100px;
+    background-color: lightcyan;
+    border: 1px solid black;
   }
-  p {
-    color: #eee;
+  .box {
+    width: $box;
+    height: $box;
+    background-color: lightgreen;
   }
+  // 進場「之前」的樣式
+  .appear-enter-from {
+    opacity: 0;
+  }
+  // 進場過程
+  .appear-enter-active {
+    transition: opacity 1s;
+  }
+  // 進場「結束時」的樣式
+  .appear-enter-to {
+    opacity: 0;
+  }
+  .appear-leave-from {
+    opacity: 0;
+  }
+  .appear-leave-active {
+    transition: opacity 1s;
+  }
+  .appear-leave-to {
+    opacity: 1;
+  }
+}
 </style>
