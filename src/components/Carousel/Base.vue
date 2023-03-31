@@ -1,6 +1,6 @@
 <template lang="pug">
-#Base
-  .carousel-base(@mouseenter="PauseInterval", @mouseleave="StartInterval")
+#Base(@mouseenter="PauseInterval", @mouseleave="StartInterval")
+  .carousel-base
     transition-group.carousel-container(tag="div", :name="transitionName")
       .carousel-box(
         v-for="(img, index) of imgList",
@@ -15,7 +15,13 @@
       Icon(type="md-rewind", size="25")
     Button.btn-right(@click="HandleRight", v-show="showButton")
       Icon(type="md-fastforward", size="25")
-  MiniPreview(:imgList="imgList")
+  .btn-container
+    Button(
+      v-for="(img, index) in imgList",
+      :key="img.src",
+      @click="SetShow(index)"
+    ) {{ index }}
+  MiniPreview(:imgList="imgList", @on-click="SetShow")
 </template>
 
 <script>
@@ -48,7 +54,8 @@ export default {
     HandleLeft() {
       this.transitionName = "left-in";
       if (this.show < 1) {
-        this.show = this.imgList.length;
+        this.show = this.imgList.length - 1;
+        return;
       }
       this.show--;
     },
@@ -82,25 +89,26 @@ export default {
     // 手機版滑動輪播
     HandleTouchStart(e) {
       this.startX = e.touches[0].pageX;
-      console.log(`startX: ${this.startX}`);
       this.PauseInterval();
+      console.log(`startX: ${this.startX}`);
     },
     HandleTouchMove(e) {
       this.endX = e.touches[0].pageX;
       console.log(`endX: ${this.endX}`);
     },
     HandleTouchEnd(e) {
-      console.log(this.startX, this.endX);
-      if (this.startX && this.endX) {
-        if (this.endX < this.startX) {
-          this.HandleRight();
-        } else {
-          this.HandleLeft();
-        }
+      if (!this.startX || !this.endX) {
+        this.startX = null;
+        this.endX = null;
+        this.StartInterval();
+        console.log(this.startX, this.endX);
+        return;
       }
-      this.startX = null;
-      this.endX = null;
-      this.StartInterval();
+      if (this.startX < this.endX) {
+        this.HandleLeft();
+        return;
+      }
+      this.HandleRight();
     },
   },
 };
@@ -184,9 +192,6 @@ img {
   object-fit: contain;
   width: 100%;
   height: 100%;
-}
-.selected-preview {
-  border: 5px double red;
 }
 
 .carousel-base,

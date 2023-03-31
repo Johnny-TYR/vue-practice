@@ -4,7 +4,7 @@
     .preview(
       v-for="(img, index) in imgList",
       :key="img.src",
-      @click="SetShow(index)"
+      @click="EmitClick(index)"
     )
       img(:src="img.src")
 </template>
@@ -16,6 +16,17 @@ export default {
     imgList: {
       type: Array,
       default: [],
+    },
+  },
+  methods: {
+    // 按縮圖顯跟大張的對應並改變 transition 方式
+    SetShow(index) {
+      this.transitionName = index > this.show ? "right-in" : "left-in";
+      this.show = index;
+    },
+    // emit 送出事件
+    EmitClick(index) {
+      this.$emit("on-click", index);
     },
   },
 };
@@ -47,5 +58,13 @@ img {
   width: 100%;
   height: 100%;
   border-radius: 10px;
+}
+@media screen and (max-width: 1000px) {
+  .preview-container {
+    width: 350px;
+  }
+  .preview {
+    width: 100px;
+  }
 }
 </style>
