@@ -19,11 +19,6 @@ export default {
     },
   },
   methods: {
-    // 按縮圖顯跟大張的對應並改變 transition 方式
-    SetShow(index) {
-      this.transitionName = index > this.show ? "right-in" : "left-in";
-      this.show = index;
-    },
     // emit 送出事件
     EmitClick(index) {
       this.$emit("on-click", index);
