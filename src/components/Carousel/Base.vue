@@ -1,6 +1,6 @@
 <template lang="pug">
-#Base(@mouseenter="PauseInterval", @mouseleave="StartInterval")
-  .carousel-base
+#Base
+  .carousel-base(@mouseenter="PauseInterval", @mouseleave="StartInterval")
     transition-group.carousel-container(tag="div", :name="transitionName")
       .carousel-box(
         v-for="(img, index) of imgList",
