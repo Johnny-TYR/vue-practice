@@ -1,6 +1,6 @@
 <template lang="pug">
 #Transitions
-  div(style="height: 120px")
+  div(style="height: 170px")
     transition
       .block(v-show="isShow") {{ "Hello Vue" }}
   Button(@click="isShow = !isShow") {{ "Toggle" }}
@@ -18,22 +18,13 @@ export default {
 
 <style lang="scss" scoped>
 #Transitions {
-  position: relative;
-  display: block;
-  padding: 1rem;
-  font-size: 1rem;
+  .block {
+    width: 150px;
+    height: 150px;
+    background-color: yellow;
+  }
 }
-
-.block {
-  display: block;
-  width: 150px;
-  height: 100px;
-  text-align: center;
-  line-height: 100px;
-  background-color: #0f0;
-}
-// When isShow == false, runs the v-leave transitions, so these are 2 separate animations
-
+// ========== Enter ==========
 // 進場「之前」的樣式
 .v-enter {
   opacity: 0;
@@ -46,7 +37,7 @@ export default {
 .v-enter-to {
   opacity: 1;
 }
-// ==========================================
+// ========== Leave ==========
 // 退場「之前」的樣式
 .v-leave {
   opacity: 1;
