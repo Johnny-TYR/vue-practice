@@ -45,6 +45,11 @@ const routes = [
     path:'/carousel',
     name:'carousel',
     component:()=> import('@/views/CarouselView.vue')
+  },
+  {
+    path:'/transitions',
+    name:'transitions',
+    component:()=> import('@/views/TransitionsView.vue')
   }
 ]
 
