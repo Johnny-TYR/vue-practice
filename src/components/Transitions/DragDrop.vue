@@ -61,6 +61,7 @@ export default {
       e.dataTransfer.effectAllowed = "move"; // this tells the api that we want to move the original item instead of creating a copy
       e.dataTransfer.setData("itemId", item.id);
     },
+    // Accept the drop event and select the element we want to use
     OnDrop(e, targetList) {
       // retrieve the stored id so we can access the proper item in the array
       const itemId = e.dataTransfer.getData("itemId");
