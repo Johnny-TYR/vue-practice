@@ -2,8 +2,9 @@
 #TransitionGroup
   Button-group
     Button(@click="ClickAdd") {{ "Add" }}
-    Button(@click="ClickReset") {{ "Reset" }}
     Button(@click="ClickShuffle") {{ "Shuffle" }}
+    Button(@click="ClickReset") {{ "Reset" }}
+    Button(@click="ClickClear") {{ "Clear" }}
   transition-group.number-list(tag="ul", name="list")
     li.item(v-for="item in numList", :key="item") {{ item }}
 </template>
@@ -12,8 +13,8 @@
 export default {
   data() {
     return {
-      numList: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      nextNum: 10,
+      numList: [1, 2, 3],
+      nextNum: 4,
     };
   },
   methods: {
@@ -22,13 +23,18 @@ export default {
       this.numList.splice(this.GenerateRandomIndex(), 0, this.nextNum++);
     },
     ClickReset() {
-      this.numList = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      this.numList = [1, 2, 3];
+      this.nextNum = 4;
     },
     // 兩個兩個做比對，sort default(small -> big)，change it to random and -0.5 to get values between -0.5 and 0.5
     ClickShuffle() {
       this.numList.sort(() => {
         return Math.random() - 0.5;
       });
+    },
+    ClickClear() {
+      this.numList = [];
+      this.nextNum = 1;
     },
     // 隨機生成 index 再把數字插入
     GenerateRandomIndex() {
@@ -40,7 +46,7 @@ export default {
 
 <style lang="scss" scoped>
 #TransitionGroup {
-  width: 500px;
+  width: 350px;
   .number-list {
     position: relative;
     padding: 20px;

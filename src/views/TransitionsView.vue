@@ -1,22 +1,31 @@
 <template lang="pug">
 #TransitionsView
-  h1 {{"transition"}}
-  TransitionPractice
-  h1 {{"transition-group"}}
-  TransitionGroup
+  .div
+    h1 {{ "transition" }}
+    TransitionPractice
+    h1 {{ "transition-group" }}
+    TransitionGroup
+  .div
+    h1 {{ "drag and drop" }}
+    DragDrop
 </template>
 
 <script>
 export default {
   name: "TransitionsView",
   components: {
-    TransitionPractice: () => import("@/components/Transitions/TransitionPractice.vue"),
-    TransitionGroup: () => import("@/components/Transitions/TransitionGroup.vue"),
+    TransitionPractice: () =>
+      import("@/components/Transitions/TransitionPractice.vue"),
+    TransitionGroup: () =>
+      import("@/components/Transitions/TransitionGroup.vue"),
+    DragDrop: () => import("@/components/Transitions/DragDrop.vue"),
   },
 };
 </script>
 
 <style lang="scss" scoped>
-#TransitionsView{
+#TransitionsView {
+  display: flex;
+  gap: 100px;
 }
 </style>
