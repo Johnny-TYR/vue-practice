@@ -16,6 +16,9 @@
       draggable,
       @dragstart="StartDrag($event, item)"
     ) {{ item.title }}
+  .data-pre(style="display: flex")
+    pre.pre {{ listOne }}
+    pre.pre {{ listTwo }}
 </template>
 
 <script>
@@ -24,17 +27,17 @@ export default {
     return {
       items: [
         {
-          id: '0',
+          id: 0,
           title: "Item A",
           list: 1,
         },
         {
-          id: '1',
+          id: 1,
           title: "Item B",
           list: 1,
         },
         {
-          id: '2',
+          id: 2,
           title: "Item C",
           list: 2,
         },
@@ -55,13 +58,13 @@ export default {
       // store the id of the dragged element using the dataTransfer property
       console.log(e);
       e.dataTransfer.dropEffect = "move"; // controls the visual feedback
-      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.effectAllowed = "move"; // this tells the api that we want to move the original item instead of creating a copy
       e.dataTransfer.setData("itemId", item.id);
     },
     OnDrop(e, targetList) {
       // retrieve the stored id so we can access the proper item in the array
       const itemId = e.dataTransfer.getData("itemId");
-      const item = this.items.find((item) => item.id === itemId);
+      const item = this.items.find((item) => item.id === parseInt(itemId)); // dataTransfer stores strings only
       item.list = targetList;
     },
   },
@@ -70,19 +73,32 @@ export default {
 
 <style lang="scss" scoped>
 #DragDrop {
+  .data-pre {
+    display: flex;
+    .pre {
+      width: 200px;
+      padding: 20px;
+      background-color: lightgray;
+      margin: 20px;
+    }
+  }
+}
+#DragDrop {
   .drop-zone {
-    width: 300px;
+    width: 500px;
     min-height: 120px;
-    background-color: lightgreen;
+    background-color: #f7f7f7;
+    text-align: center;
     padding: 20px 30px;
     margin-top: 20px;
     border-radius: 5px;
     font-size: medium;
   }
   .drag-element {
-    background-color: lightblue;
+    background-color: #5bc0de;
     padding: 10px;
     margin-top: 10px;
+    color: white;
   }
 }
 </style>

@@ -1,12 +1,19 @@
 <template lang="pug">
-#TodoListView
-  TodoList1
+#ToDoListView
+    h1 {{ "drag and drop" }}
+    DragDrop
 </template>
 
 <script>
 export default {
+  name: "ToDoListView",
   components: {
-    TodoList1: () => import("@/components/TodoList/TodoList1.vue"),
+    DragDrop: () => import("@/components/Transitions/DragDrop.vue"),
   },
 };
 </script>
+
+<style lang="scss" scoped>
+#ToDoListView {
+}
+</style>

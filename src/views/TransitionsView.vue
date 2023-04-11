@@ -5,9 +5,6 @@
     TransitionPractice
     h1 {{ "transition-group" }}
     TransitionGroup
-  .div
-    h1 {{ "drag and drop" }}
-    DragDrop
 </template>
 
 <script>
@@ -18,7 +15,6 @@ export default {
       import("@/components/Transitions/TransitionPractice.vue"),
     TransitionGroup: () =>
       import("@/components/Transitions/TransitionGroup.vue"),
-    DragDrop: () => import("@/components/Transitions/DragDrop.vue"),
   },
 };
 </script>
