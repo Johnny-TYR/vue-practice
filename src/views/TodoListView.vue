@@ -1,7 +1,10 @@
 <template lang="pug">
 #ToDoListView
-    h1 {{ "drag and drop" }}
+  .dragDrop
+    h1 {{ "Drag and drop" }}
     DragDrop
+  .todoList
+    h1 {{ "Todo List" }}
 </template>
 
 <script>
@@ -14,6 +17,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// 排版
 #ToDoListView {
+  width: 100%;
+  display: flex;
+  gap: 300px;
 }
 </style>

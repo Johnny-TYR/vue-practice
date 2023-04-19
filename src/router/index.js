@@ -42,14 +42,14 @@ const routes = [
     component: () => import('../views/TimerView.vue')
   },
   {
-    path:'/carousel',
-    name:'carousel',
-    component:()=> import('@/views/CarouselView.vue')
+    path: '/carousel',
+    name: 'carousel',
+    component: () => import('@/views/CarouselView.vue')
   },
   {
-    path:'/transitions',
-    name:'transitions',
-    component:()=> import('@/views/TransitionsView.vue')
+    path: '/transitions',
+    name: 'transitions',
+    component: () => import('@/views/TransitionsView.vue')
   }
 ]
 
