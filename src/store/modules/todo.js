@@ -1,7 +1,5 @@
-import Vue from "vue";
-import Vuex from "vuex";
-// 把 plugin 引進來
 import LocalStorage from "@/plugin/LocalStorage";
+// 把 plugin 引進來
 
 Vue.use(Vuex)
 // 把 localStorage 拆出去寫

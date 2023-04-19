@@ -1,8 +1,3 @@
-import Vue from "vue";
-import Vuex from "vuex";
-
-Vue.use(Vuex);
-
 // we're creating a new Vuex store to put our data
 export const store = new Vuex.Store({
     strict: true,
