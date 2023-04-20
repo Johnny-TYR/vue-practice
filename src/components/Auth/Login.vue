@@ -19,7 +19,7 @@
         Button(type="primary", @click="HandleSubmit('loginForm')") {{ "Login" }}
         Button(type="error", @click="HandleClear('loginForm')") {{ "Clear" }}
         Button(@click="LogoutSuccessful") {{ "Logout" }}
-    pre {{ loginForm }}
+    pre {{ isLoggedIn }}
 </template>
 
 <script>
@@ -86,11 +86,11 @@ export default {
     },
     // global context from $store
     LoginSuccessful() {
-      this.$store.dispatch("UserLogin");
+      this.$store.dispatch("auth/UserLogin");
       storageFn.Set("isLoggedIn", true);
     },
     LogoutSuccessful() {
-      this.$store.dispatch("UserLogout");
+      this.$store.dispatch("auth/UserLogout");
       storageFn.Remove("isLoggedIn");
       this.$Message.success("成功登出");
     },

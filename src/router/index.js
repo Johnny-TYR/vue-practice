@@ -22,9 +22,9 @@ const routes = [
     component: () => import('../views/DataPickerView.vue')
   },
   {
-    path: '/vuex',
-    name: 'vuex',
-    component: () => import('../views/VuexView.vue')
+    path: '/productList',
+    name: 'productList',
+    component: () => import('../views/ProductListView.vue')
   },
   {
     path: '/example',

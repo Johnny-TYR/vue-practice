@@ -12,10 +12,10 @@
 export default {
   computed: {
     products() {
-      return this.$store.state.products;
+      return this.$store.state.productList.products;
     },
     saleProducts() {
-      return this.$store.getters.saleProducts;
+      return this.$store.getters["productList/saleProducts"];
     },
   },
   methods: {
@@ -23,7 +23,7 @@ export default {
       // we normally don't want to call the mutation directly
       // this.$store.commit("reducePrice")
       // we're using the action here
-      this.$store.dispatch("reducePriceAction", amount); // amount is the data we're sending through as a parameter
+      this.$store.dispatch("productList/reducePriceAction", amount); // amount is the data we're sending through as a parameter
     },
   },
 };
@@ -35,9 +35,11 @@ export default {
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
   margin-bottom: 30px;
   padding: 10px 20px;
+
   ul {
     padding: 0;
   }
+
   li {
     display: inline-block;
     margin-right: 10px;
@@ -46,8 +48,8 @@ export default {
     background: rgba(255, 255, 255, 0.7);
   }
 }
+
 .price {
   font-weight: bold;
   color: #e8800c;
-}
-</style>
+}</style>

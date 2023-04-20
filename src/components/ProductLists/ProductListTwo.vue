@@ -11,10 +11,10 @@
 export default {
   computed: {
     products() {
-      return this.$store.state.products;
+      return this.$store.state.productList.products;
     },
     saleProductsList() {
-      let saleProductsList = this.$store.state.products.map((product) => {
+      let saleProductsList = this.$store.state.productList.products.map((product) => {
         return {
           name: "⚡️ " + product.name + " ⚡️",
           price: product.price * 0.75,
@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     reducePriceClick() {
-      this.$store.state.products.forEach((product) => {
+      this.$store.state.productList.products.forEach((product) => {
         product.price -= 2;
       });
     },
