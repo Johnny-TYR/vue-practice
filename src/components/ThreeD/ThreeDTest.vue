@@ -1,9 +1,7 @@
 <template lang="pug">
 #ThreeD3
-  .camera   
+  .camera
     .box.box1
-      h1 {{ "This is where my title will go" }}
-    .box.box2
       iframe(:src="videoSrc" :style="videoStyle")
 </template>
 
@@ -14,8 +12,8 @@ export default {
     return {
       videoSrc: "https://www.youtube.com/embed/Za7PiYZlc4I",
       videoStyle: {
-        width: `450px`,
-        height: `270px`,
+        width: `100%`,
+        height: `100%`,
         border: "none"
       }
     }
@@ -36,7 +34,7 @@ export default {
     @extend .center;
     // 從多遠的地方看
     perspective: 1000px;
-    perspective-origin: center top;
+    // perspective-origin: top left; // no effect
   }
 
   .box {
@@ -46,19 +44,23 @@ export default {
   }
 
   .box.box1 {
-    background-color: lightsalmon;
-  }
-
-  .box.box2 {
     background-color: lightgrey;
     transform-style: preserve-3d;
-    // option 1
-    transform: skewY(25deg) translateY(117px);
-    // option 2
-    // rotate: 1 1 1 -60deg;
-    // option 3
-    // transform: perspective(1000px) rotateY(-25deg);
+    // ⭐️ simple transform + perspective 
+    transform: perspective(1000px) rotateX(20deg) rotateY(-25deg) skewX(0deg) skewY(0deg);
     @extend .center;
+    // 其他選項
+    // transform: skewY(25deg) translateY(117px);  // 1. use skew(傾斜多少)
+    // rotate: 1 1 1 -60deg;                       // 2. use rotate - wtf is vector
+  }
+
+  .box1:after {
+    content: "";
+    position: absolute;
+    background-color: lime;
+    width: 30px;
+    height: 100%;
+    transform: skewY(45deg) translate(280px, -260px);
   }
 }
 

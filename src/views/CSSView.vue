@@ -2,7 +2,8 @@
 #CSSView
   ThreeD1
   ThreeD2
-  ThreeD3
+  ThreeD4
+  ThreeDTest
 </template>
 
 <script>
@@ -11,7 +12,8 @@ export default {
   components: {
     ThreeD1: () => import('@/components/ThreeD/ThreeD1.vue'),
     ThreeD2: () => import('@/components/ThreeD/ThreeD2.vue'),
-    ThreeD3: () => import('@/components/ThreeD/ThreeD3.vue'),
+    ThreeD4: () => import('@/components/ThreeD/ThreeD4.vue'),
+    ThreeDTest: () => import('@/components/ThreeD/ThreeDTest.vue'),
   }
 }
 </script>
