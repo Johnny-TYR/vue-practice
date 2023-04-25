@@ -2,9 +2,6 @@
 #TimerView
   TimerBase
   CountDown
-  FlipCard(:startNum="numbers.sec")
-  FlipCard(:startNum="numbers.secTen")
-  Button(@click="StartCount") {{ "Click" }}
 </template>
 
 <script>
