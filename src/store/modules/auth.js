@@ -2,7 +2,7 @@ const auth = {
   // namespace 是讓 actions mutations 可以分開，不然原本是全部在 store 的 root directory
   namespaced: true,
   state: {
-    isLoggedIn: false
+    isLoggedIn: true
   },
   getters: {},
   mutations: {

@@ -17,11 +17,6 @@ const routes = [
     component: () => import('../views/iViewView.vue')
   },
   {
-    path: '/datepickers',
-    name: 'datepickers',
-    component: () => import('../views/DataPickerView.vue')
-  },
-  {
     path: '/productList',
     name: 'productList',
     component: () => import('../views/ProductListView.vue')
@@ -32,8 +27,8 @@ const routes = [
     component: () => import('../views/Example.vue')
   },
   {
-    path: '/todolist1',
-    name: 'todolist1',
+    path: '/todolist',
+    name: 'todolist',
     component: () => import('../views/TodoListView.vue')
   },
   {
@@ -50,6 +45,11 @@ const routes = [
     path: '/transitions',
     name: 'transitions',
     component: () => import('@/views/TransitionsView.vue')
+  },
+  {
+    path: '/css',
+    name: 'css',
+    component: () => import('@/views/CSSView.vue')
   }
 ]
 

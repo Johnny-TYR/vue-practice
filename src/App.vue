@@ -6,10 +6,10 @@
         <router-link :to="{ name: 'productList' }">Products List</router-link>
         <router-link :to="{ name: 'timer' }">Timer</router-link>
         <router-link to="/carousel">Carousel</router-link>
-        <router-link to="/todolist1">TodoList</router-link>
+        <router-link to="/todolist">TodoList</router-link>
         <router-link to="/transitions">Transitions</router-link>
+        <router-link to="/css">3D CSS</router-link>
         <router-link to="/iView">iView</router-link>
-        <router-link to="/datepickers">Date Pickers</router-link>
         <router-link :to="{ name: 'example' }">Copied Code</router-link>
       </nav>
     </div>
