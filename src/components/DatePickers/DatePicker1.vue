@@ -10,7 +10,7 @@
         placeholder="date range",
         placement="bottom-end"
       )
-  h2.desc {{ "✨ 幫 datepicker 新增側邊欄位選項，需要在 data() 裡面設定 shortcuts[]，每個欄位都是一個物件，再用 value() 來設定值" }}
+  h2.desc {{ "✨ 幫 datepicker 新增側邊欄位選項，需要在 data() 裡面設定 shortcuts[]，每\n個欄位都是一個物件，再用 value() 來設定值" }}
   .container
     Col
       DatePicker(type="date", placeholder="date", :options="shortcutOptions")
@@ -111,7 +111,9 @@ export default {
 #DatePicker1 {
   .desc {
     margin: 10px;
+    max-width: 600px;
   }
+
   .container {
     border: 1px solid black;
     background-color: lightgray;
@@ -121,6 +123,7 @@ export default {
     @extend .center;
   }
 }
+
 .center {
   display: flex;
   justify-content: space-around;

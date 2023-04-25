@@ -12,9 +12,9 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/forms',
-    name: 'forms',
-    component: () => import('../views/AboutView.vue')
+    path: '/iView',
+    name: 'iView',
+    component: () => import('../views/iViewView.vue')
   },
   {
     path: '/datepickers',
