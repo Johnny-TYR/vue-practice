@@ -2,8 +2,8 @@
 #ThreeD2
   .book
     .cover 
-    h2 {{ "CSS 3D" }}
-      span {{ "Edition" }}
+    h2 {{ "CSS" }}
+      span {{ " 3D Edition" }}
     span.writer {{"Copied by Johnny"}}
 </template>
 
@@ -75,7 +75,7 @@ export default {
   position: absolute;
   bottom: 100px;
   left: 40px;
-  font-size: 5em;
+  font-size: 6em;
   line-height: 1em;
   color: white;
 }
