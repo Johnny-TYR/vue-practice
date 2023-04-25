@@ -5,6 +5,7 @@
     DragDrop
   .todoList
     h1 {{ "Todo List" }}
+    TodoList
 </template>
 
 <script>
@@ -12,6 +13,7 @@ export default {
   name: "ToDoListView",
   components: {
     DragDrop: () => import("@/components/Transitions/DragDrop.vue"),
+    TodoList: () => import("@/components/TodoList/TodoList.vue")
   },
 };
 </script>
