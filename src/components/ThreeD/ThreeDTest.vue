@@ -60,6 +60,15 @@ export default {
     background-color: lime;
     width: 30px;
     height: 100%;
+    transform: skewY(45deg) translate(20px, -260px);
+  }
+
+  .box1::before {
+    content: "";
+    position: absolute;
+    background-color: lime;
+    width: 30px;
+    height: 100%;
     transform: skewY(45deg) translate(280px, -260px);
   }
 }
