@@ -1,28 +1,40 @@
 <template lang="pug">
 #ToDoListView
-  .dragDrop
-    h1 {{ "Drag and drop" }}
-    DragDrop
   .todoList
     h1 {{ "Todo List" }}
-    TodoList
+    TodoList(:todoList = "todoList")
 </template>
 
 <script>
 export default {
   name: "ToDoListView",
   components: {
-    DragDrop: () => import("@/components/Transitions/DragDrop.vue"),
     TodoList: () => import("@/components/TodoList/TodoList.vue")
   },
+  data() {
+    return {
+      todoList: [
+        { id: "0", title: "Learn Vue", done: false },
+        { id: "1", title: "Eat lunch", done: true },
+        { id: "2", title: "Play Wild Rift", done: false }
+      ]
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 // 排版
 #ToDoListView {
-  width: 100%;
+  @extend .center;
+}
+
+// 元件
+#ToDoListView {}
+
+.center {
   display: flex;
-  gap: 300px;
+  justify-content: center;
+  align-items: center
 }
 </style>
