@@ -1,5 +1,7 @@
 <template lang="pug">
 #CSSView
+  div.svg-container
+    Svg1
   ThreeD1
   ThreeD2
   ThreeD4
@@ -14,6 +16,7 @@ export default {
     ThreeD2: () => import('@/components/ThreeD/ThreeD2.vue'),
     ThreeD4: () => import('@/components/ThreeD/ThreeD4.vue'),
     ThreeDTest: () => import('@/components/ThreeD/ThreeDTest.vue'),
+    Svg1: () => import('@/components/ThreeD/Svg1.vue')
   }
 }
 </script>
@@ -22,6 +25,10 @@ export default {
 #CSSView {
   .section {
     width: 100%;
+    height: 100vh;
+  }
+
+  .svg-container {
     height: 100vh;
   }
 }
