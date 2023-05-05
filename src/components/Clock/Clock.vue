@@ -1,6 +1,6 @@
 <template lang="pug">
 #Clock
-  svg#svg-container(view-box="0 0 100 100")
+  svg#svg-container
     circle#face(cx="500" cy="500" r="450")
     //- g stands for "group", works like a div
     g#hands
@@ -30,15 +30,15 @@ export default {
     }
   },
   computed: {
+    // 每整點30deg，每分鐘0.5deg + 原本歸零的180deg
     hourAngle() {
-      const hour = this.currentTime.getHours() % 12
+      const hour = this.currentTime.getHours()
       const min = this.currentTime.getMinutes()
-      return hour * 30 + min / 2 + 180
+      return hour % 12 * 30 + min * 0.5 + 180
     },
     // 一圈360deg，每分鐘6deg，因為svg起點全指向6，所以+180
     minAngle() {
       const min = this.currentTime.getMinutes()
-      console.log(min)
       return min * 6 + 180
     },
     // 一圈360deg，每秒6deg，因為svg起點全指向6，所以+180
