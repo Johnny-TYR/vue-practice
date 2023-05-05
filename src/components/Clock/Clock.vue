@@ -1,9 +1,6 @@
 <template lang="pug">
 #Clock
-  .bg-img
-  //- .orbit
-  //-   img(src="https://cdn-icons-png.flaticon.com/512/619/619175.png")
-  //-   .orbit-text {{ weekNum }}
+  .bg-img 
   svg#svg-container(viewBox="0 0 700 700")
     circle#face(cx="350" cy="350" r="300")
     circle#middle(cx="350" cy="350" r="30")
@@ -11,15 +8,18 @@
     g#numbers
       text(x="315" y="120" fill="white") {{ "12" }}
       text(x="580" y="375" fill="white") {{ "3" }}
-      text(x="330" y="630" fill="white") {{ "9" }}
-      text(x="80" y="370" fill="white") {{ "6" }}
+      text(x="330" y="630" fill="white") {{ "6" }}
+      text(x="80" y="370" fill="white") {{ "9" }}
     g#hands
       rect#hour(x="340" y="350" rx="25" ry="25" :style="{transform: `rotate(${hourAngle}deg)`}") 
       rect#min(x="340" y="350" rx="25" ry="25" :style="{transform: `rotate(${minAngle}deg)`}") 
-      line#sec(x1="350" y1="350" x2="350" y2="640" :style="{transform: `rotate(${secAngle}deg)`}")
+      line#sec(x1="350" y1="350" x2="350" y2="600" :style="{transform: `rotate(${secAngle}deg)`}")
     g#time
       text(x="450" y="700" fill="white") {{`${monthNum} ${currentTime.getDate()}` }}
     circle#mini-middle(cx="350" cy="350" r="10")
+  .orbit
+    img(src="https://cdn-icons-png.flaticon.com/512/619/619175.png")
+    .orbit-text {{ weekNum }}
     
 </template>
 
@@ -150,14 +150,16 @@ export default {
     border-radius: 50%;
     position: absolute;
     /* linear:play an animation with the same speed from beginning to end */
-    animation: bg_loop 100s infinite linear;
+    animation: bg_loop 40s infinite linear;
+    transform: rotateX(60deg);
   }
 
   @keyframes bg_loop {
     100% {
       // starting position of bg image
-      background-position: -10000px;
-      transform: rotate(360deg);
+      background-position: -1200px;
+      // transform: rotate(360deg);
+      transform: rotateX(60deg) rotateZ(360deg);
     }
   }
 
@@ -167,8 +169,10 @@ export default {
     width: 750px;
     height: 750px;
     border-radius: 50%;
-    border: 10px solid white;
+    border: 1px solid white;
     animation: spin-right 10s linear infinite;
+    transform: rotateX(80deg);
+    z-index: 100;
 
     img {
       width: 100px;
@@ -181,16 +185,26 @@ export default {
   .orbit-text {
     font-size: 35px;
     color: yellow;
+    border: 5px dashed yellow;
+    padding: 10px 20px;
     position: absolute;
-    top: -23px;
-    left: 310px;
+    top: 750px;
+    left: 280px;
+    transform-origin: top;
+    transform: skewX(10deg);
+    z-index: 100;
+
+    &::after {
+      content: url("/Users/johnny/Desktop/vue-practice/public/imgs/3drocket.png");
+    }
   }
 
   @keyframes spin-right {
     100% {
-      transform: rotate(360deg);
+      transform: rotateX(80deg) rotateZ(-360deg);
     }
   }
+
 }
 
 .center {
