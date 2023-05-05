@@ -1,25 +1,26 @@
 <template lang="pug">
 #Clock
   .bg-img
-  svg#svg-container
-    //- circle#orbit(cx="500" cy="500" r="500")
-    circle#face(cx="500" cy="500" r="450")
-    circle#middle(cx="500" cy="500" r="50")
+  //- .orbit
+  //-   img(src="https://cdn-icons-png.flaticon.com/512/619/619175.png")
+  //-   .orbit-text {{ weekNum }}
+  svg#svg-container(viewBox="0 0 700 700")
+    circle#face(cx="350" cy="350" r="300")
+    circle#middle(cx="350" cy="350" r="30")
     //- g stands for "group", works like a div
     g#numbers
-      text(x="425" y="180" fill="white") {{ "12" }}
-      text(x="835" y="545" fill="white") {{ "3" }}
-      text(x="90" y="545" fill="white") {{ "9" }}
-      text(x="465" y="915" fill="white") {{ "6" }}
+      text(x="315" y="120" fill="white") {{ "12" }}
+      text(x="580" y="375" fill="white") {{ "3" }}
+      text(x="330" y="630" fill="white") {{ "9" }}
+      text(x="80" y="370" fill="white") {{ "6" }}
     g#hands
-      rect#hour(x="482" y="500" rx="25" ry="25" :style="{transform: `rotate(${hourAngle}deg)`}") 
-      rect#min(x="485" y="500" rx="25" ry="25" :style="{transform: `rotate(${minAngle}deg)`}") 
-      line#sec(x1="500" y1="500" x2="500" y2="900" :style="{transform: `rotate(${secAngle}deg)`}")
+      rect#hour(x="340" y="350" rx="25" ry="25" :style="{transform: `rotate(${hourAngle}deg)`}") 
+      rect#min(x="340" y="350" rx="25" ry="25" :style="{transform: `rotate(${minAngle}deg)`}") 
+      line#sec(x1="350" y1="350" x2="350" y2="640" :style="{transform: `rotate(${secAngle}deg)`}")
     g#time
-      text(x="500" y="300" fill="white") {{ weekNum }}
-      text(x="350" y="700" fill="white") {{ monthNum }}
-      text(x="400" y="700" fill="white") {{ currentTime.getDate() }}
-    circle#mini-middle(cx="500" cy="500" r="20")
+      text(x="450" y="700" fill="white") {{`${monthNum} ${currentTime.getDate()}` }}
+    circle#mini-middle(cx="350" cy="350" r="10")
+    
 </template>
 
 <script>
@@ -79,15 +80,16 @@ export default {
 // 排版
 #Clock {
   @extend .center;
+  position: relative;
+  font-family: 'Press Start 2P', cursive;
 }
 
 // 元件
 #Clock {
   #svg-container {
-    width: 1000px;
-    height: 1000px;
-    font-family: 'Press Start 2P', cursive;
-    z-index: 2;
+    width: 700px;
+    height: 700px;
+    z-index: 3;
   }
 
   #face {
@@ -108,7 +110,7 @@ export default {
 
   // =============================================
   #numbers {
-    font-size: 80px;
+    font-size: 40px;
   }
 
   #hands {
@@ -116,14 +118,14 @@ export default {
     fill: #f6f6f6;
 
     #hour {
-      width: 35px;
-      height: 280px;
+      width: 20px;
+      height: 180px;
       transform-origin: center;
     }
 
     #min {
-      width: 30px;
-      height: 400px;
+      width: 20px;
+      height: 280px;
       transform-origin: center;
     }
 
@@ -135,26 +137,57 @@ export default {
   }
 
   #time {
-    font-size: 20px;
+    font-size: 30px;
   }
 
   // =============================================
   .bg-img {
-    height: 900px;
-    width: 900px;
-    z-index: 1;
+    height: 600px;
+    width: 600px;
+    z-index: 2;
     background-image: url("/Users/johnny/Desktop/vue-practice/public/imgs/milkyway.jpeg");
-    background-size: 900px 900px;
+    background-size: 600px 600px;
     border-radius: 50%;
     position: absolute;
     /* linear:play an animation with the same speed from beginning to end */
-    animation: bg_loop 60s infinite linear;
+    animation: bg_loop 100s infinite linear;
   }
 
   @keyframes bg_loop {
     100% {
       // starting position of bg image
-      background-position: -2000px;
+      background-position: -10000px;
+      transform: rotate(360deg);
+    }
+  }
+
+  // =============================================
+  .orbit {
+    position: absolute;
+    width: 750px;
+    height: 750px;
+    border-radius: 50%;
+    border: 10px solid white;
+    animation: spin-right 10s linear infinite;
+
+    img {
+      width: 100px;
+      position: absolute;
+      top: -33px;
+      left: 600px;
+    }
+  }
+
+  .orbit-text {
+    font-size: 35px;
+    color: yellow;
+    position: absolute;
+    top: -23px;
+    left: 310px;
+  }
+
+  @keyframes spin-right {
+    100% {
       transform: rotate(360deg);
     }
   }
