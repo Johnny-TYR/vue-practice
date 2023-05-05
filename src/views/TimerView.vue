@@ -2,7 +2,10 @@
 #TimerView
   TimerBase
   CountDown
-  Clock
+
+  #clock
+    //- img.bg-img(src="/imgs/space-bg.jpeg")
+    Clock
 </template>
 
 <script>
@@ -43,5 +46,18 @@ export default {
     margin-top: 100px;
     margin-bottom: 100px;
   }
+
+  #clock {
+    background-image: url("/public/imgs/stars.jpeg");
+    height: 100vh;
+    @extend .center;
+  }
+
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

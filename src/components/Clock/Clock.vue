@@ -2,8 +2,13 @@
 #Clock
   svg#svg-container
     circle#face(cx="500" cy="500" r="450")
-    circle#middle(cx="500" cy="500" r="100")
+    circle#middle(cx="500" cy="500" r="80")
     //- g stands for "group", works like a div
+    g#numbers
+      text(x="425" y="180" fill="white") {{ "12" }}
+      text(x="835" y="545" fill="white") {{ "3" }}
+      text(x="90" y="545" fill="white") {{ "9" }}
+      text(x="465" y="915" fill="white") {{ "6" }}
     g#hands
       rect#hour(x="482" y="500" rx="25" ry="25" :style="{transform: `rotate(${hourAngle}deg)`}") 
       rect#min(x="485" y="500" rx="25" ry="25" :style="{transform: `rotate(${minAngle}deg)`}") 
@@ -55,11 +60,7 @@ export default {
 
 <style lang="scss" scoped>
 // 排版
-#Clock {
-  height: 100vh;
-  @extend .center;
-  background-color: darkblue;
-}
+#Clock {}
 
 // 元件
 #Clock {
@@ -86,25 +87,31 @@ export default {
 
   #hands {
     box-sizing: border-box;
-    stroke: white;
-    fill: #f0f0f0;
+    stroke: black;
+    fill: white;
 
     #hour {
       width: 35px;
-      height: 320px;
+      height: 280px;
       transform-origin: center;
     }
 
     #min {
       width: 30px;
-      height: 430px;
+      height: 400px;
       transform-origin: center;
     }
 
     #sec {
       stroke: red;
+      stroke-width: 5px;
       transform-origin: center;
     }
+  }
+
+  #numbers {
+    font-size: 80px;
+    font-family: 'Press Start 2P', cursive;
   }
 }
 
