@@ -2,11 +2,13 @@
 #Clock
   svg#svg-container
     circle#face(cx="500" cy="500" r="450")
+    circle#middle(cx="500" cy="500" r="100")
     //- g stands for "group", works like a div
     g#hands
-      rect#hour(x="475" y="485" rx="25" ry="25" :style="{transform: `rotate(${hourAngle}deg)`}") 
-      rect#min(x="481" y="475" rx="25" ry="25" :style="{transform: `rotate(${minAngle}deg)`}") 
+      rect#hour(x="482" y="500" rx="25" ry="25" :style="{transform: `rotate(${hourAngle}deg)`}") 
+      rect#min(x="485" y="500" rx="25" ry="25" :style="{transform: `rotate(${minAngle}deg)`}") 
       line#sec(x1="500" y1="500" x2="500" y2="900" :style="{transform: `rotate(${secAngle}deg)`}")
+    circle#mini-middle(cx="500" cy="500" r="20")
 </template>
 
 <script>
@@ -56,6 +58,7 @@ export default {
 #Clock {
   height: 100vh;
   @extend .center;
+  background-color: darkblue;
 }
 
 // 元件
@@ -63,29 +66,38 @@ export default {
   #svg-container {
     width: 1000px;
     height: 1000px;
-    background-color: darkblue;
   }
 
   #face {
     stroke: white;
-    stroke-width: 10px;
+    stroke-width: 25px;
+    fill: black;
+  }
+
+  #middle {
+    stroke: white;
+    fill: darkblue;
+  }
+
+  #mini-middle {
+    stroke: white;
     fill: black;
   }
 
   #hands {
+    box-sizing: border-box;
     stroke: white;
-    stroke-width: 5px;
-    fill: lightgray;
+    fill: #f0f0f0;
 
     #hour {
-      width: 50px;
-      height: 350px;
+      width: 35px;
+      height: 320px;
       transform-origin: center;
     }
 
     #min {
-      width: 40px;
-      height: 450px;
+      width: 30px;
+      height: 430px;
       transform-origin: center;
     }
 
