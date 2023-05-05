@@ -4,7 +4,6 @@
   CountDown
 
   #clock
-    //- img.bg-img(src="/imgs/space-bg.jpeg")
     Clock
 </template>
 
@@ -48,9 +47,9 @@ export default {
   }
 
   #clock {
-    background-image: url("/public/imgs/stars.jpeg");
     height: 100vh;
     @extend .center;
+    background-color: black;
   }
 
 }
