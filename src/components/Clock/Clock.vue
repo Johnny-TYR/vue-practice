@@ -18,7 +18,7 @@
       text(x="450" y="700" fill="white") {{`${monthNum} ${currentTime.getDate()}` }}
     circle#mini-middle(cx="350" cy="350" r="10")
   .orbit
-    img(src="https://cdn-icons-png.flaticon.com/512/619/619175.png")
+    //- img(src="/imgs/3drocket.png")
     .orbit-text {{ weekNum }}
     
 </template>
@@ -37,7 +37,6 @@ export default {
   },
   mounted() {
     this.timer = setInterval(() => {
-
       this.currentTime = new Date()
     }, 1000)
   },
@@ -151,15 +150,14 @@ export default {
     position: absolute;
     /* linear:play an animation with the same speed from beginning to end */
     animation: bg_loop 40s infinite linear;
-    transform: rotateX(60deg);
+    // transform: rotateX(60deg);
   }
 
   @keyframes bg_loop {
     100% {
       // starting position of bg image
       background-position: -1200px;
-      // transform: rotate(360deg);
-      transform: rotateX(60deg) rotateZ(360deg);
+      transform: rotateZ(360deg);
     }
   }
 
@@ -169,16 +167,16 @@ export default {
     width: 750px;
     height: 750px;
     border-radius: 50%;
-    border: 1px solid white;
-    animation: spin-right 10s linear infinite;
-    transform: rotateX(80deg);
+    // border: 1px dashed white;
+    animation: spin-right 5s linear infinite;
     z-index: 100;
+    transform: rotateX(70deg);
+    transform-style: preserve-3d;
+  }
 
-    img {
-      width: 100px;
-      position: absolute;
-      top: -33px;
-      left: 600px;
+  @keyframes spin-right {
+    100% {
+      transform: rotateX(360deg);
     }
   }
 
@@ -188,22 +186,14 @@ export default {
     border: 5px dashed yellow;
     padding: 10px 20px;
     position: absolute;
-    top: 750px;
-    left: 280px;
+    top: 600px;
+    left: 250px;
     transform-origin: top;
-    transform: skewX(10deg);
+    transform: rotateX(-90deg);
     z-index: 100;
-
-    &::after {
-      content: url("/Users/johnny/Desktop/vue-practice/public/imgs/3drocket.png");
-    }
   }
 
-  @keyframes spin-right {
-    100% {
-      transform: rotateX(80deg) rotateZ(-360deg);
-    }
-  }
+
 
 }
 
