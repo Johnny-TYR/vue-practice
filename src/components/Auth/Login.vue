@@ -19,7 +19,8 @@
         Button(type="primary", @click="HandleSubmit('loginForm')") {{ "Login" }}
         Button(type="error", @click="HandleClear('loginForm')") {{ "Clear" }}
         Button(@click="LogoutSuccessful") {{ "Logout" }}
-    LineLogin
+    .line-login
+      LineLogin
 </template>
 
 <script>

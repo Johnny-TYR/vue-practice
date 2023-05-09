@@ -1,7 +1,8 @@
 <template lang="pug">
 //- 請填寫功能描述👈
 #LineLogin
-  Button.line-login-btn(@click="LineLogin") {{ "Line Login Button" }}
+  img.line-login-btn(src="/imgs/btn_login_press.png" @click="LineLogin")
+  //- Button.line-login-btn(@click="LineLogin") {{ "Line Login Button" }}
 </template>
 
 <script>
@@ -39,7 +40,10 @@ export default {
 // 元件
 #LineLogin {
   .line-login-btn {
-    background-color: lightgreen;
+    width: 150px;
+    &:active {
+      transform: scale(0.99);
+    }
   }
 }
 </style>
