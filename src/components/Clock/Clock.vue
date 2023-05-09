@@ -17,9 +17,7 @@
     g#time
       text(x="450" y="700" fill="white") {{`${monthNum} ${currentTime.getDate()}` }}
     circle#mini-middle(cx="350" cy="350" r="10")
-  .orbit
-    //- img(src="/imgs/3drocket.png")
-    .orbit-text {{ weekNum }}
+  .moon
     
 </template>
 
@@ -92,7 +90,7 @@ export default {
   }
 
   #face {
-    stroke: midnightblue;
+    stroke: rgba(0, 0, 0, 0.4);
     stroke-width: 10px;
     fill: black;
     fill-opacity: 0;
@@ -150,7 +148,6 @@ export default {
     position: absolute;
     /* linear:play an animation with the same speed from beginning to end */
     animation: bg_loop 40s infinite linear;
-    // transform: rotateX(60deg);
   }
 
   @keyframes bg_loop {
@@ -162,38 +159,47 @@ export default {
   }
 
   // =============================================
-  .orbit {
-    position: absolute;
-    width: 750px;
-    height: 750px;
+  .moon {
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
-    // border: 1px dashed white;
-    animation: spin-right 5s linear infinite;
+    background: url("/Users/johnny/Desktop/vue-practice/public/imgs/milkyway.jpeg");
+    box-shadow:
+      inset -1.5em -1.5em 1.5em #000,
+      -0.2em -0.2em 0.5em #ccc;
+    position: absolute;
+    left: -200px;
     z-index: 100;
-    transform: rotateX(70deg);
-    transform-style: preserve-3d;
+    animation:
+      rotate 40s linear infinite,
+      orbit 15s infinite ease-in-out;
   }
 
-  @keyframes spin-right {
+  @keyframes rotate {
     100% {
-      transform: rotateX(360deg);
+      background-position: -200% 0;
     }
   }
 
-  .orbit-text {
-    font-size: 35px;
-    color: yellow;
-    border: 5px dashed yellow;
-    padding: 10px 20px;
-    position: absolute;
-    top: 600px;
-    left: 250px;
-    transform-origin: top;
-    transform: rotateX(-90deg);
-    z-index: 100;
+  @keyframes orbit {
+    50% {
+      left: 730px;
+      z-index: 100;
+    }
+
+    63% {
+      z-index: -1;
+    }
+
+    86% {
+      z-index: -1;
+    }
+
+    100% {
+      left: -200px;
+      z-index: 100;
+    }
   }
-
-
 
 }
 

@@ -49,7 +49,8 @@ export default {
   #clock {
     height: 100vh;
     @extend .center;
-    background-color: black;
+    background: black;
+    background: radial-gradient(circle, midnightblue 0%, black 100%);
   }
 
 }
