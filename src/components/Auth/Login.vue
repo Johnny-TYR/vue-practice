@@ -19,12 +19,15 @@
         Button(type="primary", @click="HandleSubmit('loginForm')") {{ "Login" }}
         Button(type="error", @click="HandleClear('loginForm')") {{ "Clear" }}
         Button(@click="LogoutSuccessful") {{ "Logout" }}
-    pre {{ isLoggedIn }}
+    LineLogin
 </template>
 
 <script>
 import storageFn from "@/plugin/storage.js";
 export default {
+  components: {
+    LineLogin: () => import("@/components/Auth/LineLogin.vue"),
+  },
   data() {
     const validateAccount = (rule, value, callback) => {
       if (value === "") {
@@ -93,7 +96,7 @@ export default {
       this.$store.dispatch("auth/UserLogout");
       storageFn.Remove("isLoggedIn");
       this.$Message.success("成功登出");
-    },
+    }
   },
 };
 </script>
@@ -106,9 +109,11 @@ export default {
     border: 5px double black;
     border-radius: 10px;
     padding: 50px;
+
     h1 {
       margin-bottom: 20px;
     }
+
     .input {
       font-size: 100px;
     }

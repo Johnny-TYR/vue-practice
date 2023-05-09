@@ -37,7 +37,6 @@
     FormItem
       Button(type="success", @click="HandleSubmit('registerForm')") {{ "Register" }}
       Button(type="error", @click="HandleClear('registerForm')") {{ "Clear Form" }}
-    pre {{ users }}
 </template>
 
 <script>
@@ -151,9 +150,11 @@ export default {
     border: 5px double black;
     border-radius: 10px;
     padding: 50px;
+
     h1 {
       margin-bottom: 20px;
     }
+
     .input {
       font-size: 100px;
     }

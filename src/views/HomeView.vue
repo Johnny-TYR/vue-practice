@@ -37,16 +37,19 @@ export default {
   height: 100vh;
   background-color: lightskyblue;
   @extend .center;
+
   .loginRegister {
     display: flex;
     flex-direction: column;
   }
+
   .cheatBtns {
     position: absolute;
     bottom: 0;
     left: 0;
   }
 }
+
 .center {
   display: flex;
   justify-content: center;
