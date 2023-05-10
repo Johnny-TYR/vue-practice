@@ -6,19 +6,21 @@
     circle#middle(cx="350" cy="350" r="30")
     //- g stands for "group", works like a div
     g#numbers
-      text(x="315" y="120" fill="white") {{ "12" }}
-      text(x="580" y="375" fill="white") {{ "3" }}
-      text(x="330" y="630" fill="white") {{ "6" }}
-      text(x="80" y="370" fill="white") {{ "9" }}
+      text(x="320" y="120" fill="white") {{ "12" }}
+      text(x="580" y="367" fill="white") {{ "3" }}
+      text(x="336" y="630" fill="white") {{ "6" }}
+      text(x="80" y="367" fill="white") {{ "9" }}
     g#hands
       rect#hour(x="340" y="350" rx="25" ry="25" :style="{transform: `rotate(${hourAngle}deg)`}") 
       rect#min(x="340" y="350" rx="25" ry="25" :style="{transform: `rotate(${minAngle}deg)`}") 
       line#sec(x1="350" y1="350" x2="350" y2="600" :style="{transform: `rotate(${secAngle}deg)`}")
     g#time
-      text(x="250" y="500" fill="white") {{`${monthNum} ${currentTime.getDate()}` }}
+      text(x="0%" y="100%" fill="white") {{`${monthNum} ${currentTime.getDate()}` }}
     circle#mini-middle(cx="350" cy="350" r="10")
   .moon 
     .week {{ weekNum }}
+  //- .ring
+  //- .ring2
     
 </template>
 
@@ -107,7 +109,7 @@ export default {
 
   // =============================================
   #numbers {
-    font-size: 40px;
+    font-size: 30px;
   }
 
   #hands {
@@ -134,28 +136,36 @@ export default {
   }
 
   #time {
-    font-size: 20px;
+    font-size: 30px;
+    animation: date 5s infinite linear;
   }
 
+  @keyframes date {
+    0%{
+      transform: translateX(0%);
+    }
+    100%{
+      transform: translateX(100%);
+    }
+  }
   // =============================================
   .bg-img {
     height: 600px;
     width: 600px;
     z-index: 2;
-    background-image: url("/Users/johnny/Desktop/vue-practice/public/imgs/milkyway.jpeg");
+    // background-image: url("/Users/johnny/Desktop/vue-practice/public/imgs/milkyway.jpeg");
+    background-image: url("https://www.solarsystemscope.com/textures/download/8k_venus_surface.jpg");
     background-size: 600px 600px;
     border-radius: 50%;
     position: absolute;
     /* linear:play an animation with the same speed from beginning to end */
-    animation: bg_loop 80s infinite linear;
-    // transform: rotateX(60deg);
-
+    animation: bg_loop 90s infinite linear;
   }
 
   @keyframes bg_loop {
     100% {
       // starting position of bg image
-      background-position: -1200px;
+      background-position: -9000px;
       transform: rotateZ(360deg);
     }
   }
@@ -204,6 +214,29 @@ export default {
 
     100% {
       z-index: 100;
+    }
+  }
+
+  .ring {
+    border: 7px dashed #f0f0f0;
+    border-radius: 50%;
+    width: 680px;
+    height: 680px;
+    position: absolute;
+    animation: ring-rotate 60s infinite linear;
+  }
+
+  .ring2 {
+    border: 7px double black;
+    border-radius: 50%;
+    width: 700px;
+    height: 700px;
+    position: absolute;
+  }
+
+  @keyframes ring-rotate {
+    100% {
+      transform: rotate(-360deg);
     }
   }
 }
