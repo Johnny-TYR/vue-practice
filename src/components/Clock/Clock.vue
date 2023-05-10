@@ -138,6 +138,9 @@ export default {
   #time {
     font-size: 30px;
     animation: date 5s infinite linear;
+    &::after{
+      content: url();
+    }
   }
 
   @keyframes date {
