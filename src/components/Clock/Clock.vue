@@ -137,20 +137,19 @@ export default {
 
   #time {
     font-size: 30px;
-    animation: date 5s infinite linear;
-    &::after{
-      content: url();
-    }
+    // animation: date 5s infinite linear;
   }
 
   @keyframes date {
-    0%{
+    0% {
       transform: translateX(0%);
     }
-    100%{
+
+    100% {
       transform: translateX(100%);
     }
   }
+
   // =============================================
   .bg-img {
     height: 600px;

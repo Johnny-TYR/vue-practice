@@ -27,6 +27,7 @@ export default {
 
 // 元件
 #Planet {
+  perspective: 1000px;
 
   .planet,
   .moon {
@@ -44,6 +45,8 @@ export default {
       -0.5em -0.5em 1em #f0d08b;
     position: relative;
     animation: rotate 20s linear infinite;
+    transform-origin: center;
+    transform: translateZ(-200px) scale(2);
   }
 
   .moon {
