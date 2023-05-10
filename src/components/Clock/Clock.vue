@@ -15,9 +15,10 @@
       rect#min(x="340" y="350" rx="25" ry="25" :style="{transform: `rotate(${minAngle}deg)`}") 
       line#sec(x1="350" y1="350" x2="350" y2="600" :style="{transform: `rotate(${secAngle}deg)`}")
     g#time
-      text(x="450" y="700" fill="white") {{`${monthNum} ${currentTime.getDate()}` }}
+      text(x="250" y="500" fill="white") {{`${monthNum} ${currentTime.getDate()}` }}
     circle#mini-middle(cx="350" cy="350" r="10")
-  .moon
+  .moon 
+    .week {{ weekNum }}
     
 </template>
 
@@ -90,9 +91,8 @@ export default {
   }
 
   #face {
-    stroke: rgba(0, 0, 0, 0.4);
+    stroke: rgba(0, 0, 0, 0.5);
     stroke-width: 10px;
-    fill: black;
     fill-opacity: 0;
   }
 
@@ -134,7 +134,7 @@ export default {
   }
 
   #time {
-    font-size: 30px;
+    font-size: 20px;
   }
 
   // =============================================
@@ -147,7 +147,9 @@ export default {
     border-radius: 50%;
     position: absolute;
     /* linear:play an animation with the same speed from beginning to end */
-    animation: bg_loop 40s infinite linear;
+    animation: bg_loop 80s infinite linear;
+    // transform: rotateX(60deg);
+
   }
 
   @keyframes bg_loop {
@@ -160,19 +162,24 @@ export default {
 
   // =============================================
   .moon {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    background: url("/Users/johnny/Desktop/vue-practice/public/imgs/milkyway.jpeg");
+    background: url("https://www.solarsystemscope.com/textures/download/8k_mercury.jpg");
     box-shadow:
       inset -1.5em -1.5em 1.5em #000,
       -0.2em -0.2em 0.5em #ccc;
     position: absolute;
-    left: -200px;
+    left: -120px;
     z-index: 100;
     animation:
-      rotate 40s linear infinite,
-      orbit 15s infinite ease-in-out;
+      rotate 90s linear infinite,
+      orbit 17s ease-in-out infinite;
+    @extend .center;
+
+    .week {
+      color: white;
+    }
   }
 
   @keyframes rotate {
@@ -187,20 +194,18 @@ export default {
       z-index: 100;
     }
 
-    63% {
-      z-index: -1;
+    61% {
+      z-index: 1;
     }
 
-    86% {
-      z-index: -1;
+    90% {
+      z-index: 1;
     }
 
     100% {
-      left: -200px;
       z-index: 100;
     }
   }
-
 }
 
 .center {

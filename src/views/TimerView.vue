@@ -51,6 +51,7 @@ export default {
     @extend .center;
     background: black;
     background: radial-gradient(circle, midnightblue 0%, black 100%);
+    // background-image: url("/Users/johnny/Desktop/vue-practice/public/imgs/milkyway.jpeg");
   }
 
 }
