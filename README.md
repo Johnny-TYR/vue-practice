@@ -1,4 +1,4 @@
-# Practice : Vue Version
+# Vue Practice
 
 ## Project setup
 ```
