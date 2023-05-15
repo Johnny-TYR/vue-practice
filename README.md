@@ -1,4 +1,4 @@
-# vue-pokedex
+# Vue Practice
 
 ## Project setup
 ```
