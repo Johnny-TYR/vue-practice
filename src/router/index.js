@@ -50,6 +50,11 @@ const routes = [
     path: '/css',
     name: 'css',
     component: () => import('@/views/CSSView.vue')
+  },
+  {
+    path: '/games',
+    name: 'games',
+    component: () => import('@/views/GamesView.vue')
   }
 ]
 

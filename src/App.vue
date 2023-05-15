@@ -10,6 +10,7 @@
         <router-link to="/transitions">Transitions</router-link>
         <router-link to="/css">3D CSS</router-link>
         <router-link to="/iView">iView</router-link>
+        <router-link to="/games">Games</router-link>
         <router-link :to="{ name: 'example' }">Copied Code</router-link>
       </nav>
     </div>
