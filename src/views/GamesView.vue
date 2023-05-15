@@ -3,7 +3,9 @@
 #GamesView
   .scratch
     h1 {{ "刮刮樂" }}
-    Scratch
+    Scratch(
+      foregroundImg="https://img.freepik.com/free-vector/realistic-galaxy-background_52683-12122.jpg"
+    )
 </template>
 
 <script>
