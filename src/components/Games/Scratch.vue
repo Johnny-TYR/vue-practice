@@ -2,7 +2,6 @@
 //- 請填寫功能描述👈
 #Scratch
   canvas.bg-canvas(ref="sketchpad" :width="canvasWidth" :height="canvasHeight")
-  Button(@click="DrawRect") {{ "draw rect" }}
 </template>
 
 <script>
@@ -21,22 +20,55 @@ export default {
   mounted() {
     const canvas = this.$refs.sketchpad;
     this.ctx = canvas.getContext('2d')
-
-    const image = new Image()
-    image.src = "https://picsum.photos/600/500?1"
-    image.onload = () => {
-      this.ctx.drawImage(image, 0, 0)
-    }
+    // load image onto canvas
+    this.start()
   },
   methods: {
-    DrawRect() {
+    // Ref Init ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+    start() {
+      // setup image on canvas
+      const canvas = this.$refs.sketchpad;
       const ctx = this.ctx
-      ctx.beginPath()
-      ctx.moveTo(30, 50)
-      ctx.lineTo(150, 100)
-      ctx.stroke()
-    },
+      const image = new Image()
+      image.src = "https://picsum.photos/600/500?1"
+      image.onload = () => {
+        ctx.drawImage(image, 0, 0)
+      }
+      // comp mode and handler
+      ctx.globalCompositeOperation = 'destination-out';
+      canvas.onmousedown = this.HandleMouseDown;
+      canvas.onmousemove = this.HandleMouseMove;
+      window.onmouseup = this.HandleMouseUp;
 
+    },
+    // Event ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+    HandleMouseDown(e) {
+      this.isDown = true
+      let pos = this.GetXY(e)
+      this.Erase(pos.x, pos.y)
+    },
+    HandleMouseUp(e) {
+      this.isDown = false
+    },
+    HandleMouseMove(e) {
+      if (!this.isDown) return
+      let pos = this.GetXY(e)
+      this.Erase(pos.x, pos.y)
+    },
+    // Function ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+    GetXY(e) {
+      let rect = this.$refs.sketchpad.getBoundingClientRect()
+      return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      }
+    },
+    Erase(x, y) {
+      const ctx = this.ctx
+      ctx.beginPath();
+      ctx.arc(x, y, this.radius, 0, this.pi2);
+      ctx.fill();
+    }
   }
 };
 </script>
@@ -46,6 +78,7 @@ export default {
 #Scratch {
   .bg-canvas {
     border: 5px solid black;
+    // background: blue;
   }
 }
 
