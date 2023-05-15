@@ -34,21 +34,21 @@ export default {
   methods: {
     // Ref Init ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     SetUpCanvas() {
-      // setup image on canvas
       const ctx = this.ctx
+      // setup image on canvas
       const image = new Image()
-      const bgImage = new Image()
       image.src = "https://picsum.photos/600/500?1"
       image.onload = () => {
-        ctx.drawImage(image, 0, 0)
+        ctx.drawImage(image, 0, 0)  // 從 0,0 開始畫 image
       }
     },
     // Event ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-    HandleMouseDown(e) {
+    HandleMouseDown() {
+      // get coordinates of mouse
       this.rect = this.$refs.sketchpad.getBoundingClientRect()
       this.isDown = true
     },
-    HandleMouseUp(e) {
+    HandleMouseUp() {
       this.isDown = false
     },
     HandleMouseMove(e) {
@@ -67,7 +67,7 @@ export default {
     },
     Erase(x, y) {
       const ctx = this.ctx
-      // 🔑 this is the key part, need this line of code to erase and show bg
+      // 🔑 this is the key part, need this line of code to erase and show bg img
       ctx.globalCompositeOperation = 'destination-out';
       // 畫圈圈
       ctx.beginPath();
@@ -82,7 +82,7 @@ export default {
 // 排版
 #Scratch {
   #bg-canvas {
-    // border: 5px solid black;
+    border: 3px solid lightsalmon;
     background-image: url("https://dummyimage.com/600x500/25a12e/d417d4&text=This+is+a+dummy+image");
   }
 }
