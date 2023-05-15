@@ -1,7 +1,15 @@
 <template lang="pug">
 //- 請填寫功能描述👈
 #Scratch
-  canvas.bg-canvas(ref="sketchpad" :width="canvasWidth" :height="canvasHeight")
+  canvas#bg-canvas(
+    ref="sketchpad" 
+    :width="canvasWidth" 
+    :height="canvasHeight" 
+    @mousedown="HandleMouseDown" 
+    @mousemove="HandleMouseMove"
+    @mouseup="HandleMouseUp"
+    @mouseleave="HandleMouseUp"
+  )
 </template>
 
 <script>
@@ -9,43 +17,36 @@ export default {
   name: "Scratch",
   data() {
     return {
-      ctx: null,
+      ctx: null,  // canvas.getContext('2d')
       canvasWidth: 600,
       canvasHeight: 500,
       isDown: false,
-      radius: 50,
-      pi2: Math.pi * 2,
+      radius: 50, // 橡皮擦大小
+      rect: null, // 取得 ref，`this.$refs.sketchpad.getBoundingClientRect()`
     }
   },
   mounted() {
     const canvas = this.$refs.sketchpad;
     this.ctx = canvas.getContext('2d')
     // load image onto canvas
-    this.start()
+    this.SetUpCanvas()
   },
   methods: {
     // Ref Init ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-    start() {
+    SetUpCanvas() {
       // setup image on canvas
-      const canvas = this.$refs.sketchpad;
       const ctx = this.ctx
       const image = new Image()
+      const bgImage = new Image()
       image.src = "https://picsum.photos/600/500?1"
       image.onload = () => {
         ctx.drawImage(image, 0, 0)
       }
-      // comp mode and handler
-      ctx.globalCompositeOperation = 'destination-out';
-      canvas.onmousedown = this.HandleMouseDown;
-      canvas.onmousemove = this.HandleMouseMove;
-      window.onmouseup = this.HandleMouseUp;
-
     },
     // Event ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     HandleMouseDown(e) {
+      this.rect = this.$refs.sketchpad.getBoundingClientRect()
       this.isDown = true
-      let pos = this.GetXY(e)
-      this.Erase(pos.x, pos.y)
     },
     HandleMouseUp(e) {
       this.isDown = false
@@ -57,16 +58,20 @@ export default {
     },
     // Function ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     GetXY(e) {
-      let rect = this.$refs.sketchpad.getBoundingClientRect()
+      // let rect = this.$refs.sketchpad.getBoundingClientRect()
+      if (!this.rect) return;
       return {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
+        x: e.clientX - this.rect.left,
+        y: e.clientY - this.rect.top
       }
     },
     Erase(x, y) {
       const ctx = this.ctx
+      // 🔑 this is the key part, need this line of code to erase and show bg
+      ctx.globalCompositeOperation = 'destination-out';
+      // 畫圈圈
       ctx.beginPath();
-      ctx.arc(x, y, this.radius, 0, this.pi2);
+      ctx.arc(x, y, this.radius, 0, Math.PI * 2);
       ctx.fill();
     }
   }
@@ -76,9 +81,9 @@ export default {
 <style lang="scss" scoped>
 // 排版
 #Scratch {
-  .bg-canvas {
-    border: 5px solid black;
-    // background: blue;
+  #bg-canvas {
+    // border: 5px solid black;
+    background-image: url("https://dummyimage.com/600x500/25a12e/d417d4&text=This+is+a+dummy+image");
   }
 }
 
