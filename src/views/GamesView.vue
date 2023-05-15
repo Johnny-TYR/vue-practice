@@ -2,6 +2,7 @@
 //- 請填寫功能描述👈
 #GamesView
   .scratch
+    h1 {{ "刮刮樂" }}
     Scratch
 </template>
 
@@ -23,12 +24,13 @@ export default {
   .scratch {
     width: 100%;
     height: 100vh;
-    @extend .center
+    @extend .center-column
   }
 }
 
-.center {
+.center-column {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
