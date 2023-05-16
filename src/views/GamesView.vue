@@ -1,9 +1,12 @@
 <template lang="pug">
 //- 請填寫功能描述👈
 #GamesView
+  h1.title {{ "刮刮樂" }}
   .scratch
-    h1 {{ "刮刮樂" }}
     Scratch
+  h1.title {{ "轉盤" }}
+  .wheel
+
 </template>
 
 <script>
@@ -19,11 +22,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$vh: 60vh;
 // 排版
 #GamesView {
   .scratch {
     width: 100%;
-    height: 100vh;
+    height: $vh;
+    background-color: lightblue;
     @extend .center-column
   }
 }

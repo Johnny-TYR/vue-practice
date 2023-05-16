@@ -5,12 +5,12 @@
         <router-link to="/">Home</router-link>
         <router-link to="/timer">Timer</router-link>
         <router-link to="/carousel">Carousel</router-link>
-        <router-link to="/todolist">TodoList</router-link>
-        <router-link to="/transitions">Transitions</router-link>
         <router-link to="/css">3D CSS</router-link>
-        <router-link to="/iView">iView</router-link>
         <router-link to="/games">Games</router-link>
         <router-link :to="{ name: 'example' }">Copied Code</router-link>
+        <!-- <router-link to="/todolist">TodoList</router-link> -->
+        <!-- <router-link to="/transitions">Transitions</router-link> -->
+        <!-- <router-link to="/iView">iView</router-link> -->
         <!-- <router-link :to="{ name: 'productList' }">Products List</router-link> -->
       </nav>
     </div>
@@ -63,6 +63,7 @@ export default {
 
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 #app {
   position: relative;
   display: block;
@@ -98,4 +99,5 @@ export default {
       }
     }
   }
-}</style>
+}
+</style>

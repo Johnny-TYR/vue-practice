@@ -1,7 +1,6 @@
 <template lang="pug">
 //- 請填寫功能描述👈
 #Scratch
-  h1.results(v-show="scratchPercent >=50") {{ winPrize? "恭喜得獎" : "下次再來"  }}
   canvas#bg-canvas(
     ref="sketchpad" 
     :width="canvasWidth" 
@@ -11,8 +10,11 @@
     @mouseup="HandleMouseUp"
     @mouseleave="HandleMouseUp" 
   )
-  h1 {{ `${scratchPercent}%` }}
-  .prize-num(v-for="item in prizeNumList") {{ item }}
+  .prize-nums 
+    .num(v-for="item in prizeNumList") {{ item }}
+  .info
+    h1.percent {{ `${scratchPercent}%` }}
+    h1.msg(v-show="scratchPercent >=53") {{ winPrize? "恭喜得獎!" : "QQ沒獎喔！"  }}
 </template>
 
 <script>
@@ -21,20 +23,20 @@ export default {
   props: {
     canvasWidth: {
       type: Number,
-      default: 600
+      default: 400
     },
     canvasHeight: {
       type: Number,
-      default: 500
+      default: 300
     },
     // 橡皮擦大小
     radius: {
       type: Number,
-      default: 50
+      default: 30
     },
     foregroundImg: {
       type: String,
-      default: "https://picsum.photos/600/500?1"
+      default: "https://picsum.photos/400/300?1"
     },
     lotteryNum: {
       type: Number,
@@ -112,7 +114,7 @@ export default {
       const ctx = this.ctx
       // 🔑 this is the key part, need this line of code to erase and show bg img
       ctx.globalCompositeOperation = 'destination-out';
-      // 畫圈圈
+      // 畫圈圈 -> use lines instead of circles for smoother scratch
       ctx.beginPath();
       ctx.arc(x, y, this.radius, 0, Math.PI * 2);
       ctx.fill();
@@ -155,14 +157,50 @@ export default {
   #bg-canvas {
     position: relative;
     border: 3px solid black;
-    // background-image: url("https://dummyimage.com/600x500/25a12e/d417d4&text=This+is+a+dummy+image");
-    background-image: url("https://picsum.photos/600/500?2");
+    background-image: url("https://picsum.photos/400/300?2");
+  }
+
+  .info {
+    width: 100%;
+    height: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: white;
+
+    .percent,
+    .msg {
+      @extend .center;
+    }
+
+    .percent {
+      background: #f0f0f0;
+    }
+  }
+
+  .prize-nums {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+
+    .num {
+      width: 40px;
+      height: 40px;
+      background-color: red;
+      color: white;
+      font-weight: 900;
+      border-radius: 50%;
+      box-shadow:
+        inset -0.2em -0.3em 0.2em #000,
+        -0.1em -0.1em 0.1em #ccc;
+      @extend .center
+    }
   }
 }
 
+
+
 // 元件
 #Scratch {
-
   .luckyNum {
     font-size: 50px;
     position: absolute;
@@ -172,11 +210,17 @@ export default {
     left: 0;
   }
 
-  .results {
+  .msg {
     background-color: #f0f0f0;
     padding: 10px 20px;
     color: blue;
     text-align: center;
   }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
