@@ -33,6 +33,13 @@ $vh: 60vh;
     background-color: lightblue;
     @extend .center-column
   }
+
+  .wheel {
+    width: 100%;
+    height: $vh;
+    background-color: lightblue;
+    @extend .center-column
+  }
 }
 
 .center-column {
