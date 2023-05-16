@@ -10,7 +10,7 @@
     @mouseup="HandleMouseUp"
     @mouseleave="HandleMouseUp"
   )
-  h1 {{ CheckScratched }}
+
 </template>
 
 <script>
@@ -58,6 +58,7 @@ export default {
       // setup image on canvas
       const image = new Image()
       image.src = this.foregroundImg
+      image.crossOrigin = "Anonymous"  // tainted CORS origin
       image.onload = () => {
         ctx.drawImage(image, 0, 0)  // 從 0,0 開始畫 image
       }
@@ -78,7 +79,6 @@ export default {
     },
     // Function ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     GetXY(e) {
-      // let rect = this.$refs.sketchpad.getBoundingClientRect()
       if (!this.rect) return;
       return {
         x: e.clientX - this.rect.left,
@@ -94,10 +94,28 @@ export default {
       ctx.arc(x, y, this.radius, 0, Math.PI * 2);
       ctx.fill();
       // 算擦掉趴數
-      // this.CheckScratched();
+      this.CheckScratched();
     },
     CheckScratched() {
+      const canvas = this.$refs.sketchpad;
+      const ctx = this.ctx;
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const pixels = imageData.data;
+      const totalPixels = canvas.width * canvas.height;
+      let erasedPixels = 0;
 
+      // Iterate over the pixels and count the erased pixels
+      for (let i = 0; i < pixels.length; i += 4) {
+        const alpha = pixels[i + 3];
+        if (alpha === 0) {
+          erasedPixels++;
+        }
+      }
+
+      // Calculate the percentage scratched off
+      const scratchedPercentage = (erasedPixels / totalPixels) * 100;
+
+      console.log(`Percentage scratched off: ${scratchedPercentage}%`);
     }
   }
 };
