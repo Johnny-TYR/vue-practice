@@ -1,12 +1,12 @@
 <template lang="pug">
 //- 請填寫功能描述👈
-#Wheel
-  p Wheel
+#Wheel1
+  p Wheel1
 </template>
 
 <script>
 export default {
-  name: "Wheel",
+  name: "Wheel1",
   data() {
     return {};
   }
@@ -15,8 +15,8 @@ export default {
 
 <style lang="scss" scoped>
 // 排版
-#Wheel {}
+#Wheel1 {}
 
 // 元件
-#Wheel {}
+#Wheel1 {}
 </style>
