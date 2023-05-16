@@ -1,6 +1,7 @@
 <template lang="pug">
 //- 請填寫功能描述👈
 #Scratch
+  h1.results(v-show="scratchPercent >=50") {{ winPrize? "恭喜得獎" : "下次再來"  }}
   canvas#bg-canvas(
     ref="sketchpad" 
     :width="canvasWidth" 
@@ -8,9 +9,10 @@
     @mousedown="HandleMouseDown"  
     @mousemove="HandleMouseMove"
     @mouseup="HandleMouseUp"
-    @mouseleave="HandleMouseUp"
+    @mouseleave="HandleMouseUp" 
   )
   h1 {{ `${scratchPercent}%` }}
+  .prize-num(v-for="item in prizeNumList") {{ item }}
 </template>
 
 <script>
@@ -33,6 +35,10 @@ export default {
     foregroundImg: {
       type: String,
       default: "https://picsum.photos/600/500?1"
+    },
+    lotteryNum: {
+      type: Number,
+      default: 7
     }
   },
   data() {
@@ -40,7 +46,14 @@ export default {
       ctx: null,  // canvas.getContext('2d') to use methods provided
       isDown: false,
       rect: null, // 取得 ref，`this.$refs.sketchpad.getBoundingClientRect()`,
-      scratchPercent: 0
+      scratchPercent: 0,
+      prizeNumList: [
+        this.GenerateRandomNumber(),
+        this.GenerateRandomNumber(),
+        this.GenerateRandomNumber(),
+        this.GenerateRandomNumber(),
+        this.GenerateRandomNumber(),
+      ]
     }
   },
   mounted() {
@@ -50,6 +63,13 @@ export default {
     this.SetUpCanvas()
   },
   computed: {
+    // 是否包含中獎數字
+    winPrize() {
+      if (this.prizeNumList.includes(this.lotteryNum)) {
+        return true
+      }
+      return false
+    }
   },
   methods: {
     // Ref Init ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
@@ -119,7 +139,11 @@ export default {
       // Calculate the percentage scratched off
       const scratchedPercentage = Math.floor((erasedPixels / totalPixels) * 100);
       this.scratchPercent = scratchedPercentage
-      // console.log(`Percentage scratched off: ${scratchedPercentage}%`);
+    },
+    //  Other Functions ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+    // random number generator
+    GenerateRandomNumber() {
+      return Math.floor(Math.random() * 10) + 1
     }
   }
 };
@@ -131,7 +155,8 @@ export default {
   #bg-canvas {
     position: relative;
     border: 3px solid black;
-    background-image: url("https://dummyimage.com/600x500/25a12e/d417d4&text=This+is+a+dummy+image");
+    // background-image: url("https://dummyimage.com/600x500/25a12e/d417d4&text=This+is+a+dummy+image");
+    background-image: url("https://picsum.photos/600/500?2");
   }
 }
 
@@ -145,6 +170,13 @@ export default {
     z-index: 100;
     top: 0;
     left: 0;
+  }
+
+  .results {
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    color: blue;
+    text-align: center;
   }
 }
 </style>
