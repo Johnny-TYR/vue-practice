@@ -3,8 +3,7 @@
     <div class="navbar" v-show="isLoggedIn">
       <nav>
         <router-link to="/">Home</router-link>
-        <router-link :to="{ name: 'productList' }">Products List</router-link>
-        <router-link :to="{ name: 'timer' }">Timer</router-link>
+        <router-link to="/timer">Timer</router-link>
         <router-link to="/carousel">Carousel</router-link>
         <router-link to="/todolist">TodoList</router-link>
         <router-link to="/transitions">Transitions</router-link>
@@ -12,6 +11,7 @@
         <router-link to="/iView">iView</router-link>
         <router-link to="/games">Games</router-link>
         <router-link :to="{ name: 'example' }">Copied Code</router-link>
+        <!-- <router-link :to="{ name: 'productList' }">Products List</router-link> -->
       </nav>
     </div>
     <router-view :style="contentStyle" />
