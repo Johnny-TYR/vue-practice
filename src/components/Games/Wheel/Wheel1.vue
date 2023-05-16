@@ -23,7 +23,7 @@ export default {
     // press start btn
     SpinWheel() {
       let deg = Math.floor(Math.random() * 5000) + 5000
-      console.dir(this.$refs.wheel);
+      this.$refs.wheel.style.transform = `rotate(${deg}deg)`
     },
     // when animation end
     TransitionEnd() {
