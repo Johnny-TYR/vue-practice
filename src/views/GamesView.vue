@@ -6,14 +6,15 @@
     Scratch
   h1.title {{ "轉盤" }}
   .wheel
-
+    Wheel
 </template>
 
 <script>
 export default {
   name: "GamesView",
   components: {
-    Scratch: () => import("@/components/Games/Scratch")
+    Scratch: () => import("@/components/Games/Scratch"),
+    Wheel: () => import("@/components/Games/Wheel.vue")
   },
   data() {
     return {};
@@ -23,6 +24,7 @@ export default {
 
 <style lang="scss" scoped>
 $vh: 60vh;
+
 // 排版
 #GamesView {
   .scratch {
