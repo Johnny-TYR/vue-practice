@@ -10,7 +10,7 @@
     @mouseup="HandleMouseUp"
     @mouseleave="HandleMouseUp"
   )
-
+  h1 {{ `${scratchPercent}%` }}
 </template>
 
 <script>
@@ -53,6 +53,7 @@ export default {
   },
   methods: {
     // Ref Init ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+    // 👉 初始化：把img畫到canvas上
     SetUpCanvas() {
       const ctx = this.ctx
       // setup image on canvas
@@ -65,7 +66,7 @@ export default {
     },
     // Event ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     HandleMouseDown() {
-      // get coordinates of mouse
+      // 👉 按下滑鼠取得一次周圍參數
       this.rect = this.$refs.sketchpad.getBoundingClientRect()
       this.isDown = true
     },
@@ -78,6 +79,7 @@ export default {
       this.Erase(pos.x, pos.y)
     },
     // Function ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+    // 👉 取得可以計算的參數
     GetXY(e) {
       if (!this.rect) return;
       return {
@@ -85,6 +87,7 @@ export default {
         y: e.clientY - this.rect.top
       }
     },
+    // 👉 刮掉的功能
     Erase(x, y) {
       const ctx = this.ctx
       // 🔑 this is the key part, need this line of code to erase and show bg img
@@ -96,14 +99,16 @@ export default {
       // 算擦掉趴數
       this.CheckScratched();
     },
+    // 👉 計算刮掉的趴數
     CheckScratched() {
-      const canvas = this.$refs.sketchpad;
       const ctx = this.ctx;
+      // 取得canvas資訊，用getImageData去抓資料
+      const canvas = this.$refs.sketchpad;
+      const totalPixels = canvas.width * canvas.height;
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const pixels = imageData.data;
-      const totalPixels = canvas.width * canvas.height;
+      // console.log(imageData);
       let erasedPixels = 0;
-
       // Iterate over the pixels and count the erased pixels
       for (let i = 0; i < pixels.length; i += 4) {
         const alpha = pixels[i + 3];
@@ -111,11 +116,10 @@ export default {
           erasedPixels++;
         }
       }
-
       // Calculate the percentage scratched off
-      const scratchedPercentage = (erasedPixels / totalPixels) * 100;
-
-      console.log(`Percentage scratched off: ${scratchedPercentage}%`);
+      const scratchedPercentage = Math.floor((erasedPixels / totalPixels) * 100);
+      this.scratchPercent = scratchedPercentage
+      // console.log(`Percentage scratched off: ${scratchedPercentage}%`);
     }
   }
 };
