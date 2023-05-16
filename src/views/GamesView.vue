@@ -38,6 +38,7 @@ $vh: 60vh;
     width: 100%;
     height: $vh;
     background-color: lightblue;
+    transition: all 10s ease-in-out;
     @extend .center-column
   }
 }
