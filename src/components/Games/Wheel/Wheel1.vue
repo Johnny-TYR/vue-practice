@@ -4,7 +4,7 @@
   img.marker(src="@/components/Games/Wheel/imgs/marker.png")
   img.wheel(
     src="@/components/Games/Wheel/imgs/wheel.png" ref="wheel"
-    :class="{'spin-wheel': isSpinning}"
+    :class="isSpinning ? 'spin-wheel' : 'transition-end'"
     )
   img.button(
     src="@/components/Games/Wheel/imgs/button.png"
@@ -43,7 +43,9 @@ export default {
     // after the transition ends
     TransitionEnd() {
       this.isSpinning = false
+      // 看轉完幾圈會到的度數
       const actualDeg = this.spinDeg % 360
+      // 從上一個轉到的位置開始
       this.$refs.wheel.style.transform = `rotate(${actualDeg}deg)`
     }
   }
