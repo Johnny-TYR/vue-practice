@@ -3,8 +3,10 @@
 #Wheel1
   img.marker(src="@/components/Games/Wheel/imgs/marker.png")
   img.wheel(
-    src="@/components/Games/Wheel/imgs/wheel.png" ref="wheel"
-    :class="isSpinning ? 'spin-wheel' : 'transition-end'"
+    src="@/components/Games/Wheel/imgs/wheel.png" 
+    ref="wheel" 
+    @click="SpinWheelFlow"
+    @touchstart="SpinWheelFlow"
     )
   img.button(
     src="@/components/Games/Wheel/imgs/button.png"
@@ -12,8 +14,6 @@
     @click="SpinWheelFlow"
     )
   .display {{ result }}
-  //- pre {{  spinDeg }}
-  //- pre {{  startDeg }}
 </template>
 
 <script>
@@ -23,17 +23,22 @@ export default {
     // 要轉幾圈
     wheelTurn: {
       type: Number,
-      default: 10
+      default: 15
+    },
+    // 要轉幾秒
+    spinTime: {
+      type: Number,
+      default: 5
     }
   },
   data() {
     return {
-      spinDeg: 0,
-      startDeg: 0,
-      isSpinning: false,
-      result: "⭐️",
-      zoneSize: 45,  // each zone is 360/8 deg
-      symbolZones: {  // counter clockwise order cuz our wheel rotates clockwise
+      spinDeg: 0, // 總共會轉幾度
+      startDeg: 0,  // 每次轉完後會定留在上一個角度
+      isSpinning: false,  // 有沒有在轉判斷btn狀態
+      result: "⭐️", // 顯示結果
+      zoneSize: 45,  // 每區 360/8 deg
+      symbolZones: {  // 因為順時針rotate，所以抓值要逆時針
         1: "Frog",
         2: "Snail",
         3: "Dolphin",
@@ -48,13 +53,14 @@ export default {
   methods: {
     // Flow ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     SpinWheelFlow() {
+      if (this.isSpinning) return;
       // 開始旋轉
       this.SpinStart()
-      // transition 5s 結束後算現在的位子＋抓值
+      // 結束後算現在的位子＋抓值
       setTimeout(() => {
         this.SpinEnd()
         this.GetResults()
-      }, 5100)
+      }, this.spinTime * 1000)
     },
     // Function ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     SpinStart() {
@@ -62,8 +68,9 @@ export default {
       // 在props設定要轉幾圈
       let spinCycle = 360 * this.wheelTurn + 1
       let spinRange = this.Probabilities() // [start, end]
-      // 設定要轉的角度
       this.spinDeg = Math.floor(Math.random() * (spinRange[1] - spinRange[0])) + (spinRange[0] + spinCycle)
+      // 開始轉動
+      this.$refs.wheel.style.transition = `all ${this.spinTime}s cubic-bezier(.6,.1,0,1)`
       this.$refs.wheel.style.transform = `rotate(${this.spinDeg}deg)`
     },
     SpinEnd() {
@@ -71,9 +78,11 @@ export default {
       // 看轉完幾圈會到的度數
       this.startDeg = this.spinDeg % 360
       // 抓轉完結束的角度，才不會每次都 reset
+      this.$refs.wheel.style.transition = 'none'
       this.$refs.wheel.style.transform = `rotate(${this.startDeg}deg)`
     },
     GetResults() {
+      // 計算是在哪一格
       const resultNum = Math.ceil(this.startDeg / this.zoneSize)
       this.result = this.symbolZones[resultNum]
     },
@@ -125,9 +134,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// 設定轉盤要轉多久
-$spinTime: 5s;
-
 // 排版
 #Wheel1 {
   position: relative;
@@ -137,6 +143,16 @@ $spinTime: 5s;
   align-items: center;
   gap: 20px;
   user-select: none;
+
+  .display {
+    min-width: 180px;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 15px;
+    font-family: 'Press Start 2P', cursive;
+  }
 
   .marker {
     width: 50px;
@@ -162,30 +178,10 @@ $spinTime: 5s;
     }
   }
 
-  .display {
-    min-width: 180px;
-    padding: 10px 20px;
-    background-color: white;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 15px;
-    font-family: 'Press Start 2P', cursive;
-  }
-
   // disable button during spin
   .disabled-btn {
     opacity: 0.5;
     pointer-events: none;
-  }
-
-  // start spin
-  .spin-wheel {
-    transition: all $spinTime ease-in-out;
-  }
-
-  // end spin
-  .transition-end {
-    transition: none;
   }
 }
 </style>
