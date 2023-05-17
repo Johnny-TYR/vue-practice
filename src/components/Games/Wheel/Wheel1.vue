@@ -19,6 +19,13 @@
 <script>
 export default {
   name: "Wheel1",
+  props: {
+    // 要轉幾圈
+    wheelTurn: {
+      type: Number,
+      default: 10
+    }
+  },
   data() {
     return {
       spinDeg: 0,
@@ -38,11 +45,6 @@ export default {
       }
     };
   },
-  computed: {
-    spinRange() {
-
-    }
-  },
   methods: {
     // Flow ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     SpinWheelFlow() {
@@ -57,8 +59,11 @@ export default {
     // Function ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     SpinStart() {
       this.isSpinning = true
-      let spinRange = this.Probabilities()
-      this.spinDeg = Math.floor(Math.random() * (spinRange[1] - spinRange[0])) + spinRange[0]
+      // 在props設定要轉幾圈
+      let spinCycle = 360 * this.wheelTurn + 1
+      let spinRange = this.Probabilities() // [start, end]
+      // 設定要轉的角度
+      this.spinDeg = Math.floor(Math.random() * (spinRange[1] - spinRange[0])) + (spinRange[0] + spinCycle)
       this.$refs.wheel.style.transform = `rotate(${this.spinDeg}deg)`
     },
     SpinEnd() {
@@ -73,19 +78,19 @@ export default {
       this.result = this.symbolZones[resultNum]
     },
     Probabilities() {
-      let spinRange;
+      let angleRange;
       if (Math.random() < 0.3) {
         // Zone 1: 30% probability
-        spinRange = [0, 45];  // Range for Zone 1 (e.g., first zone)
+        angleRange = [0, 45];  // Range for Zone 1 (e.g., first zone)
       } else if (Math.random() < 0.5) {
         // Zone 2: 20% probability
-        spinRange = [45, 90];  // Range for Zone 2 (e.g., second zone)
+        angleRange = [45, 90];  // Range for Zone 2 (e.g., second zone)
       } else {
         // Remaining zones: 50% probability
-        spinRange = [91, 360];  // Range for the remaining zones (e.g., third to eighth zone)
+        angleRange = [90, 360];  // Range for the remaining zones (e.g., third to eighth zone)
       }
-      console.log(spinRange);
-      return spinRange;
+      console.log(angleRange);
+      return angleRange;
     }
   }
 };
