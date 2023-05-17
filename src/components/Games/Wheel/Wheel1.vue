@@ -78,16 +78,44 @@ export default {
       this.result = this.symbolZones[resultNum]
     },
     Probabilities() {
+      let random = Math.random()
       let angleRange;
-      if (Math.random() < 0.3) {
-        // Zone 1: 30% probability
-        angleRange = [0, 45];  // Range for Zone 1 (e.g., first zone)
-      } else if (Math.random() < 0.5) {
-        // Zone 2: 20% probability
-        angleRange = [45, 90];  // Range for Zone 2 (e.g., second zone)
-      } else {
-        // Remaining zones: 50% probability
-        angleRange = [90, 360];  // Range for the remaining zones (e.g., third to eighth zone)
+
+      // if (Math.random() < 0.3) {
+      //   // Zone 1: 30% probability
+      //   angleRange = [0, 45];  // Range for Zone 1
+      // } else if (Math.random() < 0.5) {
+      //   // Zone 2: 20% probability
+      //   angleRange = [45, 90];  // Range for Zone 2
+      // } else {
+      //   // Remaining zones: 50% probability
+      //   angleRange = [90, 360];  // Range for the remaining zones
+      // }
+
+      // 每個區塊都平等的樣子
+      if (random < 0.125) {
+        angleRange = [0, 45]; // Zone 1
+      }
+      if (random >= 0.125 && random < 0.25) {
+        angleRange = [45, 90]; // Zone 2
+      }
+      if (random >= 0.25 && random < 0.375) {
+        angleRange = [90, 135]; // Zone 3
+      }
+      if (random >= 0.375 && random < 0.5) {
+        angleRange = [135, 180]; // Zone 4
+      }
+      if (random >= 0.5 && random < 0.625) {
+        angleRange = [180, 225]; // Zone 5
+      }
+      if (random >= 0.625 && random < 0.75) {
+        angleRange = [225, 270]; // Zone 6
+      }
+      if (random >= 0.75 && random < 0.875) {
+        angleRange = [270, 315]; // Zone 7
+      }
+      if (random >= 0.875 && random < 1) {
+        angleRange = [315, 360]; // Zone 8
       }
       console.log(angleRange);
       return angleRange;
