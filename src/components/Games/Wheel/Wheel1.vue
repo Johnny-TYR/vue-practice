@@ -11,7 +11,7 @@
     :class="{ 'disabled-btn' : isSpinning }"
     @click="SpinWheel"
     )
-  //- Button(@click="isSpinning=false") {{ isSpinning }}
+  .display {{ result }}
 </template>
 
 <script>
@@ -20,15 +20,28 @@ export default {
   data() {
     return {
       spinDeg: 0,
-      actualDeg: 0,
-      isSpinning: false
+      startDeg: 0,
+      isSpinning: false,
+      // for showing results
+      result: "Results!",
+      zoneSize: 45,  // each zone is 45deg
+      symbolZones: {  // counter clockwise order cuz our wheel rotates clockwise
+        1: "Frog",
+        2: "Snail",
+        3: "Dolphin",
+        4: "Ladybug",
+        5: "Koala",
+        6: "Unicorn",
+        7: "Dragon",
+        8: "Snowman",
+      }
     };
   },
   computed: {
 
   },
   methods: {
-    // press start btn
+    // Flow ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     SpinWheel() {
       if (this.isSpinning) return
       this.isSpinning = true
@@ -38,21 +51,30 @@ export default {
       // 旋轉時間是設定在 CSS
       setTimeout(() => {
         this.TransitionEnd()
+        this.GetResults()
       }, 5100)
     },
+    // Function ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     // after the transition ends
     TransitionEnd() {
       this.isSpinning = false
       // 看轉完幾圈會到的度數
-      const actualDeg = this.spinDeg % 360
+      this.startDeg = this.spinDeg % 360
       // 從上一個轉到的位置開始
-      this.$refs.wheel.style.transform = `rotate(${actualDeg}deg)`
+      this.$refs.wheel.style.transform = `rotate(${this.startDeg}deg)`
+    },
+    GetResults() {
+      const resultNum = Math.ceil(this.startDeg / this.zoneSize)
+      this.result = this.symbolZones[resultNum]
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+// variables
+$spinTime: 5s;
+
 // 排版
 #Wheel1 {
   position: relative;
@@ -83,6 +105,16 @@ export default {
       scale: 0.98;
     }
   }
+
+  .display {
+    min-width: 180px;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 15px;
+    font-family: 'Press Start 2P', cursive;
+  }
 }
 
 // disable button during spin
@@ -93,7 +125,7 @@ export default {
 
 // spin time
 .spin-wheel {
-  transition: all 5s ease-in-out;
+  transition: all $spinTime ease-in-out;
 }
 
 // stop transition

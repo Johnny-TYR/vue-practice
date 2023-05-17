@@ -4,7 +4,7 @@
   h1.title {{ "刮刮樂" }}
   .scratch
     Scratch
-  h1.title {{ "轉盤" }}
+  h1.title {{ "轉盤 Version 1" }}
   .wheel
     Wheel1
 </template>
@@ -23,12 +23,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$vh: 60vh;
+$vh: 70vh;
 
 // 排版
 #GamesView {
   margin-bottom: $vh;
 
+  .title {
+    padding: 20px;
+  }
   .scratch {
     width: 100%;
     height: $vh;
