@@ -2,11 +2,14 @@
 //- 請填寫功能描述👈
 #GamesView
   h1.title {{ "刮刮樂" }}
-  .scratch
+  .row
     Scratch
   h1.title {{ "轉盤 Version 1" }}
-  .wheel
-    Wheel1(:spinTime="2")
+  .row
+    Wheel1
+  h1.title {{ "轉盤 Version 2" }} 
+  .row 
+    Wheel2
 </template>
 
 <script>
@@ -14,7 +17,8 @@ export default {
   name: "GamesView",
   components: {
     Scratch: () => import("@/components/Games/Scratch"),
-    Wheel1: () => import("@/components/Games/Wheel/Wheel1.vue")
+    Wheel1: () => import("@/components/Games/Wheel/Wheel1.vue"),
+    Wheel2: () => import("@/components/Games/Wheel/Wheel2.vue")
   },
   data() {
     return {};
@@ -27,20 +31,13 @@ $vh: 80vh;
 
 // 排版
 #GamesView {
-  margin-bottom: $vh;
+  margin-bottom: 100px;
 
   .title {
     padding: 20px;
   }
-  .scratch {
-    width: 100%;
-    height: $vh;
-    background-color: lightblue;
-    @extend .center-column
-  }
 
-  .wheel {
-    padding-top: 40px;
+  .row {
     width: 100%;
     height: $vh;
     background-color: lightblue;
