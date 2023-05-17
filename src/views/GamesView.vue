@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$vh: 70vh;
+$vh: 80vh;
 
 // 排版
 #GamesView {
