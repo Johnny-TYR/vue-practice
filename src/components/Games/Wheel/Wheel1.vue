@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     spinRange() {
-      
+
     }
   },
   methods: {
@@ -57,20 +57,8 @@ export default {
     // Function ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     SpinStart() {
       this.isSpinning = true
-
-      let spinRange;
-      if (Math.random() < 0.8) {
-        spinRange = [0, 45]
-      } else if (Math.random() < 0.9) {
-        spinRange = [45, 90];
-      } else {
-        spinRange = [90, 360];
-      }
-      console.log(spinRange);
-
-      // this.spinDeg = Math.floor(Math.random() * 5000) + 5000
-      // this.spinDeg = Math.floor(Math.random() * (spinRange[1] - spinRange[0])) + spinRange[0]
-      this.spinDeg = Math.floor(Math.random() * (spinRange[1] - spinRange[0])) + 3601
+      let spinRange = this.Probabilities()
+      this.spinDeg = Math.floor(Math.random() * (spinRange[1] - spinRange[0])) + spinRange[0]
       this.$refs.wheel.style.transform = `rotate(${this.spinDeg}deg)`
     },
     SpinEnd() {
@@ -83,6 +71,21 @@ export default {
     GetResults() {
       const resultNum = Math.ceil(this.startDeg / this.zoneSize)
       this.result = this.symbolZones[resultNum]
+    },
+    Probabilities() {
+      let spinRange;
+      if (Math.random() < 0.3) {
+        // Zone 1: 30% probability
+        spinRange = [0, 45];  // Range for Zone 1 (e.g., first zone)
+      } else if (Math.random() < 0.5) {
+        // Zone 2: 20% probability
+        spinRange = [45, 90];  // Range for Zone 2 (e.g., second zone)
+      } else {
+        // Remaining zones: 50% probability
+        spinRange = [91, 360];  // Range for the remaining zones (e.g., third to eighth zone)
+      }
+      console.log(spinRange);
+      return spinRange;
     }
   }
 };
