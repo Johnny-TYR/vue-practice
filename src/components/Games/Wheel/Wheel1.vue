@@ -1,6 +1,6 @@
 <template lang="pug">
 //- 請填寫功能描述👈
-#Wheel1
+#Wheel1(@click="isWinner=false" @touchstart="isWinner=false")
   img.marker(src="@/components/Games/Wheel/imgs/marker.png")
   img.wheel(
     src="@/components/Games/Wheel/imgs/wheel.png" 
@@ -14,6 +14,8 @@
     @click="SpinWheelFlow"
     )
   .display {{ result }}
+  .congrats(v-if="isWinner")
+    .msg {{ "Congrats" }}
 </template>
 
 <script>
@@ -35,6 +37,7 @@ export default {
       startDeg: 0,  // 每次轉完後會定留在上一個角度
       isSpinning: false,  // 有沒有在轉判斷btn狀態
       result: "⭐️", // 顯示結果
+      isWinner: false,
       zoneSize: 45,  // 每區 360/8 deg
       symbolZones: {  // 因為順時針rotate，所以抓值要逆時針
         1: "Frog",
@@ -58,6 +61,9 @@ export default {
       setTimeout(() => {
         this.SpinEnd()
         this.GetResults()
+        if (this.result === this.symbolZones[6]) {
+          this.isWinner = true
+        }
       }, this.spinTime * 1000)
     },
     // Function ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
@@ -72,7 +78,7 @@ export default {
       this.spinDeg = Math.floor(Math.random() * (angleRange[1] - angleRange[0])) + (angleRange[0] + wheelTurn)
       // 防止剛好卡在中間
       if (this.spinDeg % 360 == 0) {
-        this.spinDeg + 1
+        this.spinDeg + 10
       }
       // 開始轉動
       this.$refs.wheel.style.transition = `all ${this.spinTime}s cubic-bezier(.6,.1,0,1)`
@@ -135,21 +141,21 @@ export default {
       // }
       // ✅ 方法三
       const random = Math.random() * 100;
-      const zoneProbabilities = [ // 每一區的 %
-        5,  // zone 1
-        5,  // zone 2
-        5,  // zone 3
-        40, // zone 4
-        5,  // zone 5
-        5,  // zone 6
-        5,  // zone 7
-        40  // zone 8
+      const zoneChance = [ // 每一區的 %
+        30,  // zone 1
+        9,  // zone 2
+        10,  // zone 3
+        10, // zone 4
+        15,  // zone 5
+        1,  // zone 6
+        15,  // zone 7
+        10  // zone 8
       ];
 
-      let angleRange;
+      let angleRange = []
       let percentSum = 0;
-      for (let i = 0; i < zoneProbabilities.length; i++) {
-        percentSum += zoneProbabilities[i];
+      for (let i = 0; i < zoneChance.length; i++) {
+        percentSum += zoneChance[i];
         if (random < percentSum) {
           const startAngle = i * this.zoneSize;
           angleRange = [startAngle, startAngle + this.zoneSize];
@@ -174,6 +180,7 @@ export default {
   align-items: center;
   gap: 20px;
   user-select: none;
+  font-family: 'Press Start 2P', cursive;
 
   .display {
     min-width: 180px;
@@ -182,7 +189,6 @@ export default {
     border-radius: 8px;
     text-align: center;
     font-size: 15px;
-    font-family: 'Press Start 2P', cursive;
   }
 
   .marker {
@@ -214,5 +220,43 @@ export default {
     opacity: 0.5;
     pointer-events: none;
   }
+
+  .congrats {
+    width: 400px;
+    height: 200px;
+    z-index: 100;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-80%);
+    // background-color: #f0f0f0;
+    background-image: url("https://img.freepik.com/free-vector/realistic-galaxy-background_52683-12122.jpg");
+    border-radius: 10px;
+    font-size: 40px;
+    color: white;
+    @extend .center;
+
+    .msg {
+      animation: enlarge 0.7s infinite;
+    }
+  }
+}
+
+@keyframes enlarge {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.9);
+  }
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
