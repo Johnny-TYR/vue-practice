@@ -97,6 +97,7 @@ export default {
       // 計算是在哪一格
       const resultNum = Math.ceil(this.startDeg / this.zoneSize)
       this.result = this.symbolZones[resultNum]
+      console.log(resultNum);
     },
     // 調整每一個區域的機率
     Probabilities() {
@@ -142,13 +143,13 @@ export default {
       // ✅ 方法三
       const random = Math.random() * 100;
       const zoneChance = [ // 每一區的機率%
-        30,  // zone 1
-        9,  // zone 2
-        10,  // zone 3
-        10, // zone 4
-        15,  // zone 5
+        10,  // zone 1
+        10,  // zone 2
+        20,  // zone 3
+        9, // zone 4
+        20,  // zone 5
         1,  // zone 6
-        15,  // zone 7
+        20,  // zone 7
         10  // zone 8
       ];
 
@@ -164,7 +165,7 @@ export default {
           break; // 跳出迴圈 if found
         }
       }
-      console.log(angleRange);
+      // console.log(angleRange);
       return angleRange;
     }
   }
