@@ -6,7 +6,7 @@
     Scratch
   h1.title {{ "轉盤 Version 1" }}
   .wheel
-    Wheel1
+    Wheel1(:spinTime="3")
 </template>
 
 <script>

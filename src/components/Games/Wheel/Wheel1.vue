@@ -20,13 +20,11 @@
 export default {
   name: "Wheel1",
   props: {
-    // 要轉幾圈
-    wheelTurn: {
+    wheelTurn: {  // 要轉幾圈
       type: Number,
       default: 15
     },
-    // 要轉幾秒
-    spinTime: {
+    spinTime: { // 要轉幾秒
       type: Number,
       default: 5
     }
@@ -63,16 +61,24 @@ export default {
       }, this.spinTime * 1000)
     },
     // Function ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
+    // 設定最後區間以及啟動
     SpinStart() {
       this.isSpinning = true
       // 在props設定要轉幾圈
-      let spinCycle = 360 * this.wheelTurn + 1
-      let spinRange = this.Probabilities() // [start, end]
-      this.spinDeg = Math.floor(Math.random() * (spinRange[1] - spinRange[0])) + (spinRange[0] + spinCycle)
+      let wheelTurn = 360 * this.wheelTurn
+      // 最後落點區間
+      let angleRange = this.Probabilities() // [start, end]
+      // 設定總共轉幾度
+      this.spinDeg = Math.floor(Math.random() * (angleRange[1] - angleRange[0])) + (angleRange[0] + wheelTurn)
+      // 防止剛好卡在中間
+      if (this.spinDeg % 360 == 0) {
+        this.spinDeg + 1
+      }
       // 開始轉動
       this.$refs.wheel.style.transition = `all ${this.spinTime}s cubic-bezier(.6,.1,0,1)`
       this.$refs.wheel.style.transform = `rotate(${this.spinDeg}deg)`
     },
+    // 結束並取值
     SpinEnd() {
       this.isSpinning = false
       // 看轉完幾圈會到的度數
@@ -86,10 +92,11 @@ export default {
       const resultNum = Math.ceil(this.startDeg / this.zoneSize)
       this.result = this.symbolZones[resultNum]
     },
+    // 調整每一個區域的機率
     Probabilities() {
-      let random = Math.random()
-      let angleRange;
-
+      // let random = Math.random()
+      // let angleRange;
+      // ✅ 方法一
       // if (Math.random() < 0.3) {
       //   // Zone 1: 30% probability
       //   angleRange = [0, 45];  // Range for Zone 1
@@ -100,32 +107,56 @@ export default {
       //   // Remaining zones: 50% probability
       //   angleRange = [90, 360];  // Range for the remaining zones
       // }
-
+      // ✅ 方法二
       // 每個區塊都平等的樣子
-      if (random < 0.125) {
-        angleRange = [0, 45]; // Zone 1
+      // if (random < 0.125) {
+      //   angleRange = [0, 45]; // Zone 1
+      // }
+      // if (random >= 0.125 && random < 0.25) {
+      //   angleRange = [45, 90]; // Zone 2
+      // }
+      // if (random >= 0.25 && random < 0.375) {
+      //   angleRange = [90, 135]; // Zone 3
+      // }
+      // if (random >= 0.375 && random < 0.5) {
+      //   angleRange = [135, 180]; // Zone 4
+      // }
+      // if (random >= 0.5 && random < 0.625) {
+      //   angleRange = [180, 225]; // Zone 5
+      // }
+      // if (random >= 0.625 && random < 0.75) {
+      //   angleRange = [225, 270]; // Zone 6
+      // }
+      // if (random >= 0.75 && random < 0.875) {
+      //   angleRange = [270, 315]; // Zone 7
+      // }
+      // if (random >= 0.875 && random < 1) {
+      //   angleRange = [315, 360]; // Zone 8
+      // }
+      // ✅ 方法三
+      const random = Math.random() * 100;
+      const zoneProbabilities = [ // 每一區的 %
+        5,  // zone 1
+        5,  // zone 2
+        5,  // zone 3
+        40, // zone 4
+        5,  // zone 5
+        5,  // zone 6
+        5,  // zone 7
+        40  // zone 8
+      ];
+
+      let angleRange;
+      let percentSum = 0;
+      for (let i = 0; i < zoneProbabilities.length; i++) {
+        percentSum += zoneProbabilities[i];
+        if (random < percentSum) {
+          const startAngle = i * this.zoneSize;
+          angleRange = [startAngle, startAngle + this.zoneSize];
+          break;
+        }
       }
-      if (random >= 0.125 && random < 0.25) {
-        angleRange = [45, 90]; // Zone 2
-      }
-      if (random >= 0.25 && random < 0.375) {
-        angleRange = [90, 135]; // Zone 3
-      }
-      if (random >= 0.375 && random < 0.5) {
-        angleRange = [135, 180]; // Zone 4
-      }
-      if (random >= 0.5 && random < 0.625) {
-        angleRange = [180, 225]; // Zone 5
-      }
-      if (random >= 0.625 && random < 0.75) {
-        angleRange = [225, 270]; // Zone 6
-      }
-      if (random >= 0.75 && random < 0.875) {
-        angleRange = [270, 315]; // Zone 7
-      }
-      if (random >= 0.875 && random < 1) {
-        angleRange = [315, 360]; // Zone 8
-      }
+
       console.log(angleRange);
       return angleRange;
     }
