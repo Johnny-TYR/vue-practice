@@ -9,9 +9,11 @@
   img.button(
     src="@/components/Games/Wheel/imgs/button.png"
     :class="{ 'disabled-btn' : isSpinning }"
-    @click="SpinWheel"
+    @click="SpinWheelFlow"
     )
   .display {{ result }}
+  //- pre {{  spinDeg }}
+  //- pre {{  startDeg }}
 </template>
 
 <script>
@@ -22,9 +24,8 @@ export default {
       spinDeg: 0,
       startDeg: 0,
       isSpinning: false,
-      // for showing results
-      result: "Results!",
-      zoneSize: 45,  // each zone is 45deg
+      result: "⭐️",
+      zoneSize: 45,  // each zone is 360/8 deg
       symbolZones: {  // counter clockwise order cuz our wheel rotates clockwise
         1: "Frog",
         2: "Snail",
@@ -37,30 +38,30 @@ export default {
       }
     };
   },
-  computed: {
-
-  },
   methods: {
     // Flow ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-    SpinWheel() {
-      if (this.isSpinning) return
-      this.isSpinning = true
-      // 選轉度數
-      this.spinDeg = Math.floor(Math.random() * 5000) + 5000
-      this.$refs.wheel.style.transform = `rotate(${this.spinDeg}deg)`
-      // 旋轉時間是設定在 CSS
+    SpinWheelFlow() {
+      // 開始旋轉
+      this.SpinStart()
+      // transition 5s 結束後算現在的位子＋抓值
       setTimeout(() => {
-        this.TransitionEnd()
+        this.SpinEnd()
         this.GetResults()
       }, 5100)
     },
     // Function ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
-    // after the transition ends
-    TransitionEnd() {
+    SpinStart() {
+      this.isSpinning = true
+      // 隨機生成角度
+      // TODO 更改角度機率
+      this.spinDeg = Math.floor(Math.random() * 5000) + 5000
+      this.$refs.wheel.style.transform = `rotate(${this.spinDeg}deg)`
+    },
+    SpinEnd() {
       this.isSpinning = false
       // 看轉完幾圈會到的度數
       this.startDeg = this.spinDeg % 360
-      // 從上一個轉到的位置開始
+      // 抓轉完結束的角度，才不會每次都 reset
       this.$refs.wheel.style.transform = `rotate(${this.startDeg}deg)`
     },
     GetResults() {
@@ -72,14 +73,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// variables
+// 設定轉盤要轉多久
 $spinTime: 5s;
 
 // 排版
 #Wheel1 {
   position: relative;
   width: 400px;
-  // background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,6 +97,10 @@ $spinTime: 5s;
     width: 400px;
   }
 
+}
+
+// 元件
+#Wheel1 {
   .button {
     width: 180px;
     cursor: pointer;
@@ -115,24 +119,21 @@ $spinTime: 5s;
     font-size: 15px;
     font-family: 'Press Start 2P', cursive;
   }
-}
 
-// disable button during spin
-.disabled-btn {
-  opacity: 0.5;
-  pointer-events: none;
-}
+  // disable button during spin
+  .disabled-btn {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 
-// spin time
-.spin-wheel {
-  transition: all $spinTime ease-in-out;
-}
+  // start spin
+  .spin-wheel {
+    transition: all $spinTime ease-in-out;
+  }
 
-// stop transition
-.transition-end {
-  transition: none;
+  // end spin
+  .transition-end {
+    transition: none;
+  }
 }
-
-// 元件
-#Wheel1 {}
 </style>
