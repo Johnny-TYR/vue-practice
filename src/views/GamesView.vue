@@ -27,6 +27,8 @@ $vh: 60vh;
 
 // 排版
 #GamesView {
+  margin-bottom: $vh;
+
   .scratch {
     width: 100%;
     height: $vh;
@@ -35,6 +37,7 @@ $vh: 60vh;
   }
 
   .wheel {
+    padding-top: 40px;
     width: 100%;
     height: $vh;
     background-color: lightblue;
