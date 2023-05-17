@@ -141,7 +141,7 @@ export default {
       // }
       // ✅ 方法三
       const random = Math.random() * 100;
-      const zoneChance = [ // 每一區的 %
+      const zoneChance = [ // 每一區的機率%
         30,  // zone 1
         9,  // zone 2
         10,  // zone 3
@@ -155,14 +155,15 @@ export default {
       let angleRange = []
       let percentSum = 0;
       for (let i = 0; i < zoneChance.length; i++) {
+        // add up the total of percentage starting from zone1
         percentSum += zoneChance[i];
+        // if random num < percentSum, it means that the random num is within range of the i zone
         if (random < percentSum) {
-          const startAngle = i * this.zoneSize;
+          const startAngle = i * this.zoneSize; // 第幾區*45
           angleRange = [startAngle, startAngle + this.zoneSize];
-          break;
+          break; // 跳出迴圈 if found
         }
       }
-
       console.log(angleRange);
       return angleRange;
     }
