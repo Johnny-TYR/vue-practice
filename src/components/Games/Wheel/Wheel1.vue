@@ -38,6 +38,11 @@ export default {
       }
     };
   },
+  computed: {
+    spinRange() {
+      
+    }
+  },
   methods: {
     // Flow ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     SpinWheelFlow() {
@@ -52,9 +57,20 @@ export default {
     // Function ≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡≡
     SpinStart() {
       this.isSpinning = true
-      // 隨機生成角度
-      // TODO 更改角度機率
-      this.spinDeg = Math.floor(Math.random() * 5000) + 5000
+
+      let spinRange;
+      if (Math.random() < 0.8) {
+        spinRange = [0, 45]
+      } else if (Math.random() < 0.9) {
+        spinRange = [45, 90];
+      } else {
+        spinRange = [90, 360];
+      }
+      console.log(spinRange);
+
+      // this.spinDeg = Math.floor(Math.random() * 5000) + 5000
+      // this.spinDeg = Math.floor(Math.random() * (spinRange[1] - spinRange[0])) + spinRange[0]
+      this.spinDeg = Math.floor(Math.random() * (spinRange[1] - spinRange[0])) + 3601
       this.$refs.wheel.style.transform = `rotate(${this.spinDeg}deg)`
     },
     SpinEnd() {
